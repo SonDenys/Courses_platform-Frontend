@@ -21,17 +21,31 @@ module.exports = {
             },
         },
         {
+            plugin: ProvidePlugin,
+            process: 'process/browser'
+        },
+        {
             plugin: {
+
                 overrideWebpackConfig: ({ webpackConfig }) => {
+                    // if (process.env.NODE_ENV === 'production') {
                     webpackConfig.resolve.fallback = {
                         ...(webpackConfig.resolve.fallback || {}),
-                        'buffer': false,
-                        'stream': false,
+                        stream: require.resolve('stream-browserify'),
+                        util: require.resolve('util/'),
+                        // zlib: require.resolve('browserify-zlib'),
+                        // assert: require.resolve('assert/'),
+                        crypto: require.resolve('crypto-browserify'),
+                        // fs: require.resolve('browserify-fs'),
+                        path: require.resolve('path-browserify'),
+
+                        'buffer': require.resolve("buffer/"),
+                        // 'stream': require.resolve("stream-browserify"),
                         // 'url': false,
-                        'util': false,
+                        // 'util': require.resolve("util/"),
                         // 'assert': false,
                         // 'constants': false,
-                        'crypto': false,
+                        // 'crypto': require.resolve("crypto-browserify"),
                         // 'domain': false,
                         // 'events': false,
                         // 'http': false,
@@ -40,9 +54,12 @@ module.exports = {
                         // 'path': false,
                         // 'punycode': false,
                         // 'querystring': false,
+                        process: "process/browser",
 
                     }
                     return webpackConfig;
+                    // }
+                    // return webpackConfig;    
                 }
             }
         }
