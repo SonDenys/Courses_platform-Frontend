@@ -1,29 +1,32 @@
 import { lazy, Suspense } from "react";
 import { Navigate, RouteObject } from "react-router-dom";
-import MainApp from "../MainApp";
-import Page404 from "../Page404";
-import { PrepareRoute } from "./utils";
-import Login from "../Login";
 import RootPage from "../RootPage";
-import ProductFeatures from "../ProductFeatures";
+// import MainApp from "../MainApp";
+import Page404 from "../Page404";
+import Login from "../Login";
+import MainApp from "../MainApp";
+// import { PrepareRoute } from "./utils";
+// import Login from "../Login";
+// import RootPage from "../RootPage";
+// import ProductFeatures from "../ProductFeatures";
 
-import PaymentPage from "../PaymentPage";
-import SuccessPaymentPage from "../PaymentPage/SuccessPaymentPage";
-import FailedPaymentPage from "../PaymentPage/FailedPaymentPage";
+// import PaymentPage from "../PaymentPage";
+// import SuccessPaymentPage from "../PaymentPage/SuccessPaymentPage";
+// import FailedPaymentPage from "../PaymentPage/FailedPaymentPage";
 
-const LandingPage = lazy(() => import("../LandingPage"));
-// const Home = lazy(() => import("../Home"));
-const Home_v2 = lazy(() => import("../Home_v2"));
-// const Login = lazy(() => import("../Login"))
-const Signup = lazy(() => import("../Signup"));
-// const Profile = lazy(() => import("../Profile"))
-const Products = lazy(() => import("../Products"));
-const Price = lazy(() => import("../Price"));
-const TeamsCopy = lazy(() => import("../TeamsCopy"));
-const ReadyToDownloadFile = lazy(() => import("../ReadyToDownloadFile"));
-const ListDownloadFilesSent = lazy(() => import("../ListDownloadFilesSent"));
-const InvitedPageLogin = lazy(() => import("../InvitedPageLogin"));
-const InvitedPageSignup = lazy(() => import("../InvitedPageSignup"));
+// const LandingPage = lazy(() => import("../LandingPage"));
+// // const Home = lazy(() => import("../Home"));
+// const Home_v2 = lazy(() => import("../Home_v2"));
+// // const Login = lazy(() => import("../Login"))
+// const Signup = lazy(() => import("../Signup"));
+// // const Profile = lazy(() => import("../Profile"))
+// const Products = lazy(() => import("../Products"));
+// const Price = lazy(() => import("../Price"));
+// const TeamsCopy = lazy(() => import("../TeamsCopy"));
+// const ReadyToDownloadFile = lazy(() => import("../ReadyToDownloadFile"));
+// const ListDownloadFilesSent = lazy(() => import("../ListDownloadFilesSent"));
+// const InvitedPageLogin = lazy(() => import("../InvitedPageLogin"));
+// const InvitedPageSignup = lazy(() => import("../InvitedPageSignup"));
 // const PaymentPage = lazy(() => import("../PaymentPage/BasicPayment"));
 // const BasicPaymentPage = lazy(
 //   () => import("../PaymentPage/BasicPayment/index")
@@ -49,43 +52,43 @@ export function getRoutes(): AppRouterObject[] {
       element: <RootPage />,
       protected: false,
       children: [
-        {
-          path: "",
-          element: <LandingPage />,
-        },
+        // {
+        //   path: "",
+        //   element: <LandingPage />,
+        // },
         {
           path: "login",
           element: <Login />,
         },
-        {
-          path: "signup",
-          element: <Signup />,
-        },
-        {
-          path: "products",
-          element: <Products />,
-        },
-        {
-          path: "price",
-          element: <Price />,
-        },
-        {
-          path: "v1.0/api/activate",
-          element: <InvitedPageLogin />,
-        },
-        {
-          path: "invited_signup",
-          element: <InvitedPageSignup />,
-        },
-        {
-          path: "product_features",
-          element: (
-            <ProductFeatures
-              title1="Everything you need to talk with your customers"
-              title2="Full-Featured"
-            />
-          ),
-        },
+        // {
+        //   path: "signup",
+        //   element: <Signup />,
+        // },
+        // {
+        //   path: "products",
+        //   element: <Products />,
+        // },
+        // {
+        //   path: "price",
+        //   element: <Price />,
+        // },
+        // {
+        //   path: "v1.0/api/activate",
+        //   element: <InvitedPageLogin />,
+        // },
+        // {
+        //   path: "invited_signup",
+        //   element: <InvitedPageSignup />,
+        // },
+        // {
+        //   path: "product_features",
+        //   element: (
+        //     <ProductFeatures
+        //       title1="Everything you need to talk with your customers"
+        //       title2="Full-Featured"
+        //     />
+        //   ),
+        // },
       ],
     },
     { // Protected to all Users
@@ -93,35 +96,35 @@ export function getRoutes(): AppRouterObject[] {
       element: <MainApp />,
       protected: true,
       children: [
-        {
-          path: "home",
-          element: <Home_v2 />,
-        },
-        {
-          path: "teams",
-          element: <TeamsCopy />,
-        },
+        // {
+        //   path: "home",
+        //   element: <Home_v2 />,
+        // },
+        // {
+        //   path: "teams",
+        //   element: <TeamsCopy />,
+        // },
 
-        {
-          path: "download_file",
-          element: <ReadyToDownloadFile />,
-        },
-        {
-          path: "download_file_sent",
-          element: <ListDownloadFilesSent />,
-        },
-        {
-          path: "payment",
-          element: <PaymentPage />
-        },
-        {
-          path: "success_payment",
-          element: <SuccessPaymentPage />,
-        },
-        {
-          path: "failed_payment",
-          element: <FailedPaymentPage />,
-        },
+        // {
+        //   path: "download_file",
+        //   element: <ReadyToDownloadFile />,
+        // },
+        // {
+        //   path: "download_file_sent",
+        //   element: <ListDownloadFilesSent />,
+        // },
+        // {
+        //   path: "payment",
+        //   element: <PaymentPage />
+        // },
+        // {
+        //   path: "success_payment",
+        //   element: <SuccessPaymentPage />,
+        // },
+        // {
+        //   path: "failed_payment",
+        //   element: <FailedPaymentPage />,
+        // },
       ],
     },
     // {
