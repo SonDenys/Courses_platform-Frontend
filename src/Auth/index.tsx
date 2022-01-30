@@ -15,7 +15,8 @@ import {
 // import { FileClient, pbkdf } from "../signalx-js/file_client";
 // import FileClient from "../signalx-js/file_client";
 
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
+import * as jose from 'jose';
 import { setAccessToken as axiosSetAccessToken } from "axios-jwt";
 
 import konsole from "../konsole";
@@ -28,10 +29,16 @@ import { setActiveSignedUserId, setActiveUserName } from "../_GlobalStates";
 export let ACCESS_TOKEN: string = "";
 export let REFRESH_TOKEN: string = "";
 export let PUBLIC_KEY: string = "";
+export let PUBLIC_KEY_UINT8: Uint8Array = [] as any;
 export const AUTH_STATUS_KEY = "aeolia_auth_status";
 export let TOKEN_DATA: TokenCacheProps = {};
 
 let IS_AUTHENTICATED: boolean = false;
+
+export function set_PUBLIC_KEY(key: string) {
+  PUBLIC_KEY = key;  
+  PUBLIC_KEY_UINT8 = Uint8Array.from(key, (c) => c.charCodeAt(0));
+}
 
 export function set_TOKEN_DATA(data: TokenCacheProps) {
   TOKEN_DATA = data;
@@ -185,7 +192,9 @@ export async function validatedToken(props: validatedTokenProps) {
             ${ISSUER}
             ${ALGORITHM}
         `);
-    const payload = jwt.verify(access_token, PUBLIC_KEY, {
+    // const payload = jwt.verify(access_token, PUBLIC_KEY, {
+    // const pkey = Uint8Array.from(PUBLIC_KEY, (c) => c.charCodeAt(0));
+    const payload = await jose.jwtVerify(access_token, PUBLIC_KEY_UINT8, {
       issuer: ISSUER,
       algorithms: [ALGORITHM as any],
     });
@@ -571,14 +580,19 @@ export async function loadPublicKey() {
     }
     const result = await axios.get(AEOLIA_PUBLIC_KEY_URL);
     if (result && result.data) {
-      PUBLIC_KEY = result.data;
+      // PUBLIC_KEY = result.data;
+      set_PUBLIC_KEY(result.data);
     } else {
-      PUBLIC_KEY = "";
+      // PUBLIC_KEY = "";
+      set_PUBLIC_KEY(result.data);
+      // PUBLIC_KEY = "";
     }
     return PUBLIC_KEY;
   } catch (e) {
     konsole.log(e);
   }
-  PUBLIC_KEY = "";
+  // PUBLIC_KEY = "";
+  set_PUBLIC_KEY("");
+  
   return "";
 }

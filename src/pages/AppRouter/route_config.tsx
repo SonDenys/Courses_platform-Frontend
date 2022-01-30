@@ -1,10 +1,11 @@
-import { lazy, Suspense } from "react";
+import React, { lazy } from "react";
 import { Navigate, RouteObject } from "react-router-dom";
 import RootPage from "../RootPage";
 // import MainApp from "../MainApp";
 import Page404 from "../Page404";
 import Login from "../Login";
 import MainApp from "../MainApp";
+
 // import { PrepareRoute } from "./utils";
 // import Login from "../Login";
 // import RootPage from "../RootPage";
@@ -15,7 +16,7 @@ import MainApp from "../MainApp";
 // import FailedPaymentPage from "../PaymentPage/FailedPaymentPage";
 
 // const LandingPage = lazy(() => import("../LandingPage"));
-// // const Home = lazy(() => import("../Home"));
+const Home = lazy(() => import("../Home"));
 // const Home_v2 = lazy(() => import("../Home_v2"));
 // // const Login = lazy(() => import("../Login"))
 // const Signup = lazy(() => import("../Signup"));
@@ -46,6 +47,7 @@ export function getRoutes(): AppRouterObject[] {
     return ROUTES;
   }
 
+  return [];
   ROUTES = [
     { // Open to all Users
       path: "/",
@@ -91,15 +93,15 @@ export function getRoutes(): AppRouterObject[] {
         // },
       ],
     },
-    { // Protected to all Users
+    { // Authenticated users only
       path: "app",
       element: <MainApp />,
       protected: true,
       children: [
-        // {
-        //   path: "home",
-        //   element: <Home_v2 />,
-        // },
+        {
+          path: "home",
+          element: <Home />,
+        },
         // {
         //   path: "teams",
         //   element: <TeamsCopy />,
@@ -157,14 +159,14 @@ export function getRoutes(): AppRouterObject[] {
     //   protected: true,
     //   children: [],
     // },
-    {
-      path: "/download_file",
-      element: <Navigate to="/app/download_file" />,
-    },
-    {
-      path: "/download_file_sent",
-      element: <Navigate to="/app/download_file_sent" />,
-    },
+    // {
+    //   path: "/download_file",
+    //   element: <Navigate to="/app/download_file" />,
+    // },
+    // {
+    //   path: "/download_file_sent",
+    //   element: <Navigate to="/app/download_file_sent" />,
+    // },
     // {
     //   path: "/v1.0/api/activate",
     //   element: <InvitedPageLogin />,

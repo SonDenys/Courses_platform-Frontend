@@ -10,10 +10,18 @@ import { ToastProvider } from "react-toast-notifications";
 import { BrowserRouter } from "react-router-dom";
 // import MainApp from './pages/MainApp';
 
-function App() {
+// export default function App() {
+//   return (
+//     <>
+//     <h1>Hello</h1>
+
+//     </>
+//   );
+// }
+export default function App() {
   return (
     <>
-    <h1>Hello</h1>
+      <h1>Hello</h1>
       <RecoilRoot>
         {/* <Helmet></Helmet> */}
         <ToastProvider
@@ -22,9 +30,9 @@ function App() {
           placement={"bottom-right"}
         >
           <Suspense fallback>
+            <h1>Hello</h1>
             <BrowserRouter>
               {/* <AppRouter /> */}
-              <h1>Hello</h1>
               <AppRouter />
 
 
@@ -36,4 +44,4 @@ function App() {
   );
 }
 
-export default App;
+

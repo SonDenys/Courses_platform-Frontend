@@ -15,13 +15,14 @@ export default function AppRouter() {
     const [routes, setRoutes] = useState<AppRouterObject[]>([]);
     const r = getRoutes();
 
-    useEffect(() => {
-        setRoutes(r);
-    }, [r])
+    // useEffect(() => {
+    //     setRoutes(r);
+    // }, [r])
 
     return (
         <>
-            <Routes>
+            <h1>App Router</h1>
+            {/* <Routes>
                 {routes.map((route, index) => {
                     return (
                         <Route key={index} path={route.path} element={
@@ -35,14 +36,14 @@ export default function AppRouter() {
                                     <Route key={`ch${index}`} path={child.path} element={
                                         <RouteWrapper>
                                             {elem}
-                                        </RouteWrapper> }>
+                                        </RouteWrapper>}>
                                         {child.children?.map((child, index) => {
                                             const elem: any = child.element;
                                             return (
                                                 <Route key={`ch2${index}`} path={child.path} element={
                                                     <RouteWrapper>
                                                         {elem}
-                                                    </RouteWrapper> } >
+                                                    </RouteWrapper>} >
                                                 </Route>
                                             )
                                         })
@@ -55,7 +56,7 @@ export default function AppRouter() {
                     )
                 })
                 }
-            </Routes>
+            </Routes> */}
         </>
     )
 
