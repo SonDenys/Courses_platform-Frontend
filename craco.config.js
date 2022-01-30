@@ -1,17 +1,21 @@
+const aliyunTheme = require('@ant-design/aliyun-theme');
 const CracoLessPlugin = require('craco-less');
+const aeonx_theme_vars = require("./src/theme/aeonx-theme1/variables/aeonx-theme-vars");
 
+console.log(aeonx_theme_vars);
 module.exports = {
-  plugins: [
-    {
-      plugin: CracoLessPlugin,
-      options: {
-        lessLoaderOptions: {
-          lessOptions: {
-            // modifyVars: { '@primary-color': 'red' },
-            javascriptEnabled: true,
-          },
+    plugins: [
+        {
+            plugin: CracoLessPlugin,
+            // loader: 'less-loader',
+            options: {
+                lessLoaderOptions: {
+                    lessOptions: {
+                        modifyVars: aliyunTheme,
+                        javascriptEnabled: true,
+                    },
+                },
+            },
         },
-      },
-    },
-  ],
+    ],
 };

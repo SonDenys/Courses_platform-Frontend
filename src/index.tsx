@@ -5,9 +5,18 @@ import "./index.less";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { ConfigProvider } from "antd";
+import aeonxThemeVars from './theme/aeonx-theme1/variables/aeonx-theme-vars';
+
+// ConfigProvider.config({
+//   theme: aeonxThemeVars as any
+// })
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    
+      <App />
+    
   </React.StrictMode>,
   document.getElementById('root')
 );
