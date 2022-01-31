@@ -8,6 +8,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { data } from "./data";
 import { useState } from "react";
+import { LibraryIcon } from '@heroicons/react/solid'
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -57,10 +58,10 @@ export default function UserDashboard() {
                     /* ------------------------- Chapter nav ------------------------- */
                     <SubMenu
                       key={`sub-${subMenu.id}`}
-                      icon={<UserOutlined />}
+                      icon={<LibraryIcon width={"20px"}/>}
                       title={subMenu.chapter_nav}
                     >
-                      {(subMenu?.sections_courses || []).map((menu) => {
+                      {subMenu?.sections_courses?.map((menu) => {
                         return (
                           <>
                             <Menu.Item
@@ -74,12 +75,12 @@ export default function UserDashboard() {
                       })}
 
                       {/*------------------------- Exercice nav -------------------------*/}
-                      <SubMenu
+                      {subMenu?.sections_practices && <SubMenu
                         key={`sub-sub--${subMenu.id}`}
                         // icon={<UserOutlined />}
                         title={subMenu.exercice_nav}
                       >
-                        {(subMenu?.sections_practices || []).map((menu) => {
+                        {subMenu.sections_practices.map((menu) => {
                           return (
                             <>
                               <Menu.Item
@@ -91,7 +92,7 @@ export default function UserDashboard() {
                             </>
                           );
                         })}
-                      </SubMenu>
+                      </SubMenu>}
                     </SubMenu>
                   );
                 })}
