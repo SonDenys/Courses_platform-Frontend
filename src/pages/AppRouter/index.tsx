@@ -12,12 +12,12 @@ import { PrepareRoute, RouteRenderer, RouteWrapper } from "./utils";
 
 export default function AppRouter() {
 
-    const [routes, setRoutes] = useState<AppRouterObject[]>([]);
     const r = getRoutes();
+    const [routes, setRoutes] = useState<AppRouterObject[]>(r);
 
-    useEffect(() => {
-        setRoutes(r);
-    }, [r])
+    // useEffect(() => {
+    //     setRoutes(r);
+    // }, [r])
 
     return (
         <>
