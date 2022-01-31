@@ -4,7 +4,7 @@ import {
   LaptopOutlined,
   NotificationOutlined,
 } from "@ant-design/icons";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { data } from "./data";
 import { useState } from "react";
@@ -17,6 +17,11 @@ export default function UserDashboard() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [collapsed, setCollapsed] = useState(false);
+  const location  = useLocation();
+
+
+  console.log("location.pathname")
+  console.log(location)
 
   return (
     <>
@@ -51,6 +56,7 @@ export default function UserDashboard() {
                 defaultSelectedKeys={["1"]}
                 defaultOpenKeys={["sub1"]}
                 className="h-screen w-auto"
+                selectedKeys={[location.pathname]}
                 // onClick={}
               >
                 {data?.map((subMenu) => {
@@ -58,14 +64,14 @@ export default function UserDashboard() {
                     /* ------------------------- Chapter nav ------------------------- */
                     <SubMenu
                       key={`sub-${subMenu.id}`}
-                      icon={<LibraryIcon width={"20px"}/>}
+                      icon={<LibraryIcon className="h-5 w-5"/>}
                       title={subMenu.chapter_nav}
                     >
                       {subMenu?.sections_courses?.map((menu) => {
                         return (
                           <>
                             <Menu.Item
-                              key={`${menu.name}-${menu.url}`}
+                              key={menu.url}
                               onClick={() => navigate(menu.url)}
                             >
                               {t(menu.name)}
@@ -84,7 +90,7 @@ export default function UserDashboard() {
                           return (
                             <>
                               <Menu.Item
-                                key={`${menu.name}-${menu.url}`}
+                                key={menu.url}
                                 onClick={() => navigate(menu.url)}
                               >
                                 {t(menu.name)}
