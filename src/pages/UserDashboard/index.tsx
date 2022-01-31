@@ -52,11 +52,11 @@ export default function UserDashboard() {
                 className="h-screen w-auto"
                 // onClick={}
               >
-                {(data || []).map((subMenu) => {
+                {data?.map((subMenu) => {
                   return (
                     /* ------------------------- Chapter nav ------------------------- */
                     <SubMenu
-                      key={subMenu.id}
+                      key={`sub-${subMenu.id}`}
                       icon={<UserOutlined />}
                       title={subMenu.chapter_nav}
                     >
@@ -75,7 +75,7 @@ export default function UserDashboard() {
 
                       {/*------------------------- Exercice nav -------------------------*/}
                       <SubMenu
-                        key={subMenu.id}
+                        key={`sub-sub--${subMenu.id}`}
                         icon={<UserOutlined />}
                         title={subMenu.exercice_nav}
                       >
@@ -98,7 +98,6 @@ export default function UserDashboard() {
               </Menu>
             </Sider>
             <Content style={{ padding: "0 24px", minHeight: 280 }}>
-              Outlet
               <Outlet />
             </Content>
           </Layout>
