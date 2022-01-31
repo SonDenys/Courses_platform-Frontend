@@ -10,6 +10,7 @@ import Dummy from "../Dummy";
 import AdminDashboard from "../AdminDashboard";
 import UserDashboard from "../UserDashboard";
 import AdminHome from "../AdminDashboard/AdminHome";
+import UserHome from "../UserDashboard/UserHome";
 
 // import { PrepareRoute } from "./utils";
 // import Login from "../Login";
@@ -54,7 +55,8 @@ export function getRoutes(): AppRouterObject[] {
 
   // return [];
   ROUTES = [
-    { // Open to all Users
+    {
+      // Open to all Users
       path: "/",
       element: <RootPage />,
       protected: false,
@@ -111,17 +113,23 @@ export function getRoutes(): AppRouterObject[] {
         {
           path: "home/:id",
           element: <AdminHome />,
-        }
-      ]
-    },    
+        },
+      ],
+    },
     {
       path: "/user",
       element: <UserDashboard />,
       protected: false,
-      children: []
+      children: [
+        {
+          path: "home/:id",
+          element: <UserHome />,
+        },
+      ],
     },
 
-    { // Authenticated users only
+    {
+      // Authenticated users only
       path: "app",
       element: <MainApp />,
       protected: true,
@@ -223,4 +231,3 @@ export function getRoutes(): AppRouterObject[] {
 
   return ROUTES;
 }
-
