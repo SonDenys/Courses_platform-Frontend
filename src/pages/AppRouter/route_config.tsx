@@ -5,6 +5,7 @@ import RootPage from "../RootPage";
 import Page404 from "../Page404";
 import Login from "../Login";
 import MainApp from "../MainApp";
+import Dummy from "../Dummy";
 
 // import { PrepareRoute } from "./utils";
 // import Login from "../Login";
@@ -47,7 +48,7 @@ export function getRoutes(): AppRouterObject[] {
     return ROUTES;
   }
 
-  return [];
+  // return [];
   ROUTES = [
     { // Open to all Users
       path: "/",
@@ -62,6 +63,11 @@ export function getRoutes(): AppRouterObject[] {
           path: "login",
           element: <Login />,
         },
+        {
+          path: "dummy",
+          element: <Dummy />,
+        },
+
         // {
         //   path: "signup",
         //   element: <Signup />,

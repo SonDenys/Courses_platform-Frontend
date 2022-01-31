@@ -15,14 +15,14 @@ export default function AppRouter() {
     const [routes, setRoutes] = useState<AppRouterObject[]>([]);
     const r = getRoutes();
 
-    // useEffect(() => {
-    //     setRoutes(r);
-    // }, [r])
+    useEffect(() => {
+        setRoutes(r);
+    }, [r])
 
     return (
         <>
-            <h1>App Router</h1>
-            {/* <Routes>
+            {/* <h1>App Router</h1> */}
+            <Routes>
                 {routes.map((route, index) => {
                     return (
                         <Route key={index} path={route.path} element={
@@ -56,7 +56,7 @@ export default function AppRouter() {
                     )
                 })
                 }
-            </Routes> */}
+            </Routes>
         </>
     )
 
