@@ -6,7 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { data } from "../../data";
+import { data } from "./data";
 import { useState } from "react";
 
 const { SubMenu } = Menu;
@@ -50,6 +50,7 @@ export default function UserDashboard() {
                 defaultSelectedKeys={["1"]}
                 defaultOpenKeys={["sub1"]}
                 className="h-screen w-auto"
+                // onClick={}
               >
                 {(data || []).map((subMenu) => {
                   return (
