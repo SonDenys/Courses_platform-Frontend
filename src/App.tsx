@@ -21,7 +21,6 @@ import { BrowserRouter } from "react-router-dom";
 export default function App() {
   return (
     <>
-      <h1>Hello</h1>
       <RecoilRoot>
         {/* <Helmet></Helmet> */}
         <ToastProvider
@@ -30,12 +29,9 @@ export default function App() {
           placement={"bottom-right"}
         >
           <Suspense fallback>
-            <h1>Hello</h1>
             <BrowserRouter>
               {/* <AppRouter /> */}
               <AppRouter />
-
-
             </BrowserRouter>
           </Suspense>
         </ToastProvider>
