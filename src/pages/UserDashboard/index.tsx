@@ -76,7 +76,7 @@ export default function UserDashboard() {
                       {/*------------------------- Exercice nav -------------------------*/}
                       <SubMenu
                         key={`sub-sub--${subMenu.id}`}
-                        icon={<UserOutlined />}
+                        // icon={<UserOutlined />}
                         title={subMenu.exercice_nav}
                       >
                         {(subMenu?.sections_practices || []).map((menu) => {
