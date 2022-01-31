@@ -7,6 +7,10 @@ import Login from "../Login";
 import MainApp from "../MainApp";
 import Dummy from "../Dummy";
 
+import AdminDashboard from "../AdminDashboard";
+import UserDashboard from "../UserDashboard";
+import AdminHome from "../AdminDashboard/AdminHome";
+
 // import { PrepareRoute } from "./utils";
 // import Login from "../Login";
 // import RootPage from "../RootPage";
@@ -99,6 +103,24 @@ export function getRoutes(): AppRouterObject[] {
         // },
       ],
     },
+    {
+      path: "/admin",
+      element: <AdminDashboard />,
+      protected: false,
+      children: [
+        {
+          path: "home/:id",
+          element: <AdminHome />,
+        }
+      ]
+    },    
+    {
+      path: "/user",
+      element: <UserDashboard />,
+      protected: false,
+      children: []
+    },
+
     { // Authenticated users only
       path: "app",
       element: <MainApp />,
