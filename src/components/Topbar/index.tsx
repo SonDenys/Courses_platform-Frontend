@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { atom, useRecoilState, useRecoilValue } from 'recoil';
 // import { companyDataState, selectedCompanyState, activeLanguageState, activeUserState, scopesState, notificationMessageState, selectedStoreState } from "../../_GlobalStates";
 // import { companyDataState, selectedCompanyState, activeLanguageState, activeUserState, notificationMessageState, selectedStoreState, reset_global_scopes } from "../../_GlobalStates";
-import {activeLanguageState, activeUserState, notificationMessageState,  reset_global_scopes } from "../../_GlobalStates";
+import { activeLanguageState, activeUserState, notificationMessageState, reset_global_scopes } from "../../_GlobalStates";
 import { TopBarModel } from './models';
 import { getPayloadValue, getScopes, getTokenCache, resetTokenCache, setActiveLanguageCache } from '../../Auth';
 import { setAccessToken } from 'axios-jwt';
@@ -29,6 +29,7 @@ import { S } from '../../utils';
 import { writeToRecoilState } from '../../_GlobalStates/hooks';
 // import { APP_STAGE } from '../../Params';
 import { Navigate, useNavigate } from 'react-router-dom';
+import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 
 const { Sider, Header, Footer, Content } = Layout;
 const { Option } = Select
@@ -38,6 +39,9 @@ const APP_STAGE = "dev"
 
 let ACTIVE_USER_LOADED
 
+
+const selectable_langauges = ['ja', 'en']
+
 export default function TopBar(props: TopBarModel) {
     const { t, i18n } = useTranslation()
     const [activeUser, setActiveUser] = useRecoilState(activeUserState)
@@ -46,6 +50,7 @@ export default function TopBar(props: TopBarModel) {
     const scopes = getScopes()
     const notificationMessage = useRecoilValue(notificationMessageState)
     const [rootRedirect, setRootRedirect] = useState(false)
+    const { xs, sm, md, lg, xl, xxl } = useBreakpoint();
     const navigate = useNavigate();
 
     const count = notificationMessage.length
@@ -64,16 +69,37 @@ export default function TopBar(props: TopBarModel) {
         // setActiveUser((display_name || username) || email)
     }, [display_name, email, username])
 
-    
+
+    const handleSignout =  () => {
+            resetTokenCache() // must be reset before setScores
+            set_selection_data_loaded(false)
+            // setScopes("")
+            reset_global_scopes()
+            // setSelectedCompany({})
+            // setSelectedStore({})
+            // setRootRedirect(true)
+            // history.replace("/")
+            // writeToRecoilState(scopesState, "")
+            // history.go(0)
+            // history.replace("/empty")
+            navigate("/");
+
+            // setTimeout(() => {
+            //     history.replace("/");
+            // }, 10);
+
+        }
+
     if (rootRedirect) {
         return <Navigate to="/" />
     }
 
     return (
         <>
-            <Header className={"header top_bar !bg-blue-900 !text-gray-300"} style={{height: "70px"}} >
-                <Row align="top" >
+            <Header className={"header top_bar !bg-blue-900 !text-gray-300"} style={{ height: "70px" }} >
+                <Row align="middle" >
                     <Col span={6}>
+                        <img className='h-12' src="/AeonX_logo_white.png" alt="" />
                         {/* <div className={"aeonx-logo"} > */}
                         {/* <img className={"aeonx-logo"} src="smart_logo.png" alt="" /> */}
                         {/* <img className={"aeonx-logo"} src={logo} alt="" style={{height: "55px", width: "auto"}} /> */}
@@ -101,33 +127,14 @@ export default function TopBar(props: TopBarModel) {
                                 {/* <Button type={"text"}>usernme</Button> */}
 
 
-                                <Menu  className="!text-gray-300" title={"username"} mode="horizontal" style={{ background: "transparent", paddingRight: "0px" }}>
+                                <Menu className="!text-gray-300" title={"username"} mode="horizontal" style={{ background: "transparent", paddingRight: "0px" }}>
                                     <Menu.SubMenu title={activeUser || "unknown user"}>
                                         {/* <Menu.Item disabled ><Link to="/about"> {t("profile")}</Link></Menu.Item>
                                         <Menu.Item disabled><Link to="/settings"> {t("settings")}</Link></Menu.Item> */}
                                         <Menu.Item style={{ pointerEvents: 'none' }}>
-                                           {t('acl_role')} :  {t(scopeToShow)}
+                                            {t('acl_role')} :  {t(scopeToShow)}
                                         </Menu.Item>
-                                        <Menu.Item onClick={() => {
-                                            resetTokenCache() // must be reset before setScores
-                                            set_selection_data_loaded(false)
-                                            // setScopes("")
-                                            reset_global_scopes()
-                                            // setSelectedCompany({})
-                                            // setSelectedStore({})
-                                            // setRootRedirect(true)
-                                            // history.replace("/")
-                                            // writeToRecoilState(scopesState, "")
-                                            // history.go(0)
-                                            // history.replace("/empty")
-                                            navigate("/");
-
-                                            // setTimeout(() => {
-                                            //     history.replace("/");
-                                            // }, 10);
-
-                                        }}>
-                                            {/* <Link to="/"> {t("log_out")}</Link> */}
+                                        <Menu.Item onClick={handleSignout}>
                                             {t("log_out")}
                                         </Menu.Item>
                                     </Menu.SubMenu>
@@ -136,10 +143,11 @@ export default function TopBar(props: TopBarModel) {
 
                                 <Menu className="!text-gray-300" title={"username"} mode="horizontal" style={{ background: "transparent", paddingRight: "20px" }}>
                                     <Menu.SubMenu title={t(activeLanguage)}>
-                                        {activeLanguage !== 'ja' &&
-                                            <Menu.Item onClick={() => setActiveLanguage("ja")}>{t("ja")}</Menu.Item>}
-                                        {activeLanguage !== 'en' &&
-                                            <Menu.Item onClick={() => setActiveLanguage("en")}>{t("en")}</Menu.Item>}
+                                        {selectable_langauges.map((lang, index) => {
+                                            if (activeLanguage !== lang) {
+                                                return <Menu.Item onClick={() => setActiveLanguage(lang)}>{t("ja")}</Menu.Item>
+                                            }
+                                        })}
                                     </Menu.SubMenu>
                                 </Menu>
                             </Space>

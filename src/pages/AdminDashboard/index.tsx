@@ -27,15 +27,7 @@ export default function AdminDashboard() {
   return (
     <>
       <Layout>
-        {/* <Header className="header"> */}
-          {/* <div className="logo" /> */}
           <TopBar />
-          {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
-          </Menu> */}
-        {/* </Header> */}
         <Content className="w-auto">
           {/* <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -43,8 +35,8 @@ export default function AdminDashboard() {
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb> */}
           <Layout
-            className="site-layout-background"
-            style={{ padding: "0 0" }}
+
+            className="p-0 site-layout-background"            
           >
             <Sider
               collapsible
@@ -81,8 +73,7 @@ export default function AdminDashboard() {
                 })}
               </Menu>
             </Sider>
-            <Content style={{ padding: "0 24px", minHeight: 280 }}>
-              Outlet
+            <Content className="!p-0">
               <Outlet />
             </Content>
           </Layout>

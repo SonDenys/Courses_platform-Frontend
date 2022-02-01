@@ -74,7 +74,7 @@ const data = [
 ];
 
 const MyAntTable = () => {
-  return <Table columns={columns} dataSource={data} />;
+  return <Table className="!border-2 !border-blue-800" columns={columns} dataSource={data} />;
 };
 
 export default MyAntTable;
