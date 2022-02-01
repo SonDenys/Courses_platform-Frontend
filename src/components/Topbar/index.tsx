@@ -19,7 +19,7 @@ import { setAccessToken } from 'axios-jwt';
 // import { fasBell } from "@fortawesome/react-fontawesome";
 
 import logo from '../../resources/smart_logo.png';
-import logo2 from '../../resources/logo_admin_panel.png'
+// import logo2 from '../../resources/logo_admin_panel.png'
 import './style.css';
 
 import { set_selection_data_loaded } from '../../_GlobalStates/rbac';
@@ -71,13 +71,13 @@ export default function TopBar(props: TopBarModel) {
 
     return (
         <>
-            <Header className={"header top_bar"} >
+            <Header className={"header top_bar !bg-blue-900 !text-gray-300"} style={{height: "70px"}} >
                 <Row align="top" >
                     <Col span={6}>
                         {/* <div className={"aeonx-logo"} > */}
                         {/* <img className={"aeonx-logo"} src="smart_logo.png" alt="" /> */}
                         {/* <img className={"aeonx-logo"} src={logo} alt="" style={{height: "55px", width: "auto"}} /> */}
-                        <img src={logo2} alt="" style={{ paddingLeft: "15px", paddingTop: "5px", height: "40px", width: "auto" }} />
+                        {/* <img src={logo2} alt="" style={{ paddingLeft: "15px", paddingTop: "5px", height: "40px", width: "auto" }} /> */}
                         {/* </div> */}
                     </Col>
                     <Col span={18}>
@@ -101,7 +101,7 @@ export default function TopBar(props: TopBarModel) {
                                 {/* <Button type={"text"}>usernme</Button> */}
 
 
-                                <Menu title={"username"} mode="horizontal" style={{ background: "transparent", paddingRight: "0px" }}>
+                                <Menu  className="!text-gray-300" title={"username"} mode="horizontal" style={{ background: "transparent", paddingRight: "0px" }}>
                                     <Menu.SubMenu title={activeUser || "unknown user"}>
                                         {/* <Menu.Item disabled ><Link to="/about"> {t("profile")}</Link></Menu.Item>
                                         <Menu.Item disabled><Link to="/settings"> {t("settings")}</Link></Menu.Item> */}
@@ -134,7 +134,7 @@ export default function TopBar(props: TopBarModel) {
                                 </Menu>
 
 
-                                <Menu title={"username"} mode="horizontal" style={{ background: "transparent", paddingRight: "20px" }}>
+                                <Menu className="!text-gray-300" title={"username"} mode="horizontal" style={{ background: "transparent", paddingRight: "20px" }}>
                                     <Menu.SubMenu title={t(activeLanguage)}>
                                         {activeLanguage !== 'ja' &&
                                             <Menu.Item onClick={() => setActiveLanguage("ja")}>{t("ja")}</Menu.Item>}

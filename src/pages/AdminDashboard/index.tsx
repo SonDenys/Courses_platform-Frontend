@@ -28,7 +28,7 @@ export default function AdminDashboard() {
     <>
       <Layout>
         {/* <Header className="header"> */}
-          <div className="logo" />
+          {/* <div className="logo" /> */}
           <TopBar />
           {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
             <Menu.Item key="1">nav 1</Menu.Item>
@@ -44,7 +44,7 @@ export default function AdminDashboard() {
           </Breadcrumb> */}
           <Layout
             className="site-layout-background"
-            style={{ padding: "24px 0" }}
+            style={{ padding: "0 0" }}
           >
             <Sider
               collapsible
