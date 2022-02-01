@@ -6,9 +6,9 @@ import {
 } from "@ant-design/icons";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { data } from "./data";
+import { data } from "./data/index";
 import { useState } from "react";
-import { LibraryIcon } from '@heroicons/react/solid'
+import { LibraryIcon } from "@heroicons/react/solid";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -17,11 +17,10 @@ export default function UserDashboard() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [collapsed, setCollapsed] = useState(false);
-  const location  = useLocation();
+  const location = useLocation();
 
-
-  console.log("location.pathname")
-  console.log(location)
+  console.log("location.pathname");
+  console.log(location);
 
   return (
     <>
@@ -64,7 +63,7 @@ export default function UserDashboard() {
                     /* ------------------------- Chapter nav ------------------------- */
                     <SubMenu
                       key={`sub-${subMenu.id}`}
-                      icon={<LibraryIcon className="h-5 w-5"/>}
+                      icon={<LibraryIcon className="h-5 w-5" />}
                       title={subMenu.chapter_nav}
                     >
                       {subMenu?.sections_courses?.map((menu) => {
@@ -81,24 +80,26 @@ export default function UserDashboard() {
                       })}
 
                       {/*------------------------- Exercice nav -------------------------*/}
-                      {subMenu?.sections_practices && <SubMenu
-                        key={`sub-sub--${subMenu.id}`}
-                        // icon={<UserOutlined />}
-                        title={subMenu.exercice_nav}
-                      >
-                        {subMenu.sections_practices.map((menu) => {
-                          return (
-                            <>
-                              <Menu.Item
-                                key={menu.url}
-                                onClick={() => navigate(menu.url)}
-                              >
-                                {t(menu.name)}
-                              </Menu.Item>
-                            </>
-                          );
-                        })}
-                      </SubMenu>}
+                      {subMenu?.sections_practices && (
+                        <SubMenu
+                          key={`sub-sub--${subMenu.id}`}
+                          // icon={<UserOutlined />}
+                          title={subMenu.exercice_nav}
+                        >
+                          {subMenu?.sections_practices?.map((menu) => {
+                            return (
+                              <>
+                                <Menu.Item
+                                  key={menu.url}
+                                  onClick={() => navigate(menu.url)}
+                                >
+                                  {t(menu.name)}
+                                </Menu.Item>
+                              </>
+                            );
+                          })}
+                        </SubMenu>
+                      )}
                     </SubMenu>
                   );
                 })}

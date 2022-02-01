@@ -11,6 +11,7 @@ import AdminDashboard from "../AdminDashboard";
 import UserDashboard from "../UserDashboard";
 import AdminHome from "../AdminDashboard/AdminHome";
 import UserHome from "../UserDashboard/UserHome";
+import AdminCreation from "../AdminDashboard/AdminCreation";
 
 // import { PrepareRoute } from "./utils";
 // import Login from "../Login";
@@ -114,8 +115,13 @@ export function getRoutes(): AppRouterObject[] {
           path: "home/:id",
           element: <AdminHome />,
         },
+        {
+          path: "creation/:id",
+          element: <AdminCreation />,
+        },
       ],
     },
+    // { path: "/admin/creation", element: <AdminCreation />, protected: false },
     {
       path: "/user",
       element: <UserDashboard />,
