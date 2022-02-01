@@ -172,3 +172,24 @@ export const activeLanguageState = selector<string>({
 //     key: "directMessageState",
 //     default: {}
 // })
+
+
+
+export const base_notificationMessageState = atom<string[]>({
+  key: "base_notificationMessageState",
+  default: [
+      "unit 1 has start issue",
+      "item upload complete"
+  ]
+})
+
+export const notificationMessageState = selector<string[]>({
+  key: "notificationMessageState",
+  get: ({ get }) => {
+      const nlist = get(base_notificationMessageState)
+      return nlist
+  },
+  set: ({ set }, newValue) => {
+      set(base_notificationMessageState, newValue)
+  }
+})
