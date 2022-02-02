@@ -11,7 +11,9 @@ import AdminDashboard from "../AdminDashboard";
 import UserDashboard from "../UserDashboard";
 import AdminHome from "../AdminDashboard/AdminHome";
 import UserHome from "../UserDashboard/UserHome";
-import AdminCreation from "../AdminDashboard/AdminCreation";
+import ActiveCoursePage from "../AdminDashboard/ActiveCoursePage";
+import EditActiveCoursePage from "../AdminDashboard/ActiveSectionPage";
+import StudentsPage from "../AdminDashboard/StudentsPage";
 
 // import { PrepareRoute } from "./utils";
 // import Login from "../Login";
@@ -24,6 +26,13 @@ import AdminCreation from "../AdminDashboard/AdminCreation";
 
 // const LandingPage = lazy(() => import("../LandingPage"));
 const Home = lazy(() => import("../Home"));
+const CoursePage = lazy(() => import("../AdminDashboard/CoursePage"));
+const SectionPage = lazy(() => import("../AdminDashboard/SectionPage"));
+const SubSectionPage = lazy(() => import("../AdminDashboard/SubSectionPage"));
+const EditSubSectionPage = lazy(
+  () => import("../AdminDashboard/SubSectionPage/EditSubSectionPage")
+);
+
 // const Home_v2 = lazy(() => import("../Home_v2"));
 // // const Login = lazy(() => import("../Login"))
 // const Signup = lazy(() => import("../Signup"));
@@ -116,9 +125,34 @@ export function getRoutes(): AppRouterObject[] {
           element: <AdminHome />,
         },
         {
-          path: "creation/:id",
-          element: <AdminCreation />,
+          path: "home",
+          element: <AdminHome />,
         },
+
+        {
+          path: "courses",
+          element: <CoursePage />,
+        },
+        {
+          path: "courses/sections",
+          element: <SectionPage />,
+        },
+        {
+          path: "courses/sections/subsections",
+          element: <SubSectionPage />,
+        },
+        {
+          path: "courses/sections/subsections/edit",
+          element: <EditSubSectionPage />,
+        },
+        { path: "active_courses", element: <ActiveCoursePage /> },
+        { path: "active_courses/edit", element: <EditActiveCoursePage /> },
+        { path: "students", element: <StudentsPage /> },
+
+        // {
+        //   path: "subsections/edit",
+        //   element: <EditSubSectionPage />,
+        // },
       ],
     },
     // { path: "/admin/creation", element: <AdminCreation />, protected: false },

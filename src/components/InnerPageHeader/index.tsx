@@ -8,6 +8,7 @@ import OrganizationSelect from "../OrganizationSelect";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
+import { useNavigate } from "react-router-dom";
 
 
 export interface InnerPageHeaderProps {
@@ -31,6 +32,8 @@ const customizeRenderEmpty = () => (
 );
 export default function InnerPageHeader(props: InnerPageHeaderProps) {
     const { t } = useTranslation()
+    const navigate  = useNavigate();
+
     let extra: any = props.extra || [
         <OrganizationSelect key={"header_000"} onChange={props.onChangeOrganization} readOnly={props.organizationReadOnly} />,
         <Button key={`header_001`} type="ghost" size="middle" onClick={props.onRefreshClick as any} >
@@ -41,7 +44,8 @@ export default function InnerPageHeader(props: InnerPageHeaderProps) {
         </Button>
     ]
 
-    // const goBack = props.goBack === false? ()=> history.goBack(): undefined
+    // const goBack = props.goBack === true? ()=> navigate(-1) : undefined
+    const goBack = ()=> navigate(-1) 
 
 
     return (<>
@@ -56,7 +60,7 @@ export default function InnerPageHeader(props: InnerPageHeaderProps) {
             title={props.title}
             // subTitle="This is a subtitle"
             extra={extra as any}
-            onBack={props.goBack as any}
+            onBack={props.goBack===true ? goBack: undefined}
             backIcon={<ArrowLeftIcon className="h-5 w-5"/>}    
         >
 
