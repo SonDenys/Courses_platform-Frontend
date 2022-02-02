@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
+import InnerPageHeader from "../../../components/InnerPageHeader";
 
 export default function UserHome() {
   const { id } = useParams();
 
   return (
     <>
+      <InnerPageHeader goBack={true}/>
       <div>
         <h1>User Home {id}</h1>
         <p>This is the User Home {id}</p>
