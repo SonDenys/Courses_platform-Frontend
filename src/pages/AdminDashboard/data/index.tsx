@@ -1,114 +1,148 @@
 import { Space, Table, Tag } from "antd";
+import { useNavigate } from "react-router-dom";
 
 export const data = [
   {
     id: 1,
     chapter_nav: "Courses",
-    menu_nav: [
-      {
-        name: "Html/CSS",
-        url: "/admin/home/1",
-        tag: "html/css",
-      },
-      {
-        name: "Javascript",
-        url: "/admin/home/2",
-        tag: "javascript",
-      },
-      {
-        name: "React",
-        url: "/admin/home/3",
-        tag: "javascript",
-      },
-      {
-        name: "Python",
-        url: "/admin/home/4",
-        tag: "python",
-      },
-      {
-        name: "MongoDB",
-        url: "/admin/home/5",
-        tag: "mongodb",
-      },
-    ],
+    url: "/admin/home/1",
   },
   {
     id: 2,
     chapter_nav: "Active Courses",
-    menu_nav: [
-      {
-        name: "Html/CSS",
-        url: "/admin/home/6",
-        tag: "html/css",
-      },
-      {
-        name: "Javascript",
-        url: "/admin/home/7",
-        tag: "javascript",
-      },
-      {
-        name: "React",
-        url: "/admin/home/8",
-        tag: "react",
-      },
-      {
-        name: "Python",
-        url: "/admin/home/9",
-        tag: "python",
-      },
-      {
-        name: "MongoDB",
-        url: "/admin/home/10",
-        tag: "mongodb",
-      },
-    ],
+    url: "/admin/home/2",
   },
   {
     id: 3,
     chapter_nav: "Exercices",
-    menu_nav: [
-      {
-        name: "Html/CSS",
-        url: "/admin/home/11",
-        tag: "html/css",
-      },
-      {
-        name: "Javascript",
-        url: "/admin/home/12",
-        tag: "javascript",
-      },
-      {
-        name: "React",
-        url: "/admin/home/13",
-        tag: "react",
-      },
-      {
-        name: "Python",
-        url: "/admin/home/14",
-        tag: "python",
-      },
-      {
-        name: "MongoDB",
-        url: "/admin/home/15",
-        tag: "mongodb",
-      },
-    ],
+    url: "/admin/home/3",
   },
   {
     id: 4,
     chapter_nav: "Students",
-    menu_nav: [
-      { name: "Students List", url: "/admin/home/16", tag: "student" },
-    ],
+    url: "/admin/home/4",
   },
   {
     id: 5,
     chapter_nav: "Promotions",
-    menu_nav: [
-      { name: "Promotions List", url: "/admin/home/17", tag: "promotion" },
-    ],
+    url: "/admin/home/5",
   },
 ];
+
+// export const data1 = [
+//   {
+//     id: 1,
+//     chapter_nav: "Courses",
+//     url: "/admin/home/1",
+//     menu_nav: [
+//       {
+//         name: "Html/CSS",
+//         url: "/admin/home/1",
+//         tag: "html/css",
+//       },
+//       {
+//         name: "Javascript",
+//         url: "/admin/home/2",
+//         tag: "javascript",
+//       },
+//       {
+//         name: "React",
+//         url: "/admin/home/3",
+//         tag: "javascript",
+//       },
+//       {
+//         name: "Python",
+//         url: "/admin/home/4",
+//         tag: "python",
+//       },
+//       {
+//         name: "MongoDB",
+//         url: "/admin/home/5",
+//         tag: "mongodb",
+//       },
+//     ],
+//   },
+//   {
+//     id: 2,
+//     chapter_nav: "Active Courses",
+//     url: "/admin/home/2",
+//     menu_nav: [
+//       {
+//         name: "Html/CSS",
+//         url: "/admin/home/6",
+//         tag: "html/css",
+//       },
+//       {
+//         name: "Javascript",
+//         url: "/admin/home/7",
+//         tag: "javascript",
+//       },
+//       {
+//         name: "React",
+//         url: "/admin/home/8",
+//         tag: "react",
+//       },
+//       {
+//         name: "Python",
+//         url: "/admin/home/9",
+//         tag: "python",
+//       },
+//       {
+//         name: "MongoDB",
+//         url: "/admin/home/10",
+//         tag: "mongodb",
+//       },
+//     ],
+//   },
+//   {
+//     id: 3,
+//     chapter_nav: "Exercices",
+//     url: "/admin/home/3",
+//     menu_nav: [
+//       {
+//         name: "Html/CSS",
+//         url: "/admin/home/11",
+//         tag: "html/css",
+//       },
+//       {
+//         name: "Javascript",
+//         url: "/admin/home/12",
+//         tag: "javascript",
+//       },
+//       {
+//         name: "React",
+//         url: "/admin/home/13",
+//         tag: "react",
+//       },
+//       {
+//         name: "Python",
+//         url: "/admin/home/14",
+//         tag: "python",
+//       },
+//       {
+//         name: "MongoDB",
+//         url: "/admin/home/15",
+//         tag: "mongodb",
+//       },
+//     ],
+//   },
+//   {
+//     id: 4,
+//     chapter_nav: "Students",
+//     url: "/admin/home/4",
+//     menu_nav: [
+//       { name: "Students List", url: "/admin/home/16", tag: "student" },
+//     ],
+//   },
+//   {
+//     id: 5,
+//     chapter_nav: "Promotions",
+//     url: "/admin/home/5",
+//     menu_nav: [
+//       { name: "Promotions List", url: "/admin/home/17", tag: "promotion" },
+//     ],
+//   },
+// ];
 
 export const columns = [
   {
@@ -174,6 +208,7 @@ export const table_data = [
     chapter: 32,
     description: "What is html/css ?",
     tags: ["day1", "html/css"],
+    url: "/admin/home/6",
   },
   {
     key: "2",
@@ -182,6 +217,7 @@ export const table_data = [
     chapter: 42,
     description: "Setup your editor",
     tags: ["day2", "html/css"],
+    url: "/admin/home/7",
   },
   {
     key: "3",
@@ -190,5 +226,6 @@ export const table_data = [
     chapter: 32,
     description: "Struture of a webpage",
     tags: ["day3", "html/css"],
+    url: "/admin/home/8",
   },
 ];

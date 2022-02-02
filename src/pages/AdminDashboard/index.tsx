@@ -27,17 +27,14 @@ export default function AdminDashboard() {
   return (
     <>
       <Layout>
-          <TopBar />
+        <TopBar />
         <Content className="w-auto">
           {/* <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb> */}
-          <Layout
-
-            className="p-0 site-layout-background"            
-          >
+          <Layout className="p-0 site-layout-background">
             <Sider
               collapsible
               collapsed={collapsed}
@@ -57,8 +54,9 @@ export default function AdminDashboard() {
                       key={`sub-${subMenu.id}`}
                       icon={<AcademicCapIcon className="h-5 w-5" />}
                       title={subMenu.chapter_nav}
+                      onTitleClick={() => navigate(subMenu.url)}
                     >
-                      {subMenu?.menu_nav?.map((menu) => {
+                      {/* {subMenu?.menu_nav?.map((menu) => {
                         return (
                           <Menu.Item
                             key={menu.url}
@@ -67,7 +65,7 @@ export default function AdminDashboard() {
                             {t(menu.name)}
                           </Menu.Item>
                         );
-                      })}
+                      })} */}
                     </SubMenu>
                   );
                 })}

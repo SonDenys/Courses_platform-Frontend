@@ -28,7 +28,11 @@ export default function AdminHome() {
         </div>
       </div>
       <div>
-        <Table className="ml-2 mr-2  !rounded-lg !border-gray-500" columns={columns} dataSource={table_data} />
+        <Table
+          className="ml-2 mr-2  !rounded-lg !border-gray-500"
+          columns={columns}
+          dataSource={table_data}
+        />
         {/* <MyTailwindTable columns={columns} dataSource={table_data} /> */}
       </div>
     </>
