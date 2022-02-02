@@ -15,6 +15,39 @@ import TopBar from "../../components/Topbar";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
+const admin_sider_data = [
+  {
+    id: "1",
+    name: "Home",
+    url: "/admin/home",
+    tag: "home",
+    submenu: []
+  },
+  {
+    id: "2",
+    name: "Courses",
+    url: "/admin/courses",
+    tag: "courses",
+    submenu: [],
+  },
+  {
+    id: "3",
+    name: "Active Courses",
+    url: "/admin/actve_courses",
+    tag: "active_courses",
+    submenu: [],
+  },
+  {
+    id: "4",
+    name: "Settings",
+    url: "/admin/settings",
+    tag: "admin_settings",
+    submenu: [],
+  },
+
+]
+
+
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -27,16 +60,11 @@ export default function AdminDashboard() {
   return (
     <>
       <Layout>
-          <TopBar />
+        <TopBar />
         <Content className="w-auto">
-          {/* <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb> */}
           <Layout
 
-            className="p-0 site-layout-background"            
+            className="p-0 site-layout-background"
           >
             <Sider
               collapsible
@@ -50,27 +78,43 @@ export default function AdminDashboard() {
                 defaultOpenKeys={["sub1"]}
                 className="w-auto h-screen"
                 selectedKeys={[location.pathname]}
+                title="Navigation"
               >
-                {data?.map((subMenu) => {
-                  return (
-                    <SubMenu
-                      key={`sub-${subMenu.id}`}
-                      icon={<AcademicCapIcon className="h-5 w-5" />}
-                      title={subMenu.chapter_nav}
-                    >
-                      {subMenu?.menu_nav?.map((menu) => {
-                        return (
-                          <Menu.Item
-                            key={menu.url}
-                            onClick={() => navigate(menu.url)}
-                          >
-                            {t(menu.name)}
-                          </Menu.Item>
-                        );
-                      })}
-                    </SubMenu>
-                  );
+                {admin_sider_data?.map((menu_item: any) => {
+                  const submenu = menu_item?.submenu;
+
+                  console.log(menu_item);
+
+                  
+                    return (
+                      <SubMenu
+                        key={`sub-${menu_item.id}`}
+                        icon={submenu && <AcademicCapIcon className="h-5 w-5" />}
+                        title={menu_item.name}
+                        onTitleClick={() => {navigate(menu_item.url)}}
+                      >
+                        {submenu?.menu_nav?.map((menu) => {
+                          return (
+                            <Menu.Item
+                              key={menu.url}
+                              onClick={() => navigate(menu.url)}
+                            >
+                              {t(menu.name)}
+                            </Menu.Item>
+                          );
+                        })}
+                      </SubMenu>
+                    );
+                  
+
+                  // return (
+                  //   <Menu.Item title={menu_item.name}>  
+
+                  //     </Menu.Item>
+
+                  // )
                 })}
+
               </Menu>
             </Sider>
             <Content className="!p-0">

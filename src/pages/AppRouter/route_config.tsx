@@ -13,6 +13,7 @@ import AdminHome from "../AdminDashboard/AdminHome";
 import UserHome from "../UserDashboard/UserHome";
 import AdminCreation from "../AdminDashboard/AdminCreation";
 
+
 // import { PrepareRoute } from "./utils";
 // import Login from "../Login";
 // import RootPage from "../RootPage";
@@ -24,6 +25,13 @@ import AdminCreation from "../AdminDashboard/AdminCreation";
 
 // const LandingPage = lazy(() => import("../LandingPage"));
 const Home = lazy(() => import("../Home"));
+const CoursePage = lazy(() => import("../AdminDashboard/CoursePage"));
+const SectionPage = lazy(() => import("../AdminDashboard/SectionPage"));
+const SubSectionPage = lazy(() => import("../AdminDashboard/SubSectionPage"));
+const EditSubSectionPage = lazy(() => import("../AdminDashboard/SubSectionPage/EditSubSectionPage"));
+
+
+
 // const Home_v2 = lazy(() => import("../Home_v2"));
 // // const Login = lazy(() => import("../Login"))
 // const Signup = lazy(() => import("../Signup"));
@@ -116,8 +124,32 @@ export function getRoutes(): AppRouterObject[] {
           element: <AdminHome />,
         },
         {
+          path: "home",
+          element: <AdminHome />,
+        },
+        {
           path: "creation/:id",
           element: <AdminCreation />,
+        },
+        {
+          path: "courses",
+          element: <CoursePage />,
+        },
+        {
+          path: "sections",
+          element: <SectionPage />,
+        },
+        {
+          path: "subsections",
+          element: <SubSectionPage />,
+        },
+        {
+          path: "subsections/edit/:course_id/:section_id/:id",
+          element: <EditSubSectionPage />,
+        },
+        {
+          path: "subsections/edit",
+          element: <EditSubSectionPage />,
         },
       ],
     },
