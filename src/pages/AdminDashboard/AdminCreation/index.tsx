@@ -2,6 +2,7 @@ import { useState } from "react";
 import ReactQuill from "react-quill";
 import { useParams } from "react-router-dom";
 import MyInput from "../../../components/ui/MyInput";
+import "react-quill/dist/quill.snow.css";
 
 const AdminCreation = () => {
   const { id } = useParams();
@@ -15,7 +16,6 @@ const AdminCreation = () => {
       <div>
         <h3>Title Course</h3>
         {/* <MyInput defaultValue="Title Course....." label="Title Course" /> */}
-        <ReactQuill theme="snow" value={value} onChange={setValue} />
       </div>
     </>
   );
