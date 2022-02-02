@@ -96,7 +96,7 @@ export default function TopBar(props: TopBarModel) {
 
     return (
         <div  className=' !shadow-xl !shadow-black'>
-            <Header className={"header top_bar !bg-blue-900 !text-gray-300 !shadow-xl !shadow-black"} style={{ height: "70px" }} >
+            <Header className={"header top_bar !bg-blue-900 !text-gray-300 !shadow-xl !shadow-black"} style={{ height: "70px", boxShadow: "" }} >
                 <Row align="middle" >
                     <Col span={6}>
                         <img className='h-12' src="/AeonX_logo_white.png" alt="" />
