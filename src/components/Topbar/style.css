@@ -1,0 +1,48 @@
+
+/* @import '~antd/dist/antd.css'; */
+
+.aeonx-logo {
+    /* background-image: url("/public/smart_logo.png") no-repeat;  */
+    /* // background-image: url("/public/AeonX_logo_default.png");  */
+    /* width: 180px; */
+    width: auto;
+    height: 55px;
+    padding: 5px;
+    padding-left: 8px;
+    /* align-content: center; */
+    /* justify-items: center; */
+    align-self: right;
+    margin-top: 2px;
+    z-index: 1000;
+}
+
+
+/* .top_bar{
+    background-color: rgb(200, 224, 255) !important;
+    height: 55px !important;
+    // background-color: rgb(27, 39, 107);
+} */
+
+
+/* [data-theme="dark"] { 
+    .top_bar{
+        background-color: rgb(27, 39, 107) !important;
+    }   
+} */
+
+
+
+.site-layout-content {
+    background: #fff;
+    padding: 24px;
+    min-height: 280px;
+  }
+
+  .logo {
+    /* background-image: url("/smart_logo.png") no-repeat; */
+    width: 120px;
+    height: 31px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px 24px 16px 0;
+    float: left;
+  }

@@ -45,7 +45,7 @@ export const config_urlencode = {
 
 export function getRect(el) {
   if (!el) {
-      return {}
+    return {}
   }
 
   // konsole.log("getRectgetRectgetRectgetRectgetRectgetRect")
@@ -54,22 +54,22 @@ export function getRect(el) {
   const rect = el.getBoundingClientRect()
 
   return {
-      id: el.id,
-      left: rect.left,
-      top: rect.top,
-      // left: Math.round(rect.left + window.scrollX),
-      // top: Math.round(rect.top + window.screenY),
-      width: rect.width,
-      height: rect.height
+    id: el.id,
+    left: rect.left,
+    top: rect.top,
+    // left: Math.round(rect.left + window.scrollX),
+    // top: Math.round(rect.top + window.screenY),
+    width: rect.width,
+    height: rect.height
   }
 }
 
 
 export function S(data) {
   try {
-      return JSON.stringify(data, null, 2)
+    return JSON.stringify(data, null, 2)
   } catch (e) {
-      return data
+    return data
   }
 }
 
@@ -83,24 +83,24 @@ export function S(data) {
 
 export class defaultdict {
   constructor(defaultInit) {
-      return new Proxy({}, {
-          get: (target, name) => name in target ?
-              target[name] :
-              (target[name] = typeof defaultInit === 'function' ?
-                  new defaultInit().valueOf() :
-                  defaultInit)
-      })
+    return new Proxy({}, {
+      get: (target, name) => name in target ?
+        target[name] :
+        (target[name] = typeof defaultInit === 'function' ?
+          new defaultInit().valueOf() :
+          defaultInit)
+    })
   }
 }
 
 
 
-export async function setLocalData(key, value){
+export async function setLocalData(key, value) {
   var v
-  if(typeof(value) !== "string"){
-      v = JSON.stringify(value)
+  if (typeof (value) !== "string") {
+    v = JSON.stringify(value)
   }
-  
+
   // konsole.log("setLocalData")    
   // konsole.log("setLocalData")    
   // konsole.log("setLocalData")    
@@ -112,14 +112,14 @@ export async function setLocalData(key, value){
   // konsole.log("setLocalData")    
   // konsole.log("setLocalData")    
   // konsole.log("setLocalData")    
-  
+
   window.localStorage.setItem(key, v)
-  
+
   // await set(key, value)
-  return value 
+  return value
 }
 
-export async function getLocalData(key){
+export async function getLocalData(key) {
   var value = window.localStorage.getItem(key) || ""
   // konsole.log("getLocalData")    
   // konsole.log("getLocalData")    
@@ -134,15 +134,15 @@ export async function getLocalData(key){
 }
 
 
-export function signout(history){
-  
-}
-
-export function signin(history){
+export function signout(history) {
 
 }
 
-export function signup(history){
+export function signin(history) {
+
+}
+
+export function signup(history) {
 
 }
 
@@ -167,29 +167,62 @@ export const RouteAdapter = ({ children }) => {
 };
 
 
-export function  search_params_to_object(search_params){
+export function search_params_to_object(search_params) {
   const params = new URLSearchParams(search_params);
 
-  try{
-    if(params){
+  try {
+    if (params) {
       const q = JSON.parse('{"' + decodeURI(params.toString().substring(1).replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}')
       const new_object = {};
 
       for (let k in q) {
         const v = q[k];
         const num = Number(v);
-        if(!isNaN(num)){
+        if (!isNaN(num)) {
           new_object[k] = num;
-        }else{
+        } else {
           new_object[k] = v;
         }
       }
       return new_object;
     }
 
-  }catch(e){
+  } catch (e) {
     konsole.error(`search_params_to_object error ${e}`)
   }
 
   return;
+}
+
+
+export type BreakPointTypes = "xs" | "sm" | "md" | "lg" | "xl" | "xxl"
+
+export function detectBreakpoint({ xs, sm, md, lg, xl, xxl }): BreakPointTypes {
+  if (xs) {
+    return "xs";
+  }
+
+  if (sm) {
+    return "sm";
+  }
+  
+  
+  if (md) {
+    return "md";
+  }
+  
+  if (lg) {
+    return "lg";
+  }
+  
+  if (xl) {
+    return "xl";
+  }
+  
+  if (xxl) {
+    return "xxl";
+  }
+  
+  
+  return 'lg';
 }

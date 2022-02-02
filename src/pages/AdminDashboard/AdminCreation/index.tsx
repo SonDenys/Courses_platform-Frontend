@@ -8,7 +8,7 @@ const AdminCreation = () => {
   const { id } = useParams();
   const [value, setValue] = useState("");
   return (
-    <div>
+    <>
       <div>
         <h1>Admin Creation {id}</h1>
         <p>This is the Admin Creation {id}</p>
@@ -17,7 +17,7 @@ const AdminCreation = () => {
         <h3>Title Course</h3>
         {/* <MyInput defaultValue="Title Course....." label="Title Course" /> */}
       </div>
-    </div>
+    </>
   );
 };
 
