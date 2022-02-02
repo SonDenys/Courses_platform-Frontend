@@ -2,7 +2,7 @@ import { Button, Space, Table, Tag } from "antd";
 import Layout, { Content } from "antd/lib/layout/layout";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import InnerPageHeader from "../../../components/InnerPageHeader";
 
 
@@ -15,7 +15,8 @@ import { columns, table_data } from "../data";
 
 export default function SectionPage(props: any) {
     const { t } = useTranslation();
-    const navigate  = useNavigate();
+    const navigate = useNavigate();
+    const { course_id } = useParams()
 
     useEffect(() => {
 

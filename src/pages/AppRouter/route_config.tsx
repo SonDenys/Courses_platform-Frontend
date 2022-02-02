@@ -136,21 +136,21 @@ export function getRoutes(): AppRouterObject[] {
           element: <CoursePage />,
         },
         {
-          path: "sections",
+          path: "sections/:course_id",
           element: <SectionPage />,
         },
         {
-          path: "subsections",
+          path: "subsections/:course_id/:section_id",
           element: <SubSectionPage />,
         },
         {
           path: "subsections/edit/:course_id/:section_id/:id",
           element: <EditSubSectionPage />,
         },
-        {
-          path: "subsections/edit",
-          element: <EditSubSectionPage />,
-        },
+        // {
+        //   path: "subsections/edit",
+        //   element: <EditSubSectionPage />,
+        // },
       ],
     },
     // { path: "/admin/creation", element: <AdminCreation />, protected: false },
