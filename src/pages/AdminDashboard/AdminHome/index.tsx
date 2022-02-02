@@ -13,7 +13,7 @@ export default function AdminHome() {
 
   return (
     <>
-      <InnerPageHeader goBack={true}/>
+      <InnerPageHeader goBack={true} />
       <div className="flex justify-between px-5">
         <div>
           <h1>Admin Home {id}</h1>

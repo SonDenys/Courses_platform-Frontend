@@ -1,4 +1,5 @@
 import { Space, Table, Tag } from "antd";
+import { Button } from "antd/lib/radio";
 import { useNavigate } from "react-router-dom";
 
 export const data = [
@@ -191,10 +192,10 @@ export const columns = [
     key: "action",
     render: (text, record) => (
       <Space size="middle">
-        <a>Modify</a>
-        <a>Delete</a>
-        <a>Activate</a>
-        <a>Deactivate</a>
+        <Button>Edit</Button>
+        <Button>Delete</Button>
+        <Button>Activate</Button>
+        <Button>Deactivate</Button>
       </Space>
     ),
   },
