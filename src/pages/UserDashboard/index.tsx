@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { data } from "./data/index";
 import { useState } from "react";
 import { LibraryIcon } from "@heroicons/react/solid";
+import TopBar from "../../components/Topbar";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -25,14 +26,7 @@ export default function UserDashboard() {
   return (
     <>
       <Layout>
-        <Header className="header">
-          <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
-          </Menu>
-        </Header>
+        <TopBar></TopBar>
         <Content className="w-auto">
           {/* <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>

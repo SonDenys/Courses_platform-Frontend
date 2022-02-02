@@ -95,8 +95,8 @@ export default function TopBar(props: TopBarModel) {
     }
 
     return (
-        <>
-            <Header className={"header top_bar !bg-blue-900 !text-gray-300"} style={{ height: "70px" }} >
+        <div  className=' !shadow-xl !shadow-black'>
+            <Header className={"header top_bar !bg-blue-900 !text-gray-300 !shadow-xl !shadow-black"} style={{ height: "70px" }} >
                 <Row align="middle" >
                     <Col span={6}>
                         <img className='h-12' src="/AeonX_logo_white.png" alt="" />
@@ -145,8 +145,9 @@ export default function TopBar(props: TopBarModel) {
                                     <Menu.SubMenu title={t(activeLanguage)}>
                                         {selectable_langauges.map((lang, index) => {
                                             if (activeLanguage !== lang) {
-                                                return <Menu.Item onClick={() => setActiveLanguage(lang)}>{t("ja")}</Menu.Item>
+                                                return <Menu.Item onClick={() => setActiveLanguage(lang)}>{t(lang)}</Menu.Item>
                                             }
+                                            
                                         })}
                                     </Menu.SubMenu>
                                 </Menu>
@@ -161,7 +162,7 @@ export default function TopBar(props: TopBarModel) {
 
             </Header>
 
-        </>
+        </div>
     )
 }
 
