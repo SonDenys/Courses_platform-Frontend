@@ -7,7 +7,7 @@ import InnerPageHeader from "../../../components/InnerPageHeader";
 
 import { columns, table_data } from "../data";
 
-export default function CoursePage(props: any) {
+export default function ChapterPage(props: any) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -15,11 +15,13 @@ export default function CoursePage(props: any) {
 
   const columns = [
     {
-      title: "Courses name",
+      title: "Chapters name",
       dataIndex: "name",
       key: "name",
       render: (text) => (
-        <span onClick={() => navigate("/admin/courses/chapters")}>{text}</span>
+        <span onClick={() => navigate("/admin/courses/chapters/sections")}>
+          {text}
+        </span>
       ),
     },
     {

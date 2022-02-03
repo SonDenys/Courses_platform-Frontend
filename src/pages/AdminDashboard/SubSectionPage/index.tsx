@@ -21,7 +21,9 @@ export default function SubSectionPage(props: any) {
       key: "name",
       render: (text) => (
         <span
-          onClick={() => navigate("/admin/courses/sections/subsections/edit")}
+          onClick={() =>
+            navigate("/admin/courses/chapters/sections/subsections/edit")
+          }
         >
           {text}
         </span>

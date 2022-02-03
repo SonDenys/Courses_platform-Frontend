@@ -18,9 +18,9 @@ export default function CoursePage(props: any) {
       title: "Students name",
       dataIndex: "name",
       key: "name",
-      //   render: (text) => (
-      //     <span onClick={() => navigate("/admin/courses/sections")}>{text}</span>
-      //   ),
+      render: (text) => (
+        <span onClick={() => navigate("/admin/students/add")}>{text}</span>
+      ),
     },
     {
       title: "Day",

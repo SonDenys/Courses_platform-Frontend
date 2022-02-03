@@ -20,7 +20,11 @@ export default function SectionPage(props: any) {
       dataIndex: "name",
       key: "name",
       render: (text) => (
-        <span onClick={() => navigate("/admin/courses/sections/subsections")}>
+        <span
+          onClick={() =>
+            navigate("/admin/courses/chapters/sections/subsections")
+          }
+        >
           {text}
         </span>
       ),

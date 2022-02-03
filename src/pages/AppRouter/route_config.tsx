@@ -14,6 +14,8 @@ import UserHome from "../UserDashboard/UserHome";
 import ActiveCoursePage from "../AdminDashboard/ActiveCoursePage";
 import EditActiveCoursePage from "../AdminDashboard/ActiveSectionPage";
 import StudentsPage from "../AdminDashboard/StudentsPage";
+import CreateStudentsPage from "../AdminDashboard/StudentsPage/CreateStudentsPage";
+import ChapterPage from "../AdminDashboard/ChapterPage";
 
 // import { PrepareRoute } from "./utils";
 // import Login from "../Login";
@@ -133,21 +135,23 @@ export function getRoutes(): AppRouterObject[] {
           path: "courses",
           element: <CoursePage />,
         },
+        { path: "courses/chapters", element: <ChapterPage /> },
         {
-          path: "courses/sections",
+          path: "courses/chapters/sections",
           element: <SectionPage />,
         },
         {
-          path: "courses/sections/subsections",
+          path: "courses/chapters/sections/subsections",
           element: <SubSectionPage />,
         },
         {
-          path: "courses/sections/subsections/edit",
+          path: "courses/chapters/sections/subsections/edit",
           element: <EditSubSectionPage />,
         },
         { path: "active_courses", element: <ActiveCoursePage /> },
         { path: "active_courses/edit", element: <EditActiveCoursePage /> },
         { path: "students", element: <StudentsPage /> },
+        { path: "students/add", element: <CreateStudentsPage /> },
 
         // {
         //   path: "subsections/edit",
