@@ -3,7 +3,6 @@ import { Navigate, RouteObject } from "react-router-dom";
 import RootPage from "../RootPage";
 // import MainApp from "../MainApp";
 import Page404 from "../Page404";
-import Login from "../Login";
 import MainApp from "../MainApp";
 import Dummy from "../Dummy";
 
@@ -16,6 +15,7 @@ import EditActiveCoursePage from "../AdminDashboard/ActiveSectionPage";
 import StudentsPage from "../AdminDashboard/StudentsPage";
 import CreateStudentsPage from "../AdminDashboard/StudentsPage/CreateStudentsPage";
 import ChapterPage from "../AdminDashboard/ChapterPage";
+import CreateCoursePage from "../AdminDashboard/CreateCoursePage";
 
 // import { PrepareRoute } from "./utils";
 // import Login from "../Login";
@@ -25,6 +25,8 @@ import ChapterPage from "../AdminDashboard/ChapterPage";
 // import PaymentPage from "../PaymentPage";
 // import SuccessPaymentPage from "../PaymentPage/SuccessPaymentPage";
 // import FailedPaymentPage from "../PaymentPage/FailedPaymentPage";
+import AdminLogin from "../AdminDashboard/AdminLogin/index";
+import AdminSignup from "../AdminDashboard/AdminSignup";
 
 // const LandingPage = lazy(() => import("../LandingPage"));
 const Home = lazy(() => import("../Home"));
@@ -78,9 +80,10 @@ export function getRoutes(): AppRouterObject[] {
         //   element: <LandingPage />,
         // },
         {
-          path: "login",
-          element: <Login />,
+          path: "",
+          element: <AdminLogin />,
         },
+        { path: "adminsignup", element: <AdminSignup /> },
         {
           path: "dummy",
           element: <Dummy />,
@@ -117,10 +120,11 @@ export function getRoutes(): AppRouterObject[] {
         // },
       ],
     },
+
     {
       path: "/admin",
       element: <AdminDashboard />,
-      protected: false,
+      protected: true,
       children: [
         {
           path: "home/:id",
@@ -130,6 +134,8 @@ export function getRoutes(): AppRouterObject[] {
           path: "home",
           element: <AdminHome />,
         },
+
+        { path: "createcourse", element: <CreateCoursePage /> },
 
         {
           path: "courses",
@@ -152,14 +158,9 @@ export function getRoutes(): AppRouterObject[] {
         { path: "active_courses/edit", element: <EditActiveCoursePage /> },
         { path: "students", element: <StudentsPage /> },
         { path: "students/add", element: <CreateStudentsPage /> },
-
-        // {
-        //   path: "subsections/edit",
-        //   element: <EditSubSectionPage />,
-        // },
       ],
     },
-    // { path: "/admin/creation", element: <AdminCreation />, protected: false },
+
     {
       path: "/user",
       element: <UserDashboard />,
@@ -182,31 +183,6 @@ export function getRoutes(): AppRouterObject[] {
           path: "home",
           element: <Home />,
         },
-        // {
-        //   path: "teams",
-        //   element: <TeamsCopy />,
-        // },
-
-        // {
-        //   path: "download_file",
-        //   element: <ReadyToDownloadFile />,
-        // },
-        // {
-        //   path: "download_file_sent",
-        //   element: <ListDownloadFilesSent />,
-        // },
-        // {
-        //   path: "payment",
-        //   element: <PaymentPage />
-        // },
-        // {
-        //   path: "success_payment",
-        //   element: <SuccessPaymentPage />,
-        // },
-        // {
-        //   path: "failed_payment",
-        //   element: <FailedPaymentPage />,
-        // },
       ],
     },
     // {

@@ -2,21 +2,25 @@ import { LockClosedIcon } from "@heroicons/react/solid";
 import { Link, useNavigate, useLocation, NavLink } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { config_urlencode, setLocalData } from "../../utils";
+import { config_urlencode, setLocalData } from "../../../utils";
 import { useRecoilState } from "recoil";
-import { emailStateSender, signUserIdState } from "../../_GlobalStates/globalState";
-import { prepare_query } from "../../utils";
-import konsole from "../../konsole";
+import {
+  emailStateSender,
+  signUserIdState,
+} from "../../../_GlobalStates/globalState";
+import { prepare_query } from "../../../utils";
+import konsole from "../../../konsole";
 import {
   CreateTokenCache,
   getPayloadValue,
   initSignalXClient,
   isAuthenticated,
-} from "../../Auth";
+} from "../../../Auth";
 import { access } from "fs";
 import { useTranslation } from "react-i18next";
+import { BACKEND_URL } from "../../../params";
 
-export default function Login() {
+export default function AdminLogin() {
   const [email, setEmail] = useRecoilState(emailStateSender);
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -26,13 +30,11 @@ export default function Login() {
   const navigate = useNavigate();
 
   if (isAuthenticated()) {
-    navigate("/home");
+    navigate("/admin/home");
   }
 
   const login = async (data: any) => {
     const urlSignin = `/auth/signin`;
-
-    konsole.log(`urlSignin ===== ${urlSignin}`);
 
     try {
       const query: any = prepare_query(
@@ -42,8 +44,14 @@ export default function Login() {
         true
       );
       let result: any = {};
+      konsole.log(`urlSignin ===== ${urlSignin}`);
+      konsole.log(`BACKEND_URL ===== ${BACKEND_URL}`);
       try {
-        result = await axios.post(urlSignin, data, config_urlencode as any);
+        result = await axios.post(
+          `${BACKEND_URL}${urlSignin}`,
+          data,
+          config_urlencode as any
+        );
       } catch (e) {
         console.log(`Could not signin: ${e}`);
       }
@@ -65,7 +73,7 @@ export default function Login() {
         // create siglnalx client
         // setSignalClient(sxclient);
 
-        navigate("/app/home");
+        navigate("/admin/home");
       } else {
         setErrorMessage("⚠️ There is an error login");
       }
@@ -87,7 +95,7 @@ export default function Login() {
           <p className="mt-2 text-center text-sm text-gray-600">
             {t("or")}{" "}
             <NavLink
-              to={`/signup`}
+              to={`/adminsignup`}
               className="font-medium text-blue-600 hover:text-blue-500"
             >
               {t("create_a_new_account")}

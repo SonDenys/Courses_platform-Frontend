@@ -14,6 +14,10 @@ export default function ActiveCoursePage(props: any) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const handleClickCreate = () => {
+    console.log("clicked");
+  };
+
   useEffect(() => {}, []);
 
   const columns: any[] = [

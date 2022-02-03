@@ -81,7 +81,11 @@ export default function ChapterPage(props: any) {
 
   return (
     <>
-      <InnerPageHeader title={t("courses")} goBack />
+      <InnerPageHeader
+        title={t("courses")}
+        goBack
+        onCreateClick={() => navigate("/admin/createcourse")}
+      />
       <Table
         className="ml-2 mr-2  !rounded-lg !border-gray-500"
         columns={columns}

@@ -1,4 +1,5 @@
-export const BACKEND_URL = process.env.REACT_APP_AEOLIA_BACKEND_URL;
+export const BACKEND_URL =
+  process.env.REACT_APP_AEOLIA_BACKEND_URL || "https://aeolia-api.aeonx.ai";
 
 console.log(`BACKEND_URL ====== ${BACKEND_URL}`);
 
