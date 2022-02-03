@@ -124,7 +124,7 @@ export function getRoutes(): AppRouterObject[] {
     {
       path: "/admin",
       element: <AdminDashboard />,
-      protected: true,
+      protected: false,
       children: [
         {
           path: "home/:id",

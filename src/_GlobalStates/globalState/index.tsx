@@ -154,3 +154,8 @@ export const error_stripePaymentState = atom<any>({
   key: "error_stripePaymentState",
   default: "",
 });
+
+export const course_idState = atom<any>({
+  key: "course_idState",
+  default: "",
+});

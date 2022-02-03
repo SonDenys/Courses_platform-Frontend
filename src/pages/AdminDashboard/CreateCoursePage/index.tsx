@@ -1,7 +1,9 @@
 import { Form, Input, InputNumber, Button } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useRecoilState } from "recoil";
 import InnerPageHeader from "../../../components/InnerPageHeader";
+import { course_idState } from "../../../_GlobalStates/globalState";
 import { create_course } from "../helpers/apicalls";
 
 const layout = {
@@ -37,6 +39,18 @@ const CreateCoursePage = () => {
   const [courseName, setCourseName] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
+  const [course_id, setCourse_id] = useRecoilState(course_idState);
+  const [data, setData] = useState("");
+
+  const handleSubmit = async () => {
+    const response = await create_course({
+      name: courseName,
+      category,
+      description,
+    });
+    setData(response);
+    console.log(response);
+  };
 
   return (
     <>
@@ -81,11 +95,7 @@ const CreateCoursePage = () => {
             type="primary"
             // htmlType="submit"
             onClick={() => {
-              create_course({
-                name: courseName,
-                category,
-                description,
-              });
+              handleSubmit();
             }}
           >
             Submit

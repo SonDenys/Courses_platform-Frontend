@@ -1,17 +1,41 @@
 import { Button, Space, Table, Tag } from "antd";
 import Layout, { Content } from "antd/lib/layout/layout";
+import axios from "axios";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import InnerPageHeader from "../../../components/InnerPageHeader";
+import { BACKEND_URL } from "../../../params";
+import { course_idState } from "../../../_GlobalStates/globalState";
 
 import { columns, table_data } from "../data";
+import { prepare_query } from "../helpers/utils";
 
 export default function CoursePage(props: any) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [course_id, setCourse_id] = useRecoilState(course_idState);
 
-  useEffect(() => {}, []);
+  const query: any = prepare_query(
+    {
+      _id: course_id,
+      do_list: false,
+    },
+    true
+  );
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response: any = await axios.get(
+          `${BACKEND_URL}/api/v1.0/get_courses`
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  });
 
   const columns = [
     {
