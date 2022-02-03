@@ -5,10 +5,7 @@ import { config_json, prepare_query } from "./utils";
 import { course_idState } from "../../../_GlobalStates/globalState/index";
 import { useRecoilState } from "recoil";
 
-export async function create_course(
-  { name, category, description },
-  callback?
-) {
+export async function create_course({ name, category, description }) {
   const query = prepare_query({
     name: category,
     description,
@@ -24,23 +21,22 @@ export async function create_course(
       return;
     }
 
-    callback && callback(result.data.data);
+    //callback && callback(result.data.data);
 
     if (result && result.data) {
       return result.data;
     }
   } catch (e) {
     konsole.log(e);
-    callback && callback(e);
+    // callback && callback(e);
   }
   return [];
 }
 
-export async function Get_courses() {
-  const [course_id, setCourse_id] = useRecoilState(course_idState);
+export async function get_courses() {
   const query: any = prepare_query(
     {
-      _id: course_id,
+      //   _id: course_id,
       do_list: false,
     },
     true
