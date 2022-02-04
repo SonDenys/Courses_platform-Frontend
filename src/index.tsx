@@ -10,7 +10,7 @@ import aeonxThemeVars from "./theme/aeonx-theme1/variables/aeonx-theme-vars";
 import { init_i18n } from "./Locale";
 import { loadPublicKey, loadTokenCache } from "./Auth";
 import konsole from "./konsole";
-import { axios_config_init } from "./pages/AdminDashboard/helpers";
+import { axios_config_init } from "./helpers";
 
 (window as any).global = window;
 // global.Buffer = global.Buffer || require('buffer').Buffer;

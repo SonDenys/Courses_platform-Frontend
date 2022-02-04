@@ -7,7 +7,7 @@ import { BACKEND_URL } from "../../../params";
 import { useMyToast } from "../../../_GlobalStates/hooks";
 import _ from "lodash";
 import { useForm } from "react-hook-form";
-import { create_user } from "../helpers";
+import { create_user } from "../../../helpers";
 // import  FileClient  from "../../signalx-js/file_client";
 // export interface InvitedProps {
 //   admin_id: string;

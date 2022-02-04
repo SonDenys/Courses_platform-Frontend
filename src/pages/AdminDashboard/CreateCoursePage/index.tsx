@@ -3,10 +3,11 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useRecoilState } from "recoil";
 import InnerPageHeader from "../../../components/InnerPageHeader";
-import { course_idState } from "../../../_GlobalStates/globalState";
-import { create_course } from "../helpers/apicalls";
+// import { course_idState } from "../../../_GlobalStates/globalState";
 import { data } from "../../UserDashboard/data/index";
 import { useNavigate, useParams } from "react-router-dom";
+import { useMyToast } from "../../../_GlobalStates/hooks";
+import { create_course } from "../helpers/apicalls";
 
 const layout = {
   labelCol: {
@@ -37,15 +38,15 @@ const CreateCoursePage = () => {
   const onFinish = (values) => {
     console.log(values);
   };
+  const [courseId, setCourseId] = useState();
   const { t } = useTranslation();
   const [courseName, setCourseName] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  // const [course_id, setCourse_id] = useRecoilState(course_idState);
   const [result, setResult] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  const { course_id } = useParams();
+  const toast = useMyToast();
 
   const handleSubmit = async () => {
     const response = await create_course({
@@ -55,14 +56,17 @@ const CreateCoursePage = () => {
     });
     console.log("response createCourse Data = = =>", response);
     console.log("course_id = = = >", JSON.stringify(response.data._id));
-    // setCourse_id(response.data._id);
+
     setResult(true);
 
     if (result) {
-      navigate("/admin/createcourse/createchapter");
+      const _course_id = response.data._id;
+      setCourseId(_course_id);
+      navigate("/admin/courses", { replace: true });
     } else {
       console.log("Create Course Failed");
       setErrorMessage("Create Course Failed");
+      toast.error("Create Course Failed");
     }
   };
 

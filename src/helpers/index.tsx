@@ -6,16 +6,18 @@ import {
   getRefreshToken,
   resetTokenCache,
   setAuthStatus,
-} from "../../../Auth";
-import konsole from "../../../konsole";
-import { BACKEND_URL, REFRESH_TOKEN_URI } from "../../../params";
-import { S } from "../../../utils";
+} from "../Auth";
+import konsole from "../konsole";
+import {
+  config_json,
+  make_query_string,
+} from "../pages/AdminDashboard/helpers/utils";
+import { BACKEND_URL, REFRESH_TOKEN_URI } from "../params";
+import { config_urlencode, S } from "../utils";
 
 // import data from "../Local/translations";
 
 // import { set_access_token } from "../Auth";
-
-import { config_json, config_urlencode, make_query_string } from "./utils";
 
 export function axios_config_init() {
   axios.interceptors.request.use((request: any) => {

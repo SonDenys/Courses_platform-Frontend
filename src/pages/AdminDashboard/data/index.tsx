@@ -153,40 +153,56 @@ export const columns = [
     render: (text) => <a>{text}</a>,
   },
   {
-    title: "Day",
-    dataIndex: "day",
-    key: "day",
-  },
-  {
-    title: "Chapter",
-    dataIndex: "chapter",
-    key: "chapter",
-  },
-  {
     title: "Description",
     dataIndex: "description",
     key: "description",
   },
   {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: (tags) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    title: "Category",
+    dataIndex: "category",
+    key: "category",
   },
+  {
+    title: "Created_at",
+    dataIndex: "created_at",
+    key: "created_at",
+  },
+  {
+    title: "Updated_at",
+    dataIndex: "updated_at",
+    key: "updated_at",
+  },
+  {
+    title: "Created_by",
+    dataIndex: "created_by",
+    key: "created_by",
+  },
+  {
+    title: "Updated_by",
+    dataIndex: "updated_by",
+    key: "updated_by",
+  },
+
+  // {
+  //   title: "Tags",
+  //   key: "tags",
+  //   dataIndex: "tags",
+  //   render: (tags) => (
+  //     <>
+  //       {tags.map((tag) => {
+  //         let color = tag.length > 5 ? "geekblue" : "green";
+  //         if (tag === "loser") {
+  //           color = "volcano";
+  //         }
+  //         return (
+  //           <Tag color={color} key={tag}>
+  //             {tag.toUpperCase()}
+  //           </Tag>
+  //         );
+  //       })}
+  //     </>
+  //   ),
+  // },
   {
     title: "Action",
     key: "action",

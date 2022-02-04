@@ -136,24 +136,26 @@ export function getRoutes(): AppRouterObject[] {
           element: <AdminHome />,
         },
 
-        { path: "createcourse", element: <CreateCoursePage /> },
-        { path: "createcourse/createchapter", element: <CreateChapterPage /> },
-
         {
           path: "courses",
           element: <CoursePage />,
         },
-        { path: "courses/chapters", element: <ChapterPage /> },
+        { path: "courses/createcourse", element: <CreateCoursePage /> },
+        { path: "courses/chapters/:course_id", element: <ChapterPage /> },
         {
-          path: "courses/chapters/sections",
+          path: "courses/chapters/create_chapter/:course_id",
+          element: <CreateChapterPage />,
+        },
+        {
+          path: "courses/chapters/sections/:course_id/:chapter_id",
           element: <SectionPage />,
         },
         {
-          path: "courses/chapters/sections/subsections",
+          path: "courses/chapters/sections/subsections/:course_id/:chapter_id/:section_id",
           element: <SubSectionPage />,
         },
         {
-          path: "courses/chapters/sections/subsections/edit",
+          path: "courses/chapters/sections/subsections/edit/:course_id/:chapter_id/:section_id/:subsection_id",
           element: <EditSubSectionPage />,
         },
         { path: "active_courses", element: <ActiveCoursePage /> },

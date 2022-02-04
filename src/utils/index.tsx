@@ -40,18 +40,15 @@ export const config_urlencode = {
   credentials: false,
 };
 
-
-
-
 export function getRect(el) {
   if (!el) {
-    return {}
+    return {};
   }
 
   // konsole.log("getRectgetRectgetRectgetRectgetRectgetRect")
   // konsole.log(el)
   // konsole.log("getRectgetRectgetRectgetRectgetRectgetRect")
-  const rect = el.getBoundingClientRect()
+  const rect = el.getBoundingClientRect();
 
   return {
     id: el.id,
@@ -60,93 +57,82 @@ export function getRect(el) {
     // left: Math.round(rect.left + window.scrollX),
     // top: Math.round(rect.top + window.screenY),
     width: rect.width,
-    height: rect.height
-  }
+    height: rect.height,
+  };
 }
-
 
 export function S(data) {
   try {
-    return JSON.stringify(data, null, 2)
+    return JSON.stringify(data, null, 2);
   } catch (e) {
-    return data
+    return data;
   }
 }
-
 
 // export function useQuery() {
 //   return new URLSearchParams(useLocation().search);
 // }
 
-
-
-
 export class defaultdict {
   constructor(defaultInit) {
-    return new Proxy({}, {
-      get: (target, name) => name in target ?
-        target[name] :
-        (target[name] = typeof defaultInit === 'function' ?
-          new defaultInit().valueOf() :
-          defaultInit)
-    })
+    return new Proxy(
+      {},
+      {
+        get: (target, name) =>
+          name in target
+            ? target[name]
+            : (target[name] =
+                typeof defaultInit === "function"
+                  ? new defaultInit().valueOf()
+                  : defaultInit),
+      }
+    );
   }
 }
 
-
-
 export async function setLocalData(key, value) {
-  var v
-  if (typeof (value) !== "string") {
-    v = JSON.stringify(value)
+  var v;
+  if (typeof value !== "string") {
+    v = JSON.stringify(value);
   }
 
-  // konsole.log("setLocalData")    
-  // konsole.log("setLocalData")    
-  // konsole.log("setLocalData")    
-  // konsole.log("setLocalData")    
+  // konsole.log("setLocalData")
+  // konsole.log("setLocalData")
+  // konsole.log("setLocalData")
+  // konsole.log("setLocalData")
   // konsole.log(key)
   // konsole.log(v)
-  // konsole.log("setLocalData")    
-  // konsole.log("setLocalData")    
-  // konsole.log("setLocalData")    
-  // konsole.log("setLocalData")    
-  // konsole.log("setLocalData")    
+  // konsole.log("setLocalData")
+  // konsole.log("setLocalData")
+  // konsole.log("setLocalData")
+  // konsole.log("setLocalData")
+  // konsole.log("setLocalData")
 
-  window.localStorage.setItem(key, v)
+  window.localStorage.setItem(key, v);
 
   // await set(key, value)
-  return value
+  return value;
 }
 
 export async function getLocalData(key) {
-  var value = window.localStorage.getItem(key) || ""
-  // konsole.log("getLocalData")    
-  // konsole.log("getLocalData")    
-  // konsole.log("getLocalData")    
+  var value = window.localStorage.getItem(key) || "";
+  // konsole.log("getLocalData")
+  // konsole.log("getLocalData")
+  // konsole.log("getLocalData")
   // konsole.log(key)
   // konsole.log(value)
-  // konsole.log("getLocalData")    
-  // konsole.log("getLocalData")    
-  // konsole.log("getLocalData")    
-  return await JSON.parse(value)
+  // konsole.log("getLocalData")
+  // konsole.log("getLocalData")
+  // konsole.log("getLocalData")
+  return await JSON.parse(value);
   // return await get(key)
 }
 
+export function signout(history) {}
 
-export function signout(history) {
+export function signin(history) {}
 
-}
-
-export function signin(history) {
-
-}
-
-export function signup(history) {
-
-}
-
-
+export function signup(history) {}
 
 export const RouteAdapter = ({ children }) => {
   const navigate = useNavigate();
@@ -166,13 +152,22 @@ export const RouteAdapter = ({ children }) => {
   return children({ history: adaptedHistory, location });
 };
 
-
 export function search_params_to_object(search_params) {
   const params = new URLSearchParams(search_params);
 
   try {
     if (params) {
-      const q = JSON.parse('{"' + decodeURI(params.toString().substring(1).replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}')
+      const q = JSON.parse(
+        '{"' +
+          decodeURI(
+            params
+              .toString()
+              .substring(1)
+              .replace(/&/g, '","')
+              .replace(/=/g, '":"')
+          ) +
+          '"}'
+      );
       const new_object = {};
 
       for (let k in q) {
@@ -186,43 +181,9 @@ export function search_params_to_object(search_params) {
       }
       return new_object;
     }
-
   } catch (e) {
-    konsole.error(`search_params_to_object error ${e}`)
+    konsole.error(`search_params_to_object error ${e}`);
   }
 
   return;
-}
-
-
-export type BreakPointTypes = "xs" | "sm" | "md" | "lg" | "xl" | "xxl"
-
-export function detectBreakpoint({ xs, sm, md, lg, xl, xxl }): BreakPointTypes {
-  if (xs) {
-    return "xs";
-  }
-
-  if (sm) {
-    return "sm";
-  }
-  
-  
-  if (md) {
-    return "md";
-  }
-  
-  if (lg) {
-    return "lg";
-  }
-  
-  if (xl) {
-    return "xl";
-  }
-  
-  if (xxl) {
-    return "xxl";
-  }
-  
-  
-  return 'lg';
 }

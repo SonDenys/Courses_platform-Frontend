@@ -1,10 +1,11 @@
 import axios from "axios";
-import konsole from "../../../konsole";
-import { BACKEND_URL } from "../../../params";
-import { config_json, prepare_query } from "./utils";
-import { course_idState } from "../../../_GlobalStates/globalState/index";
+// import { course_idState } from "../../../_GlobalStates/globalState/index";
 import { useRecoilState } from "recoil";
 import { result } from "lodash";
+
+import { BACKEND_URL } from "../../../params";
+import konsole from "../../../konsole";
+import { config_json, prepare_query } from "./utils";
 
 export async function create_course({ name, category, description }) {
   const query = prepare_query({
@@ -36,17 +37,17 @@ export async function create_course({ name, category, description }) {
   return [];
 }
 
-export async function get_courses({ _id }) {
+export async function get_courses() {
   const query: any = prepare_query(
     {
-      _id,
+      _id: "61fcf0151b2149ede4f26ee5",
     },
     true
   );
 
   try {
     const response: any = await axios.get(
-      `${BACKEND_URL}/api/v1.0/get_courses${query}`
+      `${BACKEND_URL}/api/v1.0/get_courses`
     );
 
     if (response && response.data) {
