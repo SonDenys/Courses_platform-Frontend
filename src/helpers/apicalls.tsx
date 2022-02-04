@@ -2,7 +2,7 @@ import axios from "axios";
 import konsole from "../konsole";
 import { BACKEND_URL } from "../params";
 import { config_json, prepare_query } from "./utils";
-import { course_idState } from "../../../_GlobalStates/globalState/index";
+// import { course_idState } from "../../../_GlobalStates/globalState/index";
 import { useRecoilState } from "recoil";
 import { result } from "lodash";
 

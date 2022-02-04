@@ -6,13 +6,15 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import InnerPageHeader from "../../../components/InnerPageHeader";
+import { get_courses } from "../../../helpers/apicalls";
 import konsole from "../../../konsole";
 import { BACKEND_URL } from "../../../params";
-import { course_idState } from "../../../_GlobalStates/globalState";
+import { prepare_query } from "../../../utils";
+// import { course_idState } from "../../../_GlobalStates/globalState";
 
 import { columns, table_data } from "../data";
-import { get_courses } from "../helpers/apicalls";
-import { prepare_query } from "../helpers/utils";
+
+
 
 export default function CoursePage(props: any) {
   const { t } = useTranslation();
