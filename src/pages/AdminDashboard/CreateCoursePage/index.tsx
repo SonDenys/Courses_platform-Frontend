@@ -6,7 +6,7 @@ import InnerPageHeader from "../../../components/InnerPageHeader";
 import { course_idState } from "../../../_GlobalStates/globalState";
 import { create_course } from "../helpers/apicalls";
 import { data } from "../../UserDashboard/data/index";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const layout = {
   labelCol: {
@@ -41,10 +41,11 @@ const CreateCoursePage = () => {
   const [courseName, setCourseName] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [course_id, setCourse_id] = useRecoilState(course_idState);
+  // const [course_id, setCourse_id] = useRecoilState(course_idState);
   const [result, setResult] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const { course_id } = useParams();
 
   const handleSubmit = async () => {
     const response = await create_course({
@@ -54,7 +55,7 @@ const CreateCoursePage = () => {
     });
     console.log("response createCourse Data = = =>", response);
     console.log("course_id = = = >", JSON.stringify(response.data._id));
-    setCourse_id(response.data._id);
+    // setCourse_id(response.data._id);
     setResult(true);
 
     if (result) {
