@@ -2,13 +2,10 @@ import { Form, Input, InputNumber, Button } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
-import { create_chapter } from "../AdminDashboard/helpers/apicalls";
-import {
-  chapter_idState,
-  course_idState,
-} from "../../_GlobalStates/globalState/index";
+import { useNavigate, useParams } from "react-router-dom";
+
 import InnerPageHeader from "../../components/InnerPageHeader";
+import { create_chapter } from "../../helpers/apicalls";
 
 const layout = {
   labelCol: {
@@ -36,16 +33,20 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const CreateChapterPage = () => {
-  const onFinish = (values) => {
-    console.log(values);
-  };
+  const {course_id } = useParams();
   const { t } = useTranslation();
   const [chapterName, setChapterName] = useState("");
   const [description, setDescription] = useState("");
-  const [chapter_id, setChapter_id] = useRecoilState(chapter_idState);
-  const [course_id, setCourse_id] = useRecoilState(course_idState);
+  
+  
   const [result, setResult] = useState(false);
   const navigate = useNavigate();
+  
+
+
+  const onFinish = (values) => {
+    console.log(values);
+  };
 
   const handleSubmit = async () => {
     const response = await create_chapter({
@@ -55,12 +56,11 @@ const CreateChapterPage = () => {
     });
     console.log("response createChapter Data = = =>", response);
     console.log("chapter_id = = = >", JSON.stringify(response.data._id));
-    setChapter_id(response.data._id);
     setResult(true);
   };
 
   if (result) {
-    navigate("/admin/createcourse/createchapter/createsection");
+    navigate(`/admin/course/chapters/createchapter/${course_id}`);
   } else {
     console.log("");
   }
