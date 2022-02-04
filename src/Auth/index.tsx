@@ -16,7 +16,7 @@ import {
 // import FileClient from "../signalx-js/file_client";
 
 // import jwt from "jsonwebtoken";
-import * as jose from 'jose';
+import * as jose from "jose";
 import { setAccessToken as axiosSetAccessToken } from "axios-jwt";
 
 import konsole from "../konsole";
@@ -24,7 +24,6 @@ import i18n from "i18next";
 import { getLocalData, S, setLocalData } from "../utils";
 import _ from "lodash";
 import { setActiveSignedUserId, setActiveUserName } from "../_GlobalStates";
-
 
 export let ACCESS_TOKEN: string = "";
 export let REFRESH_TOKEN: string = "";
@@ -37,6 +36,8 @@ let IS_AUTHENTICATED: boolean = false;
 
 export function set_PUBLIC_KEY(key: string) {
   PUBLIC_KEY = key;  
+  // PUBLIC_KEY_UINT8 = Uint8Array.from(key, (c) => c.charCodeAt(0));
+  // PUBLIC_KEY = key;
   // PUBLIC_KEY_UINT8 = Uint8Array.from(key, (c) => c.charCodeAt(0));
 }
 
@@ -112,17 +113,17 @@ export interface TokenCacheProps {
 
 export interface TokenCachePropsKeys {
   key:
-  | "access_token"
-  | "refresh_token"
-  | "payload"
-  | "organisation"
-  | "channel"
-  | "selectedCompany"
-  | "selectedStore"
-  | "seletedUnit"
-  | "selectedDai"
-  | "selectedTana"
-  | "language";
+    | "access_token"
+    | "refresh_token"
+    | "payload"
+    | "organisation"
+    | "channel"
+    | "selectedCompany"
+    | "selectedStore"
+    | "seletedUnit"
+    | "selectedDai"
+    | "selectedTana"
+    | "language";
 }
 
 export interface WSPlayloadProps {
@@ -257,12 +258,20 @@ export async function loadTokenCache(): Promise<TokenCacheProps> {
   const name = token_data.payload.firstname || token_data.payload.username;
   setActiveUserName(name);
   if (token_data.access_token)
-    await initSignalXClient(token_data.access_token, token_data.refresh_token || "", null);
+    await initSignalXClient(
+      token_data.access_token,
+      token_data.refresh_token || "",
+      null
+    );
 
   return token_data;
 }
 
-export async function initSignalXClient(token: string, refresh_token: string, password?: string | null) {
+export async function initSignalXClient(
+  token: string,
+  refresh_token: string,
+  password?: string | null
+) {
   console.log(`password ${password}`);
   console.log(`password ${password}`);
   console.log(`password ${password}`);
@@ -288,7 +297,7 @@ export async function initSignalXClient(token: string, refresh_token: string, pa
 
       if (password) {
         const client = {} as any;
-        
+
         // await FileClient.init({
         //   url: SIGNALX_API_URL as any,
         //   token: access_token,
@@ -305,7 +314,7 @@ export async function initSignalXClient(token: string, refresh_token: string, pa
         const refresh_token: any = response?.data?.refresh_token || "";
 
         const client = "";
-        
+
         // await FileClient.init({
         //   url: SIGNALX_API_URL as any,
         //   token: token,
@@ -593,6 +602,6 @@ export async function loadPublicKey() {
   }
   // PUBLIC_KEY = "";
   set_PUBLIC_KEY("");
-  
+
   return "";
 }

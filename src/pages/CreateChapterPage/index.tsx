@@ -2,12 +2,13 @@ import { Form, Input, InputNumber, Button } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useRecoilState } from "recoil";
-import InnerPageHeader from "../../../components/InnerPageHeader";
-import { create_course } from "../../../helpers/apicalls";
-// import { course_idState } from "../../../_GlobalStates/globalState";
-import { data } from "../../UserDashboard/data/index";
-import { useNavigate, useParams } from "react-router-dom";
-import { useMyToast } from "../../../_GlobalStates/hooks";
+import { useNavigate } from "react-router-dom";
+import { create_chapter } from "../AdminDashboard/helpers/apicalls";
+import {
+  chapter_idState,
+  course_idState,
+} from "../../_GlobalStates/globalState/index";
+import InnerPageHeader from "../../components/InnerPageHeader";
 
 const layout = {
   labelCol: {
@@ -34,48 +35,39 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const CreateCoursePage = () => {
+const CreateChapterPage = () => {
   const onFinish = (values) => {
     console.log(values);
   };
-  const [ courseId, setCourseId ] = useState();
   const { t } = useTranslation();
-  const [courseName, setCourseName] = useState("");
-  const [category, setCategory] = useState("");
+  const [chapterName, setChapterName] = useState("");
   const [description, setDescription] = useState("");
+  const [chapter_id, setChapter_id] = useRecoilState(chapter_idState);
+  const [course_id, setCourse_id] = useRecoilState(course_idState);
   const [result, setResult] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  const toast = useMyToast();
-
-  
 
   const handleSubmit = async () => {
-
-    const response = await create_course({
-      name: courseName,
-      category,
+    const response = await create_chapter({
+      course_id,
+      name: chapterName,
       description,
     });
-    console.log("response createCourse Data = = =>", response);
-    console.log("course_id = = = >", JSON.stringify(response.data._id));
-    
+    console.log("response createChapter Data = = =>", response);
+    console.log("chapter_id = = = >", JSON.stringify(response.data._id));
+    setChapter_id(response.data._id);
     setResult(true);
-    
-    if (result) {
-      const _course_id = response.data._id
-      setCourseId(_course_id)
-      navigate("/admin/courses", {replace: true});
-    } else {
-      console.log("Create Course Failed");
-      setErrorMessage("Create Course Failed");
-      toast.error("Create Course Failed");
-    }
   };
+
+  if (result) {
+    navigate("/admin/createcourse/createchapter/createsection");
+  } else {
+    console.log("");
+  }
 
   return (
     <>
-      <InnerPageHeader title={t("Create course")} goBack={true} />
+      <InnerPageHeader title={t("Create chapter")} goBack={true} />
       <Form
         {...layout}
         name="nest-messages"
@@ -84,7 +76,7 @@ const CreateCoursePage = () => {
       >
         <Form.Item
           name="name"
-          label="Course Name"
+          label="Chapter Name"
           rules={[
             {
               required: true,
@@ -92,15 +84,8 @@ const CreateCoursePage = () => {
           ]}
         >
           <Input
-            onChange={(event) => setCourseName(event.target.value)}
-            value={courseName}
-          />
-        </Form.Item>
-
-        <Form.Item name="category" label="Category">
-          <Input
-            onChange={(event) => setCategory(event.target.value)}
-            value={category}
+            onChange={(event) => setChapterName(event.target.value)}
+            value={chapterName}
           />
         </Form.Item>
 
@@ -110,8 +95,6 @@ const CreateCoursePage = () => {
             value={description}
           />
         </Form.Item>
-
-        <p>{errorMessage}</p>
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button
@@ -129,4 +112,4 @@ const CreateCoursePage = () => {
   );
 };
 
-export default CreateCoursePage;
+export default CreateChapterPage;
