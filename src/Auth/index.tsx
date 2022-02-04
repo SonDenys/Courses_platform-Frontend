@@ -195,10 +195,14 @@ export async function validatedToken(props: validatedTokenProps) {
         `);
     // const payload = jwt.verify(access_token, PUBLIC_KEY, {
     // const pkey = Uint8Array.from(PUBLIC_KEY, (c) => c.charCodeAt(0));
-    const payload = await jose.jwtVerify(access_token, PUBLIC_KEY as any, {
+    const result = await jose.jwtVerify(access_token, PUBLIC_KEY as any, {
       issuer: ISSUER,
       algorithms: [ALGORITHM as any],
     });
+    if(!result) {
+      throw new Error("Invalid token");
+    }
+    const payload = result.payload;
 
     console.log(` verify payload : 
         ${S(payload)}`);
