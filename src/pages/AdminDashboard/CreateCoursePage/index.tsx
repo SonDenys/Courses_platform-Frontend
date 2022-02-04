@@ -2,7 +2,7 @@ import { Form, Input, InputNumber, Button } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import InnerPageHeader from "../../../components/InnerPageHeader";
-import { create_course } from "../helpers/apicalls";
+import { create_course } from "../../../helpers/apicalls";
 
 const layout = {
   labelCol: {

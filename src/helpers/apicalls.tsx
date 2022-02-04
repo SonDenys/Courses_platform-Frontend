@@ -1,6 +1,6 @@
 import axios from "axios";
-import konsole from "../../../konsole";
-import { BACKEND_URL } from "../../../params";
+import konsole from "../konsole";
+import { BACKEND_URL } from "../params";
 import { config_json, prepare_query } from "./utils";
 
 export async function create_course({ name, category, description }) {

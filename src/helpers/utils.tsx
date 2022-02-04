@@ -4,8 +4,8 @@ import i18n from "i18next";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import urljoin from "url-join";
-import { API_VERSION, BACKEND_URL } from "../../../params";
-import konsole from "../../../konsole";
+import { API_VERSION, BACKEND_URL } from "../params";
+import konsole from "../konsole";
 
 export const config_urlencode = {
   headers: {

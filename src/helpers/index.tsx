@@ -6,10 +6,10 @@ import {
   getRefreshToken,
   resetTokenCache,
   setAuthStatus,
-} from "../../../Auth";
-import konsole from "../../../konsole";
-import { BACKEND_URL, REFRESH_TOKEN_URI } from "../../../params";
-import { S } from "../../../utils";
+} from "../Auth";
+import konsole from "../konsole";
+import { BACKEND_URL, REFRESH_TOKEN_URI } from "../params";
+import { S } from "../utils";
 
 // import data from "../Local/translations";
 
