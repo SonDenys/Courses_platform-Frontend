@@ -2,7 +2,7 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { render } from "react-dom";
 import { Navigate, Outlet, Route, RouteObject, Routes, useRoutes } from "react-router-dom";
-import { isAuthenticated } from "../../Auth";
+import { isAuthenticated } from "../Auth";
 // import Header from "../../components/Header";
 // import Home2 from "../Home2";
 // import Page404 from "../Page404";

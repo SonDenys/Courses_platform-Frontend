@@ -55,25 +55,25 @@ export default function AdminLogin() {
       } catch (e) {
         console.log(`Could not signin: ${e}`);
       }
-      console.log("result result result result result result result result ");
-      console.log("result result result result result result result result ");
-      console.log("result login ====", result.data);
-      console.log("result result result result result result result result ");
-      console.log("result result result result result result result result ");
+      // console.log("result result result result result result result result ");
+      // console.log("result result result result result result result result ");
+      // console.log("result login ====", result.data);
+      // console.log("result result result result result result result result ");
+      // console.log("result result result result result result result result ");
 
-      if (result.data) {
+      if (result && result.data) {
         const d: any = result.data;
         //set the state of the organizations data
         const access_token: string = d.access_token;
         const refresh_token: string = d.refresh_token;
 
-        await initSignalXClient(access_token, refresh_token, data.password);
+        // await initSignalXClient(access_token, refresh_token, data.password);
         await CreateTokenCache({ access_token, refresh_token });
 
         // create siglnalx client
         // setSignalClient(sxclient);
 
-        navigate("/admin/home");
+        navigate("/admin/home", {replace: true});
       } else {
         setErrorMessage("⚠️ There is an error login");
       }
@@ -87,6 +87,7 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <h1>LOGIN</h1>
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 import { Navigate, Route, useLocation } from "react-router-dom"
-import { isAuthenticated } from "../../Auth"
+import { isAuthenticated } from "../Auth"
 import { AppRouterObject } from "./route_config"
 // import Spinner from "../../components/spinner";
 // import Spinner from "../../components/Spinner"

@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Button } from 'antd';
 import Comp1 from './components/comp1';
-import AppRouter from './pages/AppRouter';
+import AppRouter from './AppRouter';
 import { RecoilRoot } from "recoil";
 // import Helmet from "react-helmet";
 import { ToastProvider } from "react-toast-notifications";

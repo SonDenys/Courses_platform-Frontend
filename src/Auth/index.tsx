@@ -202,20 +202,17 @@ export async function validatedToken(props: validatedTokenProps) {
     if(!result) {
       throw new Error("Invalid token");
     }
-    const payload = result.payload;
+    const payload: any = result.payload;
 
-    console.log(` verify payload : 
+    console.log(`XXXXXXXX verify payload : 
         ${S(payload)}`);
 
-    //await saveTokenCache(payload)
-    // await axiosSetAccessToken(access_token)
+    await SaveTokenCache(payload)
+    await axiosSetAccessToken(access_token)
     setAuthStatus(true);
 
-    // const status = getAuthStatus()
-    // konsole.log(`setAuthStatus === ${status}`)
-
-    console.log(` verify payload  4: 
-        ${S(payload)}`);
+    const status = getAuthStatus()
+    konsole.log(`setAuthStatus === ${status}`)
 
     return payload;
   } catch (e) {

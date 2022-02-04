@@ -1,41 +1,33 @@
 import React, { lazy } from "react";
 import { Navigate, RouteObject } from "react-router-dom";
-import RootPage from "../RootPage";
+import RootPage from "../pages/RootPage";
 // import MainApp from "../MainApp";
-import Page404 from "../Page404";
-import MainApp from "../MainApp";
-import Dummy from "../Dummy";
+import Page404 from "../pages/Page404";
+import MainApp from "../pages/MainApp";
+import Dummy from "../pages/Dummy";
 
-import AdminDashboard from "../AdminDashboard";
-import UserDashboard from "../UserDashboard";
-import AdminHome from "../AdminDashboard/AdminHome";
-import UserHome from "../UserDashboard/UserHome";
-import ActiveCoursePage from "../AdminDashboard/ActiveCoursePage";
-import EditActiveCoursePage from "../AdminDashboard/ActiveSectionPage";
-import StudentsPage from "../AdminDashboard/StudentsPage";
-import CreateStudentsPage from "../AdminDashboard/StudentsPage/CreateStudentsPage";
-import ChapterPage from "../AdminDashboard/ChapterPage";
-import CreateCoursePage from "../AdminDashboard/CreateCoursePage";
+import AdminDashboard from "../pages/AdminDashboard";
+import UserDashboard from "../pages/UserDashboard";
+import AdminHome from "../pages/AdminDashboard/AdminHome";
+import UserHome from "../pages/UserDashboard/UserHome";
+import ActiveCoursePage from "../pages/AdminDashboard/ActiveCoursePage";
+import EditActiveCoursePage from "../pages/AdminDashboard/ActiveSectionPage";
+import StudentsPage from "../pages/AdminDashboard/StudentsPage";
+import CreateStudentsPage from "../pages/AdminDashboard/StudentsPage/CreateStudentsPage";
+import ChapterPage from "../pages/AdminDashboard/ChapterPage";
+import CreateCoursePage from "../pages/AdminDashboard/CreateCoursePage";
 
-// import { PrepareRoute } from "./utils";
-// import Login from "../Login";
-// import RootPage from "../RootPage";
-// import ProductFeatures from "../ProductFeatures";
-
-// import PaymentPage from "../PaymentPage";
-// import SuccessPaymentPage from "../PaymentPage/SuccessPaymentPage";
-// import FailedPaymentPage from "../PaymentPage/FailedPaymentPage";
-import AdminLogin from "../AdminDashboard/AdminLogin/index";
-import AdminSignup from "../AdminDashboard/AdminSignup";
-import CreateChapterPage from "../CreateChapterPage";
+import AdminLogin from "../pages/AdminDashboard/AdminLogin/index";
+import AdminSignup from "../pages/AdminDashboard/AdminSignup";
+import CreateChapterPage from "../pages/CreateChapterPage";
 
 // const LandingPage = lazy(() => import("../LandingPage"));
-const Home = lazy(() => import("../Home"));
-const CoursePage = lazy(() => import("../AdminDashboard/CoursePage"));
-const SectionPage = lazy(() => import("../AdminDashboard/SectionPage"));
-const SubSectionPage = lazy(() => import("../AdminDashboard/SubSectionPage"));
+const Home = lazy(() => import("../pages/Home"));
+const CoursePage = lazy(() => import("../pages/AdminDashboard/CoursePage"));
+const SectionPage = lazy(() => import("../pages/AdminDashboard/SectionPage"));
+const SubSectionPage = lazy(() => import("../pages/AdminDashboard/SubSectionPage"));
 const EditSubSectionPage = lazy(
-  () => import("../AdminDashboard/SubSectionPage/EditSubSectionPage")
+  () => import("../pages/AdminDashboard/SubSectionPage/EditSubSectionPage")
 );
 
 // const Home_v2 = lazy(() => import("../Home_v2"));

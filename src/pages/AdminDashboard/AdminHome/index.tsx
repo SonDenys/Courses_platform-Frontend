@@ -8,7 +8,7 @@ export default function AdminHome() {
 
   return (
     <>
-      <InnerPageHeader goBack={true} />
+      <InnerPageHeader goBack />
       <h1>Admin Home</h1>
     </>
   );
