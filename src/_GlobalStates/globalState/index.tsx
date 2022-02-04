@@ -159,3 +159,8 @@ export const course_idState = atom<any>({
   key: "course_idState",
   default: "",
 });
+
+export const chapter_idState = atom<any>({
+  key: "chapter_idState",
+  default: "",
+});

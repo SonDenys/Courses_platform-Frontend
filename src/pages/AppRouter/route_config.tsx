@@ -27,6 +27,7 @@ import CreateCoursePage from "../AdminDashboard/CreateCoursePage";
 // import FailedPaymentPage from "../PaymentPage/FailedPaymentPage";
 import AdminLogin from "../AdminDashboard/AdminLogin/index";
 import AdminSignup from "../AdminDashboard/AdminSignup";
+import CreateChapterPage from "../CreateChapterPage";
 
 // const LandingPage = lazy(() => import("../LandingPage"));
 const Home = lazy(() => import("../Home"));
@@ -136,6 +137,7 @@ export function getRoutes(): AppRouterObject[] {
         },
 
         { path: "createcourse", element: <CreateCoursePage /> },
+        { path: "createcourse/createchapter", element: <CreateChapterPage /> },
 
         {
           path: "courses",
