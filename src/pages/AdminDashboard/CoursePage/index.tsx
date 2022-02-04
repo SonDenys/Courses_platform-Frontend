@@ -6,20 +6,22 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import InnerPageHeader from "../../../components/InnerPageHeader";
+import konsole from "../../../konsole";
 import { BACKEND_URL } from "../../../params";
 import { course_idState } from "../../../_GlobalStates/globalState";
 
 import { columns, table_data } from "../data";
+import { get_courses } from "../helpers/apicalls";
 import { prepare_query } from "../helpers/utils";
 
 export default function CoursePage(props: any) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [course_id, setCourse_id] = useRecoilState(course_idState);
+  // const [course_id, setCourse_id] = useRecoilState(course_idState);
 
   const query: any = prepare_query(
     {
-      _id: course_id,
+      _id: "_id",
       do_list: false,
     },
     true
@@ -28,9 +30,8 @@ export default function CoursePage(props: any) {
   useEffect(() => {
     (async () => {
       try {
-        const response: any = await axios.get(
-          `${BACKEND_URL}/api/v1.0/get_courses`
-        );
+        const response = await get_courses({ _id: "_id" });
+        konsole.log("response response = = =>", response);
       } catch (error) {
         console.log(error);
       }

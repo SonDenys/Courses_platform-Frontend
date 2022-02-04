@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import InnerPageHeader from "../../../components/InnerPageHeader";
 import { course_idState } from "../../../_GlobalStates/globalState";
 import { create_course } from "../helpers/apicalls";
+import { data } from "../../UserDashboard/data/index";
 
 const layout = {
   labelCol: {
@@ -40,7 +41,6 @@ const CreateCoursePage = () => {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [course_id, setCourse_id] = useRecoilState(course_idState);
-  const [data, setData] = useState("");
 
   const handleSubmit = async () => {
     const response = await create_course({
@@ -48,8 +48,9 @@ const CreateCoursePage = () => {
       category,
       description,
     });
-    setData(response);
-    console.log(response);
+    console.log("response = = =>", response);
+    console.log("course_id = = = >", JSON.stringify(response.data._id));
+    setCourse_id(response.data._id);
   };
 
   return (
