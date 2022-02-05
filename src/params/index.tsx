@@ -3,10 +3,11 @@ export const BACKEND_URL =
 
 console.log(`BACKEND_URL ====== ${BACKEND_URL}`);
 
-export const ISSUER = process.env.REACT_APP_AEOLIA_ISSUER;
+// export const ISSUER = process.env.REACT_APP_AEOLIA_ISSUER? [process.env.REACT_APP_AEOLIA_ISSUER] : ["api.signalx.link", "aeolia-api.aeonx.ai"];
+export const ISSUER = process.env.REACT_APP_AEOLIA_ISSUER? [process.env.REACT_APP_AEOLIA_ISSUER] : ["api.signalx.link"];
 export const PUBLIC_KEY_URL = "/public/public-key.txt";
 export const REFRESH_TOKEN_URI = "/auth/refresh_token";
-export const ALGORITHM = process.env.REACT_APP_ALGORITHM || "RS256";
+export const ALGORITHMS: string[] = [process.env.REACT_APP_ALGORITHM || "RS256"];
 
 //  SignalX
 
@@ -31,7 +32,7 @@ export const AUTH_STATUS_KEY = "__aeolia_auth_status__";
 export const API_VERSION = "/api/v1.0";
 // export const REFRESH_TOKEN_ENDPOINT = "/auth/refresh_token";
 
-export const LS_TOKEN_CACHE_KEY = "__aeolia_token_cache_data1__";
+export const LS_TOKEN_CACHE_KEY = "__aeolia_token_cache_data__";
 
 export const LANGUAGE_SETTINGS_KEY = "__aefx__language_setting__";
 

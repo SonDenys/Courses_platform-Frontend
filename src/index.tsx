@@ -37,7 +37,10 @@ async function startup() {
   init_i18n();
   await loadPublicKey();
   const data = await loadTokenCache();
-  // const data = {}
+  
+  console.log(`data======>`, data);
+
+
 
   // if (Object.keys(data).length) {
   //   getSocket()

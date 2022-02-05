@@ -124,7 +124,7 @@ export async function getLocalData(key) {
   // konsole.log("getLocalData")
   // konsole.log("getLocalData")
   // konsole.log("getLocalData")
-  return await JSON.parse(value);
+  return JSON.parse(value);
   // return await get(key)
 }
 
@@ -186,4 +186,10 @@ export function search_params_to_object(search_params) {
   }
 
   return;
+}
+
+
+export function processPublicKeyString(public_key_string) {
+  const pkey = (public_key_string || "").replace(/\n/g, "").replace(/\s/g, "").replace(/-----BEGINPUBLICKEY-----/g, "").replace(/-----ENDPUBLICKEY-----/g, "").replace(/-----BEGINPRIVATEKEY-----/g, "").replace(/-----ENDPRIVATEKEY-----/g, "")
+  return Uint8Array.from(pkey, (c: any) => c.charCodeAt(0))
 }

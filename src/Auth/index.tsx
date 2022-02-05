@@ -3,13 +3,13 @@ import axios from "axios";
 import {
   BACKEND_URL,
   PUBLIC_KEY_URL,
-  ISSUER,
-  ALGORITHM,
+  ISSUER,  
   LS_TOKEN_CACHE_KEY,
   AEOLIA_PUBLIC_KEY_URL,
   setSignalXClient,
   getSignalXClient,
   SIGNALX_API_URL,
+  ALGORITHMS,
 } from "../params";
 
 // import { FileClient, pbkdf } from "../signalx-js/file_client";
@@ -21,21 +21,21 @@ import { setAccessToken as axiosSetAccessToken } from "axios-jwt";
 
 import konsole from "../konsole";
 import i18n from "i18next";
-import { getLocalData, S, setLocalData } from "../utils";
+import { getLocalData, processPublicKeyString, S, setLocalData } from "../utils";
 import _ from "lodash";
 import { setActiveSignedUserId, setActiveUserName } from "../_GlobalStates";
+import { checkJWT, getKeyObject } from "./utils";
 
 export let ACCESS_TOKEN: string = "";
 export let REFRESH_TOKEN: string = "";
-export let PUBLIC_KEY: string = "";
-export let PUBLIC_KEY_UINT8: string = "" as any;
+export let PUBLIC_KEY: any;
 export const AUTH_STATUS_KEY = "aeolia_auth_status";
 export let TOKEN_DATA: TokenCacheProps = {};
 
 let IS_AUTHENTICATED: boolean = false;
 
 export function set_PUBLIC_KEY(key: string) {
-  PUBLIC_KEY = key;  
+  PUBLIC_KEY = getKeyObject(key);  
   // PUBLIC_KEY_UINT8 = Uint8Array.from(key, (c) => c.charCodeAt(0));
   // PUBLIC_KEY = key;
   // PUBLIC_KEY_UINT8 = Uint8Array.from(key, (c) => c.charCodeAt(0));
@@ -187,28 +187,21 @@ export async function validatedToken(props: validatedTokenProps) {
   const access_token: string = props.access_token || "";
 
   try {
-    console.log(` verify payload : 
-            ${access_token}
+    console.log(`AAAAAAAA verify payload : 
+    ${access_token}
             ${PUBLIC_KEY}
             ${ISSUER}
-            ${ALGORITHM}
+            ${ALGORITHMS[0]}
         `);
-    // const payload = jwt.verify(access_token, PUBLIC_KEY, {
-    // const pkey = Uint8Array.from(PUBLIC_KEY, (c) => c.charCodeAt(0));
-    const result = await jose.jwtVerify(access_token, PUBLIC_KEY as any, {
-      issuer: ISSUER,
-      algorithms: [ALGORITHM as any],
-    });
-    if(!result) {
-      throw new Error("Invalid token");
-    }
-    const payload: any = result.payload;
-
+    
+    const payload = checkJWT(access_token, PUBLIC_KEY);
+    
     console.log(`XXXXXXXX verify payload : 
         ${S(payload)}`);
 
+    
+    // await axiosSetAccessToken(access_token)
     await SaveTokenCache(payload)
-    await axiosSetAccessToken(access_token)
     setAuthStatus(true);
 
     const status = getAuthStatus()
@@ -234,7 +227,7 @@ export async function loadTokenCache(): Promise<TokenCacheProps> {
   konsole.log("token_data token_data token_data token_data token_data ");
   konsole.log("token_data token_data token_data token_data token_data ");
   konsole.log("token_data token_data token_data token_data token_data ");
-  konsole.log(`verify payload 3 ${S(token_data)}`);
+  konsole.dir(token_data);
   konsole.log("token_data token_data token_data token_data token_data ");
   konsole.log("token_data token_data token_data token_data token_data ");
   konsole.log("token_data token_data token_data token_data token_data ");
@@ -245,8 +238,8 @@ export async function loadTokenCache(): Promise<TokenCacheProps> {
     access_token: token_data.access_token,
   })) || {}) as PayloadProps;
 
-  console.log(` verify payload : 2
-        ${S(payload)}`);
+  console.log(` verify payload : 2 ${S(payload)}`);
+  console.dir(payload)
 
   if (_.size(payload)) {
     return {} as any;
@@ -258,12 +251,12 @@ export async function loadTokenCache(): Promise<TokenCacheProps> {
   await SaveTokenCache(token_data);
   const name = token_data.payload.firstname || token_data.payload.username;
   setActiveUserName(name);
-  if (token_data.access_token)
-    await initSignalXClient(
-      token_data.access_token,
-      token_data.refresh_token || "",
-      null
-    );
+  // if (token_data.access_token)
+  //   await initSignalXClient(
+  //     token_data.access_token,
+  //     token_data.refresh_token || "",
+  //     null
+  //   );
 
   return token_data;
 }
@@ -606,3 +599,5 @@ export async function loadPublicKey() {
 
   return "";
 }
+
+
