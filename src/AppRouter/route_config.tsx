@@ -19,13 +19,17 @@ import CreateCoursePage from "../pages/AdminDashboard/CreateCoursePage";
 
 import AdminLogin from "../pages/AdminDashboard/AdminLogin/index";
 import AdminSignup from "../pages/AdminDashboard/AdminSignup";
-import CreateChapterPage from "../pages/CreateChapterPage";
+import CreateChapterPage from "../pages/AdminDashboard/CreateChapterPage";
+import CreateSectionPage from "../pages/AdminDashboard/CreateSectionPage";
+import CreateSubsectionPage from "../pages/AdminDashboard/CreateSubsectionPage";
 
 // const LandingPage = lazy(() => import("../LandingPage"));
 const Home = lazy(() => import("../pages/Home"));
 const CoursePage = lazy(() => import("../pages/AdminDashboard/CoursePage"));
 const SectionPage = lazy(() => import("../pages/AdminDashboard/SectionPage"));
-const SubSectionPage = lazy(() => import("../pages/AdminDashboard/SubSectionPage"));
+const SubSectionPage = lazy(
+  () => import("../pages/AdminDashboard/SubSectionPage")
+);
 const EditSubSectionPage = lazy(
   () => import("../pages/AdminDashboard/SubSectionPage/EditSubSectionPage")
 );
@@ -135,7 +139,7 @@ export function getRoutes(): AppRouterObject[] {
         { path: "courses/createcourse", element: <CreateCoursePage /> },
         { path: "courses/chapters/:course_id", element: <ChapterPage /> },
         {
-          path: "courses/chapters/create_chapter/:course_id",
+          path: "courses/chapters/createchapter/:course_id",
           element: <CreateChapterPage />,
         },
         {
@@ -143,9 +147,19 @@ export function getRoutes(): AppRouterObject[] {
           element: <SectionPage />,
         },
         {
+          path: "courses/chapters/sections/createsection/:course_id/:chapter_id",
+          element: <CreateSectionPage />,
+        },
+        {
           path: "courses/chapters/sections/subsections/:course_id/:chapter_id/:section_id",
           element: <SubSectionPage />,
         },
+
+        {
+          path: "courses/chapters/sections/subsections/createsubsection/:course_id/:chapter_id/:section_id",
+          element: <CreateSubsectionPage />,
+        },
+
         {
           path: "courses/chapters/sections/subsections/edit/:course_id/:chapter_id/:section_id/:subsection_id",
           element: <EditSubSectionPage />,

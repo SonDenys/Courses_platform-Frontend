@@ -55,11 +55,11 @@ export default function AdminLogin() {
       } catch (e) {
         console.log(`Could not signin: ${e}`);
       }
-      // console.log("result result result result result result result result ");
-      // console.log("result result result result result result result result ");
-      // console.log("result login ====", result.data);
-      // console.log("result result result result result result result result ");
-      // console.log("result result result result result result result result ");
+      console.log("result result result result result result result result ");
+      console.log("result result result result result result result result ");
+      console.log("result login ====", result.data);
+      console.log("result result result result result result result result ");
+      console.log("result result result result result result result result ");
 
       if (result && result.data) {
         const d: any = result.data;
@@ -73,7 +73,7 @@ export default function AdminLogin() {
         // create siglnalx client
         // setSignalClient(sxclient);
 
-        navigate("/admin/home", {replace: true});
+        navigate("/admin/home", { replace: true });
       } else {
         setErrorMessage("⚠️ There is an error login");
       }
@@ -83,7 +83,7 @@ export default function AdminLogin() {
     return false;
   };
 
-  console.log("email login = = =>", email);
+  // console.log("email login = = =>", email);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

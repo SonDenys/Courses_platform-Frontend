@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useRecoilState } from "recoil";
 import { useNavigate, useParams } from "react-router-dom";
 
-import InnerPageHeader from "../../components/InnerPageHeader";
-import { create_chapter } from "../AdminDashboard/helpers/apicalls";
+import InnerPageHeader from "../../../components/InnerPageHeader";
+import { create_subsection } from "../helpers/apicalls";
 
 const layout = {
   labelCol: {
@@ -32,10 +32,10 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const CreateChapterPage = () => {
-  const { course_id } = useParams();
+const CreateSubsectionPage = () => {
+  const { course_id, chapter_id, section_id } = useParams();
   const { t } = useTranslation();
-  const [chapterName, setChapterName] = useState("");
+  const [subsectionName, setSubsectionName] = useState("");
   const [description, setDescription] = useState("");
 
   const [result, setResult] = useState(false);
@@ -45,26 +45,35 @@ const CreateChapterPage = () => {
     console.log(values);
   };
 
+  console.log("course id course id course id", course_id);
+  console.log("chapter_id chapter_id chapter_id", chapter_id);
+  console.log("section_id section_id section_id", section_id);
+
   const handleSubmit = async () => {
-    const response = await create_chapter({
+    const response = await create_subsection({
+      chapter_id,
       course_id,
-      name: chapterName,
+      section_id,
+      name: subsectionName,
       description,
     });
-    console.log("response createChapter Data = = =>", response);
-    console.log("chapter_id = = = >", JSON.stringify(response.data._id));
+    console.log("response createSubsection Data = = =>", response);
+    console.log("Subsection_id = = = >", JSON.stringify(response.data._id));
     setResult(true);
   };
 
   if (result) {
-    navigate(`/admin/course/chapters/createchapter/${course_id}`);
+    // navigate to SubSection Page
+    navigate(
+      `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}`
+    );
   } else {
     console.log("");
   }
 
   return (
     <>
-      <InnerPageHeader title={t("Create chapter")} goBack={true} />
+      <InnerPageHeader title={t("Create Subsection")} goBack={true} />
       <Form
         {...layout}
         name="nest-messages"
@@ -73,7 +82,7 @@ const CreateChapterPage = () => {
       >
         <Form.Item
           name="name"
-          label="Chapter Name"
+          label="Subsection Name"
           rules={[
             {
               required: true,
@@ -81,8 +90,8 @@ const CreateChapterPage = () => {
           ]}
         >
           <Input
-            onChange={(event) => setChapterName(event.target.value)}
-            value={chapterName}
+            onChange={(event) => setSubsectionName(event.target.value)}
+            value={subsectionName}
           />
         </Form.Item>
 
@@ -109,4 +118,4 @@ const CreateChapterPage = () => {
   );
 };
 
-export default CreateChapterPage;
+export default CreateSubsectionPage;

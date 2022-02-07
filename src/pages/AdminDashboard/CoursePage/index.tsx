@@ -28,8 +28,7 @@ export default function CoursePage(props: any) {
         console.log(error);
       }
     })();
-  }, [data]);
-
+  }, []);
 
   const columns = [
     {
@@ -39,9 +38,39 @@ export default function CoursePage(props: any) {
       render: (text: any, record: any) => {
         const course_id = record._id;
         return (
-          <span onClick={() => navigate(`/admin/courses/sections/${course_id}`)}>{text}</span>
-        )
-      }
+          <span
+            className="cursor-pointer"
+            onClick={() => navigate(`/admin/courses/chapters/${course_id}`)}
+          >
+            {text}
+          </span>
+        );
+      },
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
+    },
+    {
+      title: "Created_at",
+      dataIndex: "created_at",
+      key: "created_at",
+    },
+    {
+      title: "Updated_at",
+      dataIndex: "updated_at",
+      key: "updated_at",
+    },
+    {
+      title: "Created_by",
+      dataIndex: "created_by",
+      key: "created_by",
+    },
+    {
+      title: "Updated_by",
+      dataIndex: "updated_by",
+      key: "updated_by",
     },
     {
       title: t("actions"),
@@ -49,22 +78,30 @@ export default function CoursePage(props: any) {
       // dataIndex: "actions",
       render: (text: any, record: any) => {
         const course_id = record._id;
-        return (<>
-          <Space direction="horizontal">
-            <Button onClick={() => navigate(`/admin/courses/courseedit/${course_id}`)}>{t("edit")}</Button>
-            <Button onClick={() => console.log("delete course")}>{t("delete")}</Button>
-          </Space>
-        </>)
-      }
-
-    }
-  ]
-
+        return (
+          <>
+            <Space direction="horizontal">
+              <Button
+                onClick={() =>
+                  navigate(`/admin/courses/courseedit/${course_id}`)
+                }
+              >
+                {t("edit")}
+              </Button>
+              <Button onClick={() => console.log("delete course")}>
+                {t("delete")}
+              </Button>
+            </Space>
+          </>
+        );
+      },
+    },
+  ];
 
   return (
     <>
       <InnerPageHeader
-        title={t("courses")}
+        title={t("Courses")}
         goBack
         onCreateClick={() => navigate("/admin/courses/createcourse")}
       />

@@ -5,7 +5,7 @@ import { result } from "lodash";
 
 import { BACKEND_URL } from "../../../params";
 import konsole from "../../../konsole";
-import { config_json, prepare_query } from "./utils";
+import { config_json, prepare_query, make_query_string } from "./utils";
 
 export async function create_course({ name, category, description }) {
   const query = prepare_query({
@@ -141,13 +141,11 @@ export async function create_chapter({ course_id, name, description }) {
 }
 
 export async function get_chapters({ course_id }) {
-  const query = prepare_query({
-    course_id,
-  });
+  const query: any = prepare_query({ course_id }, true);
 
   try {
-    const result = await axios.post(
-      `${BACKEND_URL}/api/v1.0/get_chapters${query}`
+    const result = await axios.get(
+      `${BACKEND_URL}/api/v1.0/get_chapters` + query
     );
 
     if (!result) {
@@ -250,14 +248,11 @@ export async function create_section({
 }
 
 export async function get_sections({ course_id, chapter_id }) {
-  const query = prepare_query({
-    course_id,
-    chapter_id,
-  });
+  const query: any = prepare_query({ course_id, chapter_id }, true);
 
   try {
-    const result = await axios.post(
-      `${BACKEND_URL}/api/v1.0/get_sections${query}`
+    const result = await axios.get(
+      `${BACKEND_URL}/api/v1.0/get_sections` + query
     );
 
     if (!result) {
@@ -377,7 +372,7 @@ export async function get_subsections({ course_id, chapter_id, section_id }) {
   });
 
   try {
-    const result = await axios.post(
+    const result = await axios.get(
       `${BACKEND_URL}/api/v1.0/get_subsections${query}`
     );
 

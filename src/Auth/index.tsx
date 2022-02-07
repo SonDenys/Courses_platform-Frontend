@@ -3,7 +3,7 @@ import axios from "axios";
 import {
   BACKEND_URL,
   PUBLIC_KEY_URL,
-  ISSUER,  
+  ISSUER,
   LS_TOKEN_CACHE_KEY,
   AEOLIA_PUBLIC_KEY_URL,
   setSignalXClient,
@@ -21,7 +21,12 @@ import { setAccessToken as axiosSetAccessToken } from "axios-jwt";
 
 import konsole from "../konsole";
 import i18n from "i18next";
-import { getLocalData, processPublicKeyString, S, setLocalData } from "../utils";
+import {
+  getLocalData,
+  processPublicKeyString,
+  S,
+  setLocalData,
+} from "../utils";
 import _ from "lodash";
 import { setActiveSignedUserId, setActiveUserName } from "../_GlobalStates";
 import { checkJWT, getKeyObject } from "./utils";
@@ -35,7 +40,7 @@ export let TOKEN_DATA: TokenCacheProps = {};
 let IS_AUTHENTICATED: boolean = false;
 
 export function set_PUBLIC_KEY(key: string) {
-  PUBLIC_KEY = getKeyObject(key);  
+  PUBLIC_KEY = getKeyObject(key);
   // PUBLIC_KEY_UINT8 = Uint8Array.from(key, (c) => c.charCodeAt(0));
   // PUBLIC_KEY = key;
   // PUBLIC_KEY_UINT8 = Uint8Array.from(key, (c) => c.charCodeAt(0));
@@ -193,19 +198,18 @@ export async function validatedToken(props: validatedTokenProps) {
             ${ISSUER}
             ${ALGORITHMS[0]}
         `);
-    
+
     const payload = checkJWT(access_token, PUBLIC_KEY);
-    
+
     console.log(`XXXXXXXX verify payload : 
         ${S(payload)}`);
 
-    
     // await axiosSetAccessToken(access_token)
-    await SaveTokenCache(payload)
+    await SaveTokenCache(payload);
     setAuthStatus(true);
 
-    const status = getAuthStatus()
-    konsole.log(`setAuthStatus === ${status}`)
+    const status = getAuthStatus();
+    konsole.log(`setAuthStatus === ${status}`);
 
     return payload;
   } catch (e) {
@@ -239,7 +243,7 @@ export async function loadTokenCache(): Promise<TokenCacheProps> {
   })) || {}) as PayloadProps;
 
   console.log(` verify payload : 2 ${S(payload)}`);
-  console.dir(payload)
+  console.dir(payload);
 
   if (_.size(payload)) {
     return {} as any;
@@ -531,7 +535,11 @@ export async function setUserName(username: string) {
 }
 
 export async function getPayloadValue(key: string) {
-  return ((((await getTokenCache()).payload || {}) as any).data || {})[key];
+  const get_payload_test = (await getTokenCache()).payload;
+  console.log(get_payload_test);
+  console.log("-----> --------> Denys ______>", get_payload_test);
+
+  return (((get_payload_test || {}) as any).data || {})[key];
 }
 
 export async function setPayloadValue(key: string, value: string) {
@@ -599,5 +607,3 @@ export async function loadPublicKey() {
 
   return "";
 }
-
-
