@@ -7,7 +7,7 @@ import InnerPageHeader from "../../../components/InnerPageHeader";
 import { data } from "../../UserDashboard/data/index";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMyToast } from "../../../_GlobalStates/hooks";
-import { create_course } from "../helpers/apicalls";
+import { update_section } from "../helpers/apicalls";
 
 const layout = {
   labelCol: {
@@ -34,45 +34,49 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const CreateCoursePage = () => {
+const EditSectionPage = () => {
   const onFinish = (values) => {
     console.log(values);
   };
-  const [courseId, setCourseId] = useState();
+
   const { t } = useTranslation();
-  const [courseName, setCourseName] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
+  const [newSectionName, setNewSectionName] = useState("");
+  const [newCategory, setNewCategory] = useState("");
+  const [newDescription, setNewDescription] = useState("");
   const [result, setResult] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const toast = useMyToast();
+  const { course_id, chapter_id, section_id } = useParams();
 
-  const handleSubmit = async (courseName, category, description) => {
-    const response = await create_course({
-      name: courseName,
-      category,
-      description,
+  const handleSubmit = async () => {
+    const response = await update_section({
+      _id: section_id,
+      course_id: course_id,
+      chapter_id: chapter_id,
+      name: newSectionName,
+      description: newDescription,
     });
-    console.log("response createCourse Data = = =>", response);
-    console.log("course_id = = = >", JSON.stringify(response.data._id));
+    console.log("response editSection Data = = =>", response);
+    console.log("section_id = = = >", JSON.stringify(response.data._id));
 
     setResult(true);
 
     if (response) {
-      // const _course_id = response.data._id;
-      // setCourseId(_course_id);
-      navigate("/admin/courses", { replace: true });
+      // go to the Section Page
+      navigate(`/admin/courses/chapters/sections/${course_id}/${chapter_id}`, {
+        replace: true,
+      });
     } else {
-      console.log("Create Course Failed");
-      setErrorMessage("Create Course Failed");
-      toast.error("Create Course Failed");
+      console.log("Edit Section Failed");
+      setErrorMessage("Edit Section Failed");
+      toast.error("Edit Section Failed");
     }
   };
 
   return (
     <>
-      <InnerPageHeader title={t("Create course")} goBack={true} />
+      <InnerPageHeader title={t("Edit Section")} goBack={true} />
       <Form
         {...layout}
         name="nest-messages"
@@ -81,7 +85,7 @@ const CreateCoursePage = () => {
       >
         <Form.Item
           name="name"
-          label="Course Name"
+          label="Section Name"
           rules={[
             {
               required: true,
@@ -89,22 +93,22 @@ const CreateCoursePage = () => {
           ]}
         >
           <Input
-            onChange={(event) => setCourseName(event.target.value)}
-            value={courseName}
+            onChange={(event) => setNewSectionName(event.target.value)}
+            value={newSectionName}
           />
         </Form.Item>
 
         <Form.Item name="category" label="Category">
           <Input
-            onChange={(event) => setCategory(event.target.value)}
-            value={category}
+            onChange={(event) => setNewCategory(event.target.value)}
+            value={newCategory}
           />
         </Form.Item>
 
         <Form.Item name="description" label="Description">
           <Input.TextArea
-            onChange={(event) => setDescription(event.target.value)}
-            value={description}
+            onChange={(event) => setNewDescription(event.target.value)}
+            value={newDescription}
           />
         </Form.Item>
 
@@ -115,7 +119,7 @@ const CreateCoursePage = () => {
             type="primary"
             // htmlType="submit"
             onClick={() => {
-              handleSubmit(courseName, category, description);
+              handleSubmit();
             }}
           >
             Submit
@@ -126,4 +130,4 @@ const CreateCoursePage = () => {
   );
 };
 
-export default CreateCoursePage;
+export default EditSectionPage;

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import InnerPageHeader from "../../../components/InnerPageHeader";
+import { showDeleteSectionConfirm } from "../../../components/ui/helpers";
 
 import { columns, table_data } from "../data";
 import { get_sections } from "../helpers/apicalls";
@@ -39,6 +40,7 @@ export default function SectionPage(props: any) {
           <span
             className="cursor-pointer"
             onClick={() =>
+              // Go to the Subsections page
               navigate(
                 `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}`
               )
@@ -79,21 +81,31 @@ export default function SectionPage(props: any) {
       key: "actions",
       // dataIndex: "actions",
       render: (text: any, record: any) => {
-        // const chapter_id = record._id;
+        const section_id = record._id;
         return (
           <>
             <Space direction="horizontal">
               <Button
                 onClick={() =>
-                  // navigate to Create Section Page
+                  // navigate to Edit Section Page
                   navigate(
-                    `/admin/courses/chapters/sections/createsection/${course_id}/${chapter_id}`
+                    `/admin/courses/chapters/sections/sectionedit/${course_id}/${chapter_id}/${section_id}`
                   )
                 }
               >
                 {t("edit")}
               </Button>
-              <Button onClick={() => console.log("delete section")}>
+              <Button
+                onClick={() => {
+                  showDeleteSectionConfirm({
+                    title: "Delete Section?",
+                    content: "Are you sure to delete the section?",
+                    course_id: course_id,
+                    chapter_id: chapter_id,
+                    section_id: section_id,
+                  });
+                }}
+              >
                 {t("delete")}
               </Button>
             </Space>

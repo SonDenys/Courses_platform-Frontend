@@ -6,6 +6,7 @@ import { result } from "lodash";
 import { BACKEND_URL } from "../../../params";
 import konsole from "../../../konsole";
 import { config_json, prepare_query, make_query_string } from "./utils";
+import { useNavigate } from "react-router-dom";
 
 export async function create_course({ name, category, description }) {
   const query = prepare_query({
@@ -93,10 +94,9 @@ export async function delete_course({ _id }) {
   });
 
   try {
-    const response = await axios.post(
+    const response = await axios.delete(
       `${BACKEND_URL}/api/v1.0/delete_course`,
-      query,
-      config_json
+      { ...config_json, data: query }
     );
 
     if (!response) {
@@ -194,10 +194,9 @@ export async function delete_chapter({ _id, course_id }) {
   });
 
   try {
-    const response = await axios.post(
+    const response = await axios.delete(
       `${BACKEND_URL}/api/v1.0/delete_chapter`,
-      query,
-      config_json
+      { ...config_json, data: query }
     );
 
     if (!response) {
@@ -309,10 +308,9 @@ export async function delete_section({ _id, course_id, chapter_id }) {
   });
 
   try {
-    const response = await axios.post(
+    const response = await axios.delete(
       `${BACKEND_URL}/api/v1.0/delete_section`,
-      query,
-      config_json
+      { ...config_json, data: query }
     );
 
     if (!response) {
@@ -336,8 +334,8 @@ export async function create_subsection({
   description,
 }) {
   const query = prepare_query({
-    course_id,
     chapter_id,
+    course_id,
     section_id,
     name,
     description,
@@ -365,11 +363,14 @@ export async function create_subsection({
 }
 
 export async function get_subsections({ course_id, chapter_id, section_id }) {
-  const query = prepare_query({
-    course_id,
-    chapter_id,
-    section_id,
-  });
+  const query: any = prepare_query(
+    {
+      course_id,
+      chapter_id,
+      section_id,
+    },
+    true
+  );
 
   try {
     const result = await axios.get(
@@ -396,6 +397,7 @@ export async function update_subsection({
   section_id,
   name,
   description,
+  html_data,
 }) {
   const query = prepare_query({
     _id,
@@ -405,6 +407,7 @@ export async function update_subsection({
     name,
     description,
     index: 0,
+    html_data,
   });
 
   const response = await axios.post(
@@ -438,10 +441,9 @@ export async function delete_subsection({
   });
 
   try {
-    const response = await axios.post(
+    const response = await axios.delete(
       `${BACKEND_URL}/api/v1.0/delete_subsection`,
-      query,
-      config_json
+      { ...config_json, data: query }
     );
 
     if (!response) {

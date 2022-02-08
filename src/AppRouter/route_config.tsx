@@ -22,6 +22,9 @@ import AdminSignup from "../pages/AdminDashboard/AdminSignup";
 import CreateChapterPage from "../pages/AdminDashboard/CreateChapterPage";
 import CreateSectionPage from "../pages/AdminDashboard/CreateSectionPage";
 import CreateSubsectionPage from "../pages/AdminDashboard/CreateSubsectionPage";
+import EditCoursePage from "../pages/AdminDashboard/EditCoursePage";
+import EditChapterPage from "../pages/AdminDashboard/EditChapterPage";
+import EditSectionPage from "../pages/AdminDashboard/EditSectionPage";
 
 // const LandingPage = lazy(() => import("../LandingPage"));
 const Home = lazy(() => import("../pages/Home"));
@@ -137,10 +140,18 @@ export function getRoutes(): AppRouterObject[] {
           element: <CoursePage />,
         },
         { path: "courses/createcourse", element: <CreateCoursePage /> },
-        { path: "courses/chapters/:course_id", element: <ChapterPage /> },
+        { path: "courses/courseedit/:course_id", element: <EditCoursePage /> },
+        {
+          path: "courses/chapters/:course_id",
+          element: <ChapterPage />,
+        },
         {
           path: "courses/chapters/createchapter/:course_id",
           element: <CreateChapterPage />,
+        },
+        {
+          path: "courses/chapters/chapteredit/:course_id/:chapter_id",
+          element: <EditChapterPage />,
         },
         {
           path: "courses/chapters/sections/:course_id/:chapter_id",
@@ -150,6 +161,12 @@ export function getRoutes(): AppRouterObject[] {
           path: "courses/chapters/sections/createsection/:course_id/:chapter_id",
           element: <CreateSectionPage />,
         },
+
+        {
+          path: "courses/chapters/sections/sectionedit/:course_id/:chapter_id/:section_id",
+          element: <EditSectionPage />,
+        },
+
         {
           path: "courses/chapters/sections/subsections/:course_id/:chapter_id/:section_id",
           element: <SubSectionPage />,

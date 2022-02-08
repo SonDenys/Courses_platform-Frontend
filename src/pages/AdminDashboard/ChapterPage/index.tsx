@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import InnerPageHeader from "../../../components/InnerPageHeader";
+import { showDeleteChapterConfirm } from "../../../components/ui/helpers";
 import konsole from "../../../konsole";
 
 import { columns, table_data } from "../data";
@@ -84,18 +85,29 @@ export default function ChapterPage(props: any) {
       key: "actions",
       // dataIndex: "actions",
       render: (text: any, record: any) => {
-        const course_id = record._id;
+        const chapter_id = record._id;
         return (
           <>
             <Space direction="horizontal">
               <Button
                 onClick={() =>
-                  navigate(`/admin/courses/chapters/editchapter/${course_id}`)
+                  navigate(
+                    `/admin/courses/chapters/chapteredit/${course_id}/${chapter_id}`
+                  )
                 }
               >
                 {t("edit")}
               </Button>
-              <Button onClick={() => console.log("delete chapter")}>
+              <Button
+                onClick={() => {
+                  showDeleteChapterConfirm({
+                    title: "Delete Chapter?",
+                    content: "Are you sure to delete the chapter?",
+                    course_id: course_id,
+                    chapter_id: chapter_id,
+                  });
+                }}
+              >
                 {t("delete")}
               </Button>
             </Space>

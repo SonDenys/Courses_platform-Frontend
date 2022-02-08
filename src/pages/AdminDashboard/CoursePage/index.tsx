@@ -11,12 +11,15 @@ import konsole from "../../../konsole";
 import { BACKEND_URL } from "../../../params";
 import { prepare_query } from "../../../utils";
 import { columns, table_data } from "../data";
-import { get_courses } from "../helpers/apicalls";
+import { delete_course, get_courses } from "../helpers/apicalls";
+import { showDeleteCourseConfirm } from "../../../components/ui/helpers/index";
+import { useMyToast } from "../../../_GlobalStates/hooks";
 
 export default function CoursePage(props: any) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const toast = useMyToast();
 
   useEffect(() => {
     (async () => {
@@ -26,6 +29,7 @@ export default function CoursePage(props: any) {
         setData(response.data);
       } catch (error) {
         console.log(error);
+        toast.error("There is an error somewhere");
       }
     })();
   }, []);
@@ -88,7 +92,15 @@ export default function CoursePage(props: any) {
               >
                 {t("edit")}
               </Button>
-              <Button onClick={() => console.log("delete course")}>
+              <Button
+                onClick={() => {
+                  showDeleteCourseConfirm({
+                    title: "Delete Course?",
+                    content: "Are you sure to delete the course?",
+                    course_id: course_id,
+                  });
+                }}
+              >
                 {t("delete")}
               </Button>
             </Space>
@@ -106,7 +118,7 @@ export default function CoursePage(props: any) {
         onCreateClick={() => navigate("/admin/courses/createcourse")}
       />
       <Table
-        className="ml-2 mr-2  !rounded-lg !border-gray-500"
+        className="ml-2 mr-2 !rounded-lg !border-gray-500"
         columns={columns}
         dataSource={data}
       />

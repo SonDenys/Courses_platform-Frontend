@@ -7,6 +7,7 @@ import InnerPageHeader from "../../../components/InnerPageHeader";
 
 import { columns, table_data } from "../data";
 import { get_subsections } from "../helpers/apicalls";
+import { showDeleteSubsectionConfirm } from "../../../components/ui/helpers/index";
 
 export default function SubSectionPage(props: any) {
   const { t } = useTranslation();
@@ -38,12 +39,12 @@ export default function SubSectionPage(props: any) {
         const subsection_id = record._id;
         return (
           <span
-            className="cursor-pointer"
-            // onClick={() =>
-            //   navigate(
-            //     `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}/${subsection_id}`
-            //   )
-            // }
+
+          // onClick={() =>
+          //   navigate(
+          //     `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}/${subsection_id}`
+          //   )
+          // }
           >
             {text}
           </span>
@@ -81,12 +82,12 @@ export default function SubSectionPage(props: any) {
       // dataIndex: "actions",
       render: (text: any, record: any) => {
         const subsection_id = record._id;
+
         return (
           <>
             <Space direction="horizontal">
               <Button
                 onClick={() =>
-                  // navigate to Create Section Page
                   navigate(
                     `/admin/courses/chapters/sections/subsections/edit/${course_id}/${chapter_id}/${section_id}/${subsection_id}`
                   )
@@ -94,7 +95,18 @@ export default function SubSectionPage(props: any) {
               >
                 {t("edit")}
               </Button>
-              <Button onClick={() => console.log("delete subsection")}>
+              <Button
+                onClick={() => {
+                  showDeleteSubsectionConfirm({
+                    title: "Delete Subsection?",
+                    content: "Are you sure to delete the Subsection?",
+                    course_id: course_id,
+                    chapter_id: chapter_id,
+                    section_id: section_id,
+                    subsection_id: subsection_id,
+                  });
+                }}
+              >
                 {t("delete")}
               </Button>
             </Space>
@@ -111,6 +123,7 @@ export default function SubSectionPage(props: any) {
         goBack
         onCreateClick={() =>
           navigate(
+            // navigate to Create SubSection Page
             `/admin/courses/chapters/sections/subsections/createsubsection/${course_id}/${chapter_id}/${section_id}`
           )
         }

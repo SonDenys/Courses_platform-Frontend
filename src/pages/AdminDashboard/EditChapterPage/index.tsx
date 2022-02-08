@@ -7,7 +7,7 @@ import InnerPageHeader from "../../../components/InnerPageHeader";
 import { data } from "../../UserDashboard/data/index";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMyToast } from "../../../_GlobalStates/hooks";
-import { create_course } from "../helpers/apicalls";
+import { update_chapter } from "../helpers/apicalls";
 
 const layout = {
   labelCol: {
@@ -34,45 +34,46 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const CreateCoursePage = () => {
+const EditChapterPage = () => {
   const onFinish = (values) => {
     console.log(values);
   };
-  const [courseId, setCourseId] = useState();
+
   const { t } = useTranslation();
-  const [courseName, setCourseName] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
+  const [newChapterName, setNewChapterName] = useState("");
+  const [newCategory, setNewCategory] = useState("");
+  const [newDescription, setNewDescription] = useState("");
   const [result, setResult] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const toast = useMyToast();
+  const { course_id, chapter_id } = useParams();
 
-  const handleSubmit = async (courseName, category, description) => {
-    const response = await create_course({
-      name: courseName,
-      category,
-      description,
+  const handleSubmit = async () => {
+    const response = await update_chapter({
+      _id: chapter_id,
+      course_id: course_id,
+      name: newChapterName,
+      description: newDescription,
     });
-    console.log("response createCourse Data = = =>", response);
-    console.log("course_id = = = >", JSON.stringify(response.data._id));
+    console.log("response editChapter Data = = =>", response);
+    console.log("chapter_id = = = >", JSON.stringify(response.data._id));
 
     setResult(true);
 
     if (response) {
-      // const _course_id = response.data._id;
-      // setCourseId(_course_id);
-      navigate("/admin/courses", { replace: true });
+      // go to the Chapter Page
+      navigate(`/admin/courses/chapters/${course_id}`, { replace: true });
     } else {
-      console.log("Create Course Failed");
-      setErrorMessage("Create Course Failed");
-      toast.error("Create Course Failed");
+      console.log("Edit Chapter Failed");
+      setErrorMessage("Edit Chapter Failed");
+      toast.error("Edit Chapter Failed");
     }
   };
 
   return (
     <>
-      <InnerPageHeader title={t("Create course")} goBack={true} />
+      <InnerPageHeader title={t("Edit chapter")} goBack={true} />
       <Form
         {...layout}
         name="nest-messages"
@@ -89,22 +90,22 @@ const CreateCoursePage = () => {
           ]}
         >
           <Input
-            onChange={(event) => setCourseName(event.target.value)}
-            value={courseName}
+            onChange={(event) => setNewChapterName(event.target.value)}
+            value={newChapterName}
           />
         </Form.Item>
 
         <Form.Item name="category" label="Category">
           <Input
-            onChange={(event) => setCategory(event.target.value)}
-            value={category}
+            onChange={(event) => setNewCategory(event.target.value)}
+            value={newCategory}
           />
         </Form.Item>
 
         <Form.Item name="description" label="Description">
           <Input.TextArea
-            onChange={(event) => setDescription(event.target.value)}
-            value={description}
+            onChange={(event) => setNewDescription(event.target.value)}
+            value={newDescription}
           />
         </Form.Item>
 
@@ -115,7 +116,7 @@ const CreateCoursePage = () => {
             type="primary"
             // htmlType="submit"
             onClick={() => {
-              handleSubmit(courseName, category, description);
+              handleSubmit();
             }}
           >
             Submit
@@ -126,4 +127,4 @@ const CreateCoursePage = () => {
   );
 };
 
-export default CreateCoursePage;
+export default EditChapterPage;
