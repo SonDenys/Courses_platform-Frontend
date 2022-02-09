@@ -6,8 +6,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import InnerPageHeader from "../../../components/InnerPageHeader";
 
 import { columns, table_data } from "../data";
-import { get_subsections } from "../helpers/apicalls";
+import { delete_subsection, get_subsections } from "../helpers/apicalls";
 import { showDeleteSubsectionConfirm } from "../../../components/ui/helpers/index";
+import OrganizationSelect from "../../../components/OrganizationSelect";
+import ConfirmButton from "../../../components/ConfirmButton";
 
 export default function SubSectionPage(props: any) {
   const { t } = useTranslation();
@@ -29,6 +31,35 @@ export default function SubSectionPage(props: any) {
       }
     })();
   }, [course_id, chapter_id, section_id]);
+
+  const handleDelete = async ({
+    _id: subsection_id,
+    course_id,
+    chapter_id,
+    section_id,
+  }) => {
+    try {
+      const response = await delete_subsection({
+        _id: subsection_id,
+        course_id: course_id,
+        chapter_id: chapter_id,
+        section_id: section_id,
+      });
+
+      if (response) {
+        const newData = data.filter((x: any) => x._id !== subsection_id);
+        setData(newData);
+      }
+      if (!response) {
+        console.log("Delete subsection failed");
+      } else {
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+      console.log("there is an error on the delete_subsection api call");
+    }
+  };
 
   const columns = [
     {
@@ -95,7 +126,21 @@ export default function SubSectionPage(props: any) {
               >
                 {t("edit")}
               </Button>
-              <Button
+
+              <ConfirmButton
+                buttonText="delete"
+                title="delete"
+                onConfirm={() =>
+                  handleDelete({
+                    _id: subsection_id,
+                    course_id,
+                    chapter_id,
+                    section_id,
+                  })
+                }
+              />
+
+              {/* <Button
                 onClick={() => {
                   showDeleteSubsectionConfirm({
                     title: "Delete Subsection?",
@@ -108,7 +153,7 @@ export default function SubSectionPage(props: any) {
                 }}
               >
                 {t("delete")}
-              </Button>
+              </Button> */}
             </Space>
           </>
         );
@@ -116,17 +161,48 @@ export default function SubSectionPage(props: any) {
     },
   ];
 
+  const extra = [
+    <OrganizationSelect
+      key={"header_000"}
+      onChange={props.onChangeOrganization}
+      readOnly={props.organizationReadOnly}
+    />,
+    <Button
+      key={`header_001`}
+      type="ghost"
+      size="middle"
+      // onClick={props.onRefreshClick as any}
+    >
+      {t("refresh")}
+    </Button>,
+    <Button
+      key={`header_002`}
+      type="ghost"
+      size="middle"
+      // navigate to Create SubSection Page
+      onClick={() =>
+        navigate(
+          `/admin/courses/chapters/sections/subsections/createsubsection/${course_id}/${chapter_id}/${section_id}`
+        )
+      }
+      //   onClick={handleClickCreate}
+    >
+      {t("create")}
+    </Button>,
+  ];
+
   return (
     <>
       <InnerPageHeader
         title={t("Subsections")}
         goBack
-        onCreateClick={() =>
-          navigate(
-            // navigate to Create SubSection Page
-            `/admin/courses/chapters/sections/subsections/createsubsection/${course_id}/${chapter_id}/${section_id}`
-          )
-        }
+        extra={extra}
+        // onCreateClick={() =>
+        //   navigate(
+        //     // navigate to Create SubSection Page
+        //     `/admin/courses/chapters/sections/subsections/createsubsection/${course_id}/${chapter_id}/${section_id}`
+        //   )
+        // }
       />
       <Table
         className="ml-2 mr-2  !rounded-lg !border-gray-500"

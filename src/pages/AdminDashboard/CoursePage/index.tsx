@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import ConfirmButton from "../../../components/ConfirmButton";
+
 import InnerPageHeader from "../../../components/InnerPageHeader";
 import konsole from "../../../konsole";
 import { BACKEND_URL } from "../../../params";
@@ -14,12 +14,15 @@ import { columns, table_data } from "../data";
 import { delete_course, get_courses } from "../helpers/apicalls";
 import { showDeleteCourseConfirm } from "../../../components/ui/helpers/index";
 import { useMyToast } from "../../../_GlobalStates/hooks";
+import OrganizationSelect from "../../../components/OrganizationSelect";
+import ConfirmButton from "../../../components/ConfirmButton";
 
 export default function CoursePage(props: any) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const toast = useMyToast();
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -33,6 +36,25 @@ export default function CoursePage(props: any) {
       }
     })();
   }, []);
+
+  const handleDelete = async (course_id) => {
+    try {
+      const response = await delete_course({ _id: course_id });
+
+      if (response) {
+        const newData = data.filter((x: any) => x._id !== course_id);
+        setData(newData);
+      }
+      if (!response) {
+        console.log("Delete course failed");
+      } else {
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+      console.log("there is an error on the delete_course api call");
+    }
+  };
 
   const columns = [
     {
@@ -82,6 +104,7 @@ export default function CoursePage(props: any) {
       // dataIndex: "actions",
       render: (text: any, record: any) => {
         const course_id = record._id;
+
         return (
           <>
             <Space direction="horizontal">
@@ -92,7 +115,13 @@ export default function CoursePage(props: any) {
               >
                 {t("edit")}
               </Button>
-              <Button
+
+              <ConfirmButton
+                buttonText="delete"
+                title="delete"
+                onConfirm={() => handleDelete(course_id)}
+              />
+              {/* <Button
                 onClick={() => {
                   showDeleteCourseConfirm({
                     title: "Delete Course?",
@@ -102,7 +131,7 @@ export default function CoursePage(props: any) {
                 }}
               >
                 {t("delete")}
-              </Button>
+              </Button> */}
             </Space>
           </>
         );
@@ -110,12 +139,39 @@ export default function CoursePage(props: any) {
     },
   ];
 
+  const extra = [
+    <OrganizationSelect
+      key={"header_000"}
+      onChange={props.onChangeOrganization}
+      readOnly={props.organizationReadOnly}
+    />,
+    <Button
+      key={`header_001`}
+      type="ghost"
+      size="middle"
+      // onClick={props.onRefreshClick as any}
+    >
+      {t("refresh")}
+    </Button>,
+    <Button
+      key={`header_002`}
+      type="ghost"
+      size="middle"
+      // navigate to Create Course Page
+      onClick={() => navigate("/admin/courses/createcourse")}
+      //   onClick={handleClickCreate}
+    >
+      {t("create")}
+    </Button>,
+  ];
+
   return (
     <>
       <InnerPageHeader
         title={t("Courses")}
         goBack
-        onCreateClick={() => navigate("/admin/courses/createcourse")}
+        extra={extra}
+        // onCreateClick={() => navigate("/admin/courses/createcourse")}
       />
       <Table
         className="ml-2 mr-2 !rounded-lg !border-gray-500"

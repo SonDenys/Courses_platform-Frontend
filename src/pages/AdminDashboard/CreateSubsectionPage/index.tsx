@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useRecoilState } from "recoil";
 import { useNavigate, useParams } from "react-router-dom";
-
-import InnerPageHeader from "../../../components/InnerPageHeader";
 import { create_subsection } from "../helpers/apicalls";
 import EditorToolbar, {
   formats,
@@ -12,6 +10,8 @@ import EditorToolbar, {
 } from "../../../components/EditorToolbar";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import InnerPageHeader from "../../../components/InnerPageHeader";
+import OrganizationSelect from "../../../components/OrganizationSelect";
 
 const layout = {
   labelCol: {
@@ -94,9 +94,42 @@ const CreateSubsectionPage = () => {
     console.log("");
   }
 
+  const extra = [
+    <OrganizationSelect
+      key={"header_000"}
+      // onChange={props.onChangeOrganization}
+      // readOnly={props.organizationReadOnly}
+    />,
+    <Button
+      key={`header_001`}
+      type="ghost"
+      size="middle"
+      // onClick={props.onRefreshClick as any}
+    >
+      {t("preview")}
+    </Button>,
+    <Button
+      key={`header_002`}
+      type="ghost"
+      size="middle"
+      // onClick={props.onCreateClick as any}
+      //   onClick={handleClickCreate}
+      onClick={() => {
+        handleSubmit();
+      }}
+    >
+      {t("save")}
+    </Button>,
+  ];
+
   return (
     <>
-      <InnerPageHeader title={t("Create Subsection")} goBack={true} />
+      <InnerPageHeader
+        title={t("Create Subsection")}
+        goBack={true}
+        extra={extra}
+      />
+
       <Form
         {...layout}
         name="nest-messages"
@@ -137,7 +170,7 @@ const CreateSubsectionPage = () => {
           formats={formats}
         />
 
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+        {/* <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button
             type="primary"
             // htmlType="submit"
@@ -147,7 +180,7 @@ const CreateSubsectionPage = () => {
           >
             Submit
           </Button>
-        </Form.Item>
+        </Form.Item> */}
       </Form>
     </>
   );

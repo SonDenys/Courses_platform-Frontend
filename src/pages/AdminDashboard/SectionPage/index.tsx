@@ -3,11 +3,13 @@ import Layout, { Content } from "antd/lib/layout/layout";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import ConfirmButton from "../../../components/ConfirmButton";
 import InnerPageHeader from "../../../components/InnerPageHeader";
+import OrganizationSelect from "../../../components/OrganizationSelect";
 import { showDeleteSectionConfirm } from "../../../components/ui/helpers";
 
 import { columns, table_data } from "../data";
-import { get_sections } from "../helpers/apicalls";
+import { delete_section, get_sections } from "../helpers/apicalls";
 
 export default function SectionPage(props: any) {
   const { t } = useTranslation();
@@ -28,6 +30,29 @@ export default function SectionPage(props: any) {
       }
     })();
   }, [course_id, chapter_id]);
+
+  const handleDelete = async ({ _id: section_id, course_id, chapter_id }) => {
+    try {
+      const response = await delete_section({
+        _id: section_id,
+        course_id: course_id,
+        chapter_id: chapter_id,
+      });
+
+      if (response) {
+        const newData = data.filter((x: any) => x._id !== section_id);
+        setData(newData);
+      }
+      if (!response) {
+        console.log("Delete section failed");
+      } else {
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+      console.log("there is an error on the delete_section api call");
+    }
+  };
 
   const columns = [
     {
@@ -95,7 +120,16 @@ export default function SectionPage(props: any) {
               >
                 {t("edit")}
               </Button>
-              <Button
+
+              <ConfirmButton
+                buttonText="delete"
+                title="delete"
+                onConfirm={() =>
+                  handleDelete({ _id: section_id, course_id, chapter_id })
+                }
+              />
+
+              {/* <Button
                 onClick={() => {
                   showDeleteSectionConfirm({
                     title: "Delete Section?",
@@ -107,7 +141,7 @@ export default function SectionPage(props: any) {
                 }}
               >
                 {t("delete")}
-              </Button>
+              </Button> */}
             </Space>
           </>
         );
@@ -115,16 +149,47 @@ export default function SectionPage(props: any) {
     },
   ];
 
+  const extra = [
+    <OrganizationSelect
+      key={"header_000"}
+      onChange={props.onChangeOrganization}
+      readOnly={props.organizationReadOnly}
+    />,
+    <Button
+      key={`header_001`}
+      type="ghost"
+      size="middle"
+      // onClick={props.onRefreshClick as any}
+    >
+      {t("refresh")}
+    </Button>,
+    <Button
+      key={`header_002`}
+      type="ghost"
+      size="middle"
+      // navigate to Create SubSection Page
+      onClick={() =>
+        navigate(
+          `/admin/courses/chapters/sections/createsection/${course_id}/${chapter_id}`
+        )
+      }
+      //   onClick={handleClickCreate}
+    >
+      {t("create")}
+    </Button>,
+  ];
+
   return (
     <>
       <InnerPageHeader
         title={t("Sections")}
         goBack
-        onCreateClick={() =>
-          navigate(
-            `/admin/courses/chapters/sections/createsection/${course_id}/${chapter_id}`
-          )
-        }
+        extra={extra}
+        // onCreateClick={() =>
+        //   navigate(
+        //     `/admin/courses/chapters/sections/createsection/${course_id}/${chapter_id}`
+        //   )
+        // }
       />
       <Table
         className="ml-2 mr-2  !rounded-lg !border-gray-500"

@@ -3,17 +3,19 @@ import Layout, { Content } from "antd/lib/layout/layout";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import ConfirmButton from "../../../components/ConfirmButton";
 import InnerPageHeader from "../../../components/InnerPageHeader";
+import OrganizationSelect from "../../../components/OrganizationSelect";
 import { showDeleteChapterConfirm } from "../../../components/ui/helpers";
 import konsole from "../../../konsole";
 
 import { columns, table_data } from "../data";
-import { get_chapters } from "../helpers/apicalls";
+import { delete_chapter, get_chapters } from "../helpers/apicalls";
 
 export default function ChapterPage(props: any) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const { course_id } = useParams();
 
   konsole.log("course_id course_id  course_id  course_id  course_id ");
@@ -33,6 +35,28 @@ export default function ChapterPage(props: any) {
       }
     })();
   }, []);
+
+  const handleDelete = async ({ _id: chapter_id, course_id }) => {
+    try {
+      const response = await delete_chapter({
+        _id: chapter_id,
+        course_id: course_id,
+      });
+
+      if (response) {
+        const newData = data.filter((x: any) => x._id !== chapter_id);
+        setData(newData);
+      }
+      if (!response) {
+        console.log("Delete chapter failed");
+      } else {
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+      console.log("there is an error on the delete_chapter api call");
+    }
+  };
 
   const columns = [
     {
@@ -98,7 +122,12 @@ export default function ChapterPage(props: any) {
               >
                 {t("edit")}
               </Button>
-              <Button
+              <ConfirmButton
+                buttonText="delete"
+                title="delete"
+                onConfirm={() => handleDelete({ _id: chapter_id, course_id })}
+              />
+              {/* <Button
                 onClick={() => {
                   showDeleteChapterConfirm({
                     title: "Delete Chapter?",
@@ -109,7 +138,7 @@ export default function ChapterPage(props: any) {
                 }}
               >
                 {t("delete")}
-              </Button>
+              </Button> */}
             </Space>
           </>
         );
@@ -117,15 +146,44 @@ export default function ChapterPage(props: any) {
     },
   ];
 
+  const extra = [
+    <OrganizationSelect
+      key={"header_000"}
+      onChange={props.onChangeOrganization}
+      readOnly={props.organizationReadOnly}
+    />,
+    <Button
+      key={`header_001`}
+      type="ghost"
+      size="middle"
+      // onClick={props.onRefreshClick as any}
+    >
+      {t("refresh")}
+    </Button>,
+    <Button
+      key={`header_002`}
+      type="ghost"
+      size="middle"
+      // navigate to Create Chapter Page
+      onClick={() =>
+        navigate(`/admin/courses/chapters/createchapter/${course_id}`)
+      }
+      //   onClick={handleClickCreate}
+    >
+      {t("create")}
+    </Button>,
+  ];
+
   return (
     <>
       <InnerPageHeader
         title={t("Chapters")}
         goBack
+        extra={extra}
         // navigate to Create Chapter Page
-        onCreateClick={() =>
-          navigate(`/admin/courses/chapters/createchapter/${course_id}`)
-        }
+        // onCreateClick={() =>
+        //   navigate(`/admin/courses/chapters/createchapter/${course_id}`)
+        // }
       />
       <Table
         className="ml-2 mr-2  !rounded-lg !border-gray-500"

@@ -44,30 +44,7 @@ export default function InnerPageHeader(props: InnerPageHeaderProps) {
     console.log("clicked");
   };
 
-  let extra: any = props.extra || [
-    <OrganizationSelect
-      key={"header_000"}
-      onChange={props.onChangeOrganization}
-      readOnly={props.organizationReadOnly}
-    />,
-    <Button
-      key={`header_001`}
-      type="ghost"
-      size="middle"
-      onClick={props.onRefreshClick as any}
-    >
-      {t("refresh")}
-    </Button>,
-    <Button
-      key={`header_002`}
-      type="ghost"
-      size="middle"
-      onClick={props.onCreateClick as any}
-      //   onClick={handleClickCreate}
-    >
-      {t("create")}
-    </Button>,
-  ];
+  let extra: any = props.extra || [];
 
   // const goBack = props.goBack === true? ()=> navigate(-1) : undefined
   const goBack = () => navigate(-1);

@@ -71,9 +71,32 @@ const EditChapterPage = () => {
     }
   };
 
+  const extra = [
+    <Button
+      key={`header_001`}
+      type="ghost"
+      size="middle"
+      // onClick={props.onRefreshClick as any}
+    >
+      {t("preview")}
+    </Button>,
+    <Button
+      key={`header_002`}
+      type="ghost"
+      size="middle"
+      // navigate to Create SubSection Page
+      onClick={() => {
+        handleSubmit();
+      }}
+      //   onClick={handleClickCreate}
+    >
+      {t("save")}
+    </Button>,
+  ];
+
   return (
     <>
-      <InnerPageHeader title={t("Edit chapter")} goBack={true} />
+      <InnerPageHeader title={t("Edit chapter")} extra={extra} goBack={true} />
       <Form
         {...layout}
         name="nest-messages"
@@ -111,7 +134,7 @@ const EditChapterPage = () => {
 
         <p>{errorMessage}</p>
 
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+        {/* <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button
             type="primary"
             // htmlType="submit"
@@ -121,7 +144,7 @@ const EditChapterPage = () => {
           >
             Submit
           </Button>
-        </Form.Item>
+        </Form.Item> */}
       </Form>
     </>
   );
