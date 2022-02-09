@@ -332,6 +332,7 @@ export async function create_subsection({
   section_id,
   name,
   description,
+  html_data,
 }) {
   const query = prepare_query({
     chapter_id,
@@ -339,6 +340,7 @@ export async function create_subsection({
     section_id,
     name,
     description,
+    html_data,
     index: 0,
   });
 

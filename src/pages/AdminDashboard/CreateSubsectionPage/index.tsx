@@ -6,6 +6,12 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import InnerPageHeader from "../../../components/InnerPageHeader";
 import { create_subsection } from "../helpers/apicalls";
+import EditorToolbar, {
+  formats,
+  modules,
+} from "../../../components/EditorToolbar";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const layout = {
   labelCol: {
@@ -37,12 +43,28 @@ const CreateSubsectionPage = () => {
   const { t } = useTranslation();
   const [subsectionName, setSubsectionName] = useState("");
   const [description, setDescription] = useState("");
+  const [data, setData] = useState("");
 
   const [result, setResult] = useState(false);
   const navigate = useNavigate();
 
   const onFinish = (values) => {
     console.log(values);
+  };
+
+  const handleChange = (value: any) => {
+    setData(value);
+    console.log(value);
+  };
+
+  const handleCancel = () => {
+    console.log("Cancel");
+    // save cancel
+  };
+
+  const handlePreview = () => {
+    console.log("Preview");
+    // save cancel
   };
 
   console.log("course id course id course id", course_id);
@@ -56,6 +78,7 @@ const CreateSubsectionPage = () => {
       section_id,
       name: subsectionName,
       description,
+      html_data: data,
     });
     console.log("response createSubsection Data = = =>", response);
     console.log("Subsection_id = = = >", JSON.stringify(response.data._id));
@@ -101,6 +124,18 @@ const CreateSubsectionPage = () => {
             value={description}
           />
         </Form.Item>
+
+        <EditorToolbar />
+        <ReactQuill
+          defaultValue={data}
+          className="ml-2 mr-2 h-96 w-full rounded-lg"
+          onChange={handleChange}
+          value={data}
+          theme="snow"
+          placeholder={"Write something awesome..."}
+          modules={modules}
+          formats={formats}
+        />
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button
