@@ -44,6 +44,7 @@ const CreateSubsectionPage = () => {
   const [subsectionName, setSubsectionName] = useState("");
   const [description, setDescription] = useState("");
   const [data, setData] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [result, setResult] = useState(false);
   const navigate = useNavigate();
@@ -72,27 +73,39 @@ const CreateSubsectionPage = () => {
   console.log("section_id section_id section_id", section_id);
 
   const handleSubmit = async () => {
-    const response = await create_subsection({
-      chapter_id,
-      course_id,
-      section_id,
-      name: subsectionName,
-      description,
-      html_data: data,
-    });
-    console.log("response createSubsection Data = = =>", response);
-    console.log("Subsection_id = = = >", JSON.stringify(response.data._id));
-    setResult(true);
+    if (!subsectionName || !description || !data) {
+      // setResult(false);
+      setErrorMessage("One field at least is missing!");
+    } else {
+      const response = await create_subsection({
+        chapter_id,
+        course_id,
+        section_id,
+        name: subsectionName,
+        description: description,
+        html_data: data,
+      });
+      console.log("response createSubsection Data = = =>", response);
+      console.log("Subsection_id = = = >", JSON.stringify(response.data._id));
+
+      if (response) {
+        navigate(
+          `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}`
+        );
+      }
+
+      // setResult(true);
+    }
   };
 
-  if (result) {
-    // navigate to SubSection Page
-    navigate(
-      `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}`
-    );
-  } else {
-    console.log("");
-  }
+  // if (result) {
+  //   // navigate to SubSection Page
+  // navigate(
+  //   `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}`
+  // );
+  // } else {
+  //   console.log("");
+  // }
 
   const extra = [
     <OrganizationSelect
@@ -157,6 +170,8 @@ const CreateSubsectionPage = () => {
             value={description}
           />
         </Form.Item>
+
+        <p className="text-red-600 font-bold"> {errorMessage}</p>
 
         <EditorToolbar />
         <ReactQuill

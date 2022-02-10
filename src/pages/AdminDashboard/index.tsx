@@ -44,6 +44,13 @@ const admin_sider_data = [
     tag: "students",
     submenu: [],
   },
+  {
+    id: "4",
+    name: "Settings",
+    url: "/admin/settings",
+    tag: "settings",
+    submenu: [],
+  },
 ];
 
 export default function AdminDashboard() {
@@ -116,9 +123,7 @@ export default function AdminDashboard() {
             </Content>
           </Layout>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
-          Ant Design ©2018 Created by Ant UED
-        </Footer>
+        <Footer style={{ textAlign: "center" }}>Created by AeonX</Footer>
       </Layout>
     </>
   );

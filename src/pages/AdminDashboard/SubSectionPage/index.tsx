@@ -25,6 +25,7 @@ export default function SubSectionPage(props: any) {
         chapter_id: chapter_id,
       });
       setData(response.data);
+      console.log("data subsection page = = =", response.data);
       try {
       } catch (error) {
         console.log(error);
@@ -129,7 +130,7 @@ export default function SubSectionPage(props: any) {
 
               <ConfirmButton
                 buttonText="delete"
-                title="delete"
+                title="Are you sure to delete this subsection?"
                 onConfirm={() =>
                   handleDelete({
                     _id: subsection_id,

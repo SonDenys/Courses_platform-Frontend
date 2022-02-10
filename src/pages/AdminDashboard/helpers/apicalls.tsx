@@ -365,12 +365,34 @@ export async function create_subsection({
 }
 
 export async function get_subsections({ course_id, chapter_id, section_id }) {
+  const query: any = prepare_query({ course_id, chapter_id, section_id }, true);
+
+  try {
+    const result = await axios.get(
+      `${BACKEND_URL}/api/v1.0/get_subsections${query}`
+    );
+
+    if (!result) {
+      return;
+    }
+
+    if (result && result.data) {
+      return result.data;
+    }
+  } catch (error) {
+    konsole.log(error);
+  }
+  return [];
+}
+
+export async function get_one_subsection({
+  _id,
+  course_id,
+  chapter_id,
+  section_id,
+}) {
   const query: any = prepare_query(
-    {
-      course_id,
-      chapter_id,
-      section_id,
-    },
+    { _id, course_id, chapter_id, section_id },
     true
   );
 

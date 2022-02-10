@@ -118,7 +118,7 @@ export default function CoursePage(props: any) {
 
               <ConfirmButton
                 buttonText="delete"
-                title="delete"
+                title="Are you sure to delete this course?"
                 onConfirm={() => handleDelete(course_id)}
               />
               {/* <Button

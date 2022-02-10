@@ -124,7 +124,7 @@ export default function ChapterPage(props: any) {
               </Button>
               <ConfirmButton
                 buttonText="delete"
-                title="delete"
+                title="Are you sure to delete this chapter?"
                 onConfirm={() => handleDelete({ _id: chapter_id, course_id })}
               />
               {/* <Button

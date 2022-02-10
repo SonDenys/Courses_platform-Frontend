@@ -123,7 +123,7 @@ export default function SectionPage(props: any) {
 
               <ConfirmButton
                 buttonText="delete"
-                title="delete"
+                title="Are you sure to delete this section?"
                 onConfirm={() =>
                   handleDelete({ _id: section_id, course_id, chapter_id })
                 }

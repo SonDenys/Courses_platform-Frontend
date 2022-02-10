@@ -3,21 +3,17 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useRecoilState } from "recoil";
 import { useNavigate, useParams } from "react-router-dom";
-import { EatLoading } from "react-loadingg";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import {
-  get_one_subsection,
-  get_subsections,
-  update_subsection,
-} from "../../helpers/apicalls";
+
+import { get_one_subsection, update_subsection } from "../../helpers/apicalls";
+import OrganizationSelect from "../../../../components/OrganizationSelect";
 import InnerPageHeader from "../../../../components/InnerPageHeader";
 import EditorToolbar, {
   formats,
   modules,
 } from "../../../../components/EditorToolbar";
-import Item from "antd/lib/list/Item";
 
 const layout = {
   labelCol: {
@@ -44,18 +40,17 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const EditSubsectionPage = () => {
+const EditSubsectionPageTest = () => {
   const { course_id, chapter_id, section_id, subsection_id } = useParams();
   const { t } = useTranslation();
   const [subsectionName, setSubsectionName] = useState("");
-  const [defaultSubsectionName, setDefaultSubsectionName] = useState("");
   const [description, setDescription] = useState("");
-  const [defaultDescription, setDefaultDescription] = useState("");
   const [data, setData] = useState("");
-  const [defaultData, setDefaultData] = useState("");
-  const [defaultHtmlData, setDefaultHtmlData] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [defaultHtmlData, setDefaultHtmlData] = useState("");
+  const [defaultDescription, setDefaultDescription] = useState("");
+  const [defaultSubsectionName, setDefaultSubsectionName] = useState("");
 
   const [result, setResult] = useState(false);
   const navigate = useNavigate();
@@ -107,15 +102,16 @@ const EditSubsectionPage = () => {
     })();
   }, [course_id, chapter_id, section_id, subsection_id]);
 
-  // console.log("course id course id course id", course_id);
-  // console.log("chapter_id chapter_id chapter_id", chapter_id);
-  // console.log("section_id section_id section_id", section_id);
-  // console.log("subsection_id subsection_id subsection_id", subsection_id);
+  console.log("course id course id course id", course_id);
+  console.log("chapter_id chapter_id chapter_id", chapter_id);
+  console.log("section_id section_id section_id", section_id);
 
   const handleSubmit = async () => {
     if (!subsectionName || !description || !data) {
       // setResult(false);
-      setErrorMessage("One field at least is missing!");
+      setErrorMessage(
+        "One field at least is missing or you need to rewrite the subsection name and the description"
+      );
     } else {
       const response = await update_subsection({
         _id: subsection_id,
@@ -126,38 +122,34 @@ const EditSubsectionPage = () => {
         description: description,
         html_data: data,
       });
-      console.log("response editSubsection Data = = =>", response);
+      console.log("response createSubsection Data = = =>", response);
       console.log("Subsection_id = = = >", JSON.stringify(response.data._id));
 
-      navigate(
-        `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}`
-      );
+      if (response) {
+        navigate(
+          `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}`
+        );
+      }
 
       // setResult(true);
     }
   };
 
-  // const handleSubmit = async () => {
-  //   const response = await update_subsection({
-  //     _id: subsection_id,
-  //     chapter_id,
-  //     course_id,
-  //     section_id,
-  //     name: subsectionName,
-  //     description: description,
-  //     html_data: data,
-  //   });
-  //   console.log("response editSubsection Data = = =>", response);
-  //   console.log("Subsection_id = = = >", JSON.stringify(response.data._id));
-
-  //   navigate(
-  //     `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}`
-  //   );
-
-  //   // setResult(true);
-  // };
+  // if (result) {
+  //   // navigate to SubSection Page
+  // navigate(
+  //   `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}`
+  // );
+  // } else {
+  //   console.log("");
+  // }
 
   const extra = [
+    <OrganizationSelect
+      key={"header_000"}
+      // onChange={props.onChangeOrganization}
+      // readOnly={props.organizationReadOnly}
+    />,
     <Button
       key={`header_001`}
       type="ghost"
@@ -170,25 +162,24 @@ const EditSubsectionPage = () => {
       key={`header_002`}
       type="ghost"
       size="middle"
-      // navigate to Create SubSection Page
+      // onClick={props.onCreateClick as any}
+      //   onClick={handleClickCreate}
       onClick={() => {
         handleSubmit();
       }}
-      //   onClick={handleClickCreate}
     >
       {t("save")}
     </Button>,
   ];
 
-  return isLoading ? (
-    <EatLoading />
-  ) : (
+  return (
     <>
       <InnerPageHeader
         title={t("Edit Subsection")}
-        extra={extra}
         goBack={true}
+        extra={extra}
       />
+
       <Form
         {...layout}
         name="nest-messages"
@@ -211,12 +202,6 @@ const EditSubsectionPage = () => {
               defaultValue={defaultSubsectionName}
             />
           )}
-          {/* {!defaultSubsectionName && (
-            <Input
-              onChange={(event) => setSubsectionName(event.target.value)}
-              value={subsectionName}
-            />
-          )} */}
         </Form.Item>
 
         <Form.Item name="description" label="Description">
@@ -237,11 +222,9 @@ const EditSubsectionPage = () => {
 
         <p className="text-red-600 font-bold"> {errorMessage}</p>
 
-        {defaultHtmlData}
-
         <EditorToolbar />
         <ReactQuill
-          defaultValue={defaultHtmlData}
+          defaultValue={data}
           className="ml-2 mr-2 h-96 w-full rounded-lg"
           onChange={handleChange}
           value={data}
@@ -250,9 +233,21 @@ const EditSubsectionPage = () => {
           modules={modules}
           formats={formats}
         />
+
+        {/* <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+          <Button
+            type="primary"
+            // htmlType="submit"
+            onClick={() => {
+              handleSubmit();
+            }}
+          >
+            Submit
+          </Button>
+        </Form.Item> */}
       </Form>
     </>
   );
 };
 
-export default EditSubsectionPage;
+export default EditSubsectionPageTest;
