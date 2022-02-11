@@ -77,21 +77,26 @@ const CreateSubsectionPage = () => {
       // setResult(false);
       setErrorMessage("One field at least is missing!");
     } else {
-      const response = await create_subsection({
-        chapter_id,
-        course_id,
-        section_id,
-        name: subsectionName,
-        description: description,
-        html_data: data,
-      });
-      console.log("response createSubsection Data = = =>", response);
-      console.log("Subsection_id = = = >", JSON.stringify(response.data._id));
+      try {
+        const response = await create_subsection({
+          chapter_id,
+          course_id,
+          section_id,
+          name: subsectionName,
+          description: description,
+          html_data: data,
+        });
+        console.log("response createSubsection Data = = =>", response);
+        console.log("Subsection_id = = = >", JSON.stringify(response.data._id));
 
-      if (response) {
-        navigate(
-          `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}`
-        );
+        if (response) {
+          navigate(
+            `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}`
+          );
+        }
+      } catch (error) {
+        console.log(error);
+        console.log("Your subsection has not been created");
       }
 
       // setResult(true);

@@ -93,9 +93,9 @@ const EditSubsectionPageTest = () => {
           console.log("default data = = = =", JSON.stringify(response.data));
           const data = response.data[0];
 
-          setDefaultHtmlData(data.html_data);
           setDefaultDescription(data.description);
           setDefaultSubsectionName(data.name);
+          setData(data.html_data);
 
           console.log("string_html_data = = =", data._html_data);
         }
@@ -177,6 +177,8 @@ const EditSubsectionPageTest = () => {
     </Button>,
   ];
 
+  console.log("data", data);
+
   return (
     <>
       <InnerPageHeader
@@ -185,10 +187,12 @@ const EditSubsectionPageTest = () => {
         extra={extra}
       />
 
+      {/* If modal opended */}
       {openModal ? (
         <MyModal
           text1={`${defaultSubsectionName}`}
           text2={`${defaultDescription}`}
+          text3={`${data}`}
         />
       ) : (
         ""
@@ -236,11 +240,9 @@ const EditSubsectionPageTest = () => {
 
         <p className="text-red-600 font-bold"> {errorMessage}</p>
 
-        {defaultHtmlData}
-
         <EditorToolbar />
         <ReactQuill
-          defaultValue="jkqdkqzkdz"
+          defaultValue={data}
           className="ml-2 mr-2 h-96 w-full rounded-lg"
           onChange={handleChange}
           value={data}

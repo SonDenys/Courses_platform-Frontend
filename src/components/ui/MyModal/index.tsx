@@ -8,6 +8,7 @@ export interface MyModalProps {
   modal_backgroundColor?: string;
   text1: string;
   text2?: string;
+  text3?: string;
   text1Color?: string;
   text2Color?: string;
   validation?: boolean;
@@ -114,6 +115,9 @@ export default function MyModal(props: MyModalProps) {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className={`text-sm ${text2Color}`}>{props.text2}</p>
+                  </div>
+                  <div className="mt-2">
+                    <p className={`text-sm ${text2Color}`}>{props.text3}</p>
                   </div>
                 </div>
               </div>
