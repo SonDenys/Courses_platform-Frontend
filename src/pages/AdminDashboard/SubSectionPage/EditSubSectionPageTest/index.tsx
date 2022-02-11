@@ -14,6 +14,7 @@ import EditorToolbar, {
   formats,
   modules,
 } from "../../../../components/EditorToolbar";
+import MyModal from "../../../../components/ui/MyModal";
 
 const layout = {
   labelCol: {
@@ -51,6 +52,7 @@ const EditSubsectionPageTest = () => {
   const [defaultHtmlData, setDefaultHtmlData] = useState("");
   const [defaultDescription, setDefaultDescription] = useState("");
   const [defaultSubsectionName, setDefaultSubsectionName] = useState("");
+  const [openModal, setOpenModal] = useState(false);
 
   const [result, setResult] = useState(false);
   const navigate = useNavigate();
@@ -70,8 +72,9 @@ const EditSubsectionPageTest = () => {
   };
 
   const handlePreview = () => {
-    console.log("Preview");
-    // save cancel
+    onclick = () => {
+      setOpenModal(true);
+    };
   };
 
   useEffect(() => {
@@ -154,10 +157,12 @@ const EditSubsectionPageTest = () => {
       key={`header_001`}
       type="ghost"
       size="middle"
+      onClick={handlePreview}
       // onClick={props.onRefreshClick as any}
     >
       {t("preview")}
     </Button>,
+
     <Button
       key={`header_002`}
       type="ghost"
@@ -179,6 +184,15 @@ const EditSubsectionPageTest = () => {
         goBack={true}
         extra={extra}
       />
+
+      {openModal ? (
+        <MyModal
+          text1={`${defaultSubsectionName}`}
+          text2={`${defaultDescription}`}
+        />
+      ) : (
+        ""
+      )}
 
       <Form
         {...layout}
@@ -222,9 +236,11 @@ const EditSubsectionPageTest = () => {
 
         <p className="text-red-600 font-bold"> {errorMessage}</p>
 
+        {defaultHtmlData}
+
         <EditorToolbar />
         <ReactQuill
-          defaultValue={data}
+          defaultValue="jkqdkqzkdz"
           className="ml-2 mr-2 h-96 w-full rounded-lg"
           onChange={handleChange}
           value={data}
