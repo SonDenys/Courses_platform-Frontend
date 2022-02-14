@@ -164,3 +164,8 @@ export const chapter_idState = atom<any>({
   key: "chapter_idState",
   default: "",
 });
+
+export const selectedOrganization_State = atom<any>({
+  key: "selectedOrganization_State",
+  default: {},
+});

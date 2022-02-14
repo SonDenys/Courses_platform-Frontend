@@ -27,6 +27,7 @@ import EditChapterPage from "../pages/AdminDashboard/EditChapterPage";
 import EditSectionPage from "../pages/AdminDashboard/EditSectionPage";
 import AdminSettings from "../pages/AdminDashboard/AdminSettings";
 import EditSubSectionPageTest from "../pages/AdminDashboard/SubSectionPage/EditSubSectionPageTest";
+import OrganizationsPage from "../pages/AdminDashboard/OrganizationsPage";
 
 // const LandingPage = lazy(() => import("../LandingPage"));
 const Home = lazy(() => import("../pages/Home"));
@@ -189,6 +190,10 @@ export function getRoutes(): AppRouterObject[] {
         },
         { path: "active_courses", element: <ActiveCoursePage /> },
         { path: "active_courses/edit", element: <EditActiveCoursePage /> },
+        {
+          path: "organizations",
+          element: <OrganizationsPage />,
+        },
         { path: "students", element: <StudentsPage /> },
         { path: "students/add", element: <CreateStudentsPage /> },
         { path: "settings", element: <AdminSettings /> },

@@ -622,6 +622,7 @@ export async function add_organization_to_course({
     }
 
     if (response && response.data) {
+      konsole.log("An Organization has been added !");
       return response.data;
     }
   } catch (error) {
@@ -694,6 +695,21 @@ export async function get_organizations_of_course({ course_id }) {
   try {
     const response: any = await axios.get(
       `${BACKEND_URL}/api/v1.0/get_organizations_of_course${query}`
+    );
+
+    if (response && response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return [];
+}
+
+export async function get_organizations() {
+  try {
+    const response: any = await axios.get(
+      `${BACKEND_URL}/api/v1.0/get_organizations`
     );
 
     if (response && response.data) {

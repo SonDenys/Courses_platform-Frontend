@@ -192,7 +192,10 @@ const EditSubsectionPageTest = () => {
         <MyModal
           text1={`${defaultSubsectionName}`}
           text2={`${defaultDescription}`}
-          text3={`${data}`}
+          text3={data}
+          heightScreen="h-screen"
+          widthFull="max-w-full"
+          widthScreen="w-screen"
         />
       ) : (
         ""

@@ -38,6 +38,13 @@ const admin_sider_data = [
     submenu: [],
   },
   {
+    id: "3",
+    name: "Organizations",
+    url: "/admin/organizations",
+    tag: "organizations",
+    submenu: [],
+  },
+  {
     id: "4",
     name: "Students",
     url: "/admin/students",
