@@ -31,7 +31,8 @@ export default function OrganizationsPage(props: any) {
   const [data, setData] = useState([]);
   const toast = useMyToast();
   const [deleteConfirm, setDeleteConfirm] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [course_id, setCourse_id] = useState("");
 
   const [selectedOrganization, setSelectedOrganization] = useRecoilState(
     selectedOrganization_State
@@ -73,12 +74,27 @@ export default function OrganizationsPage(props: any) {
   //   }
   // };
 
-  const handleMore = () => {
-    setOpenModal(true);
+  const openModal = () => {
+    setIsOpen(true);
   };
-  // const handleMore_1 = () => {
-  //   setOpenModal_1(true);
-  // };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const handleInvite = async () => {
+    try {
+      await add_organization_to_course({
+        course_id: course_id,
+        organization_id: selectedOrganization._id,
+        start_time: "2022-02-14T14:28:34.462Z",
+        end_time: "2022-03-12T14:28:34.462Z",
+      });
+    } catch (error) {
+      console.log(error);
+      console.log("The organization has not been invited");
+    }
+  };
 
   const columns = [
     {
@@ -128,6 +144,7 @@ export default function OrganizationsPage(props: any) {
       // dataIndex: "actions",
       render: (text: any, record: any) => {
         const course_id = record._id;
+        setCourse_id(course_id);
 
         return (
           <>
@@ -144,7 +161,7 @@ export default function OrganizationsPage(props: any) {
                   })
                 }
               />
-              <Button onClick={() => handleMore()}>{t("more")}</Button>
+              <Button onClick={() => openModal()}>{t("more")}</Button>
               {/* <Button onClick={() => handleMore_1()}>{t("more_1")}</Button> */}
             </Space>
           </>
@@ -194,13 +211,18 @@ export default function OrganizationsPage(props: any) {
       />
 
       {/* If modal opened */}
-      {openModal ? (
+      {isOpen ? (
         <MyModal
           text1="Select the organization to invite"
           organizationToSelect={true}
-          datePicker={true}
+          datePicker1={false}
+          datePicker2={true}
           button1_text="Confirm"
+          button1_close={() => handleInvite()}
           button2_text="Cancel"
+          button2_close={() => closeModal()}
+          heightScreen="h-screen"
+          widthFull="w-1/2"
         />
       ) : (
         ""

@@ -1,12 +1,13 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/outline";
+import { CheckIcon, XIcon } from "@heroicons/react/outline";
 import ReactQuill from "react-quill";
 import { formats, modules } from "../../EditorToolbar";
 import "react-quill/dist/quill.snow.css";
 import OrganizationSelect from "../../OrganizationSelect";
-import MyDatePicker from "../../MyDatePicker/index";
+import DatePickerAntDesign from "../../MyDatePicker/DatePickerAntDesign/index";
+import DatePickerReact from "../../MyDatePicker/DatePickerReact";
 
 export interface MyModalProps {
   backgroundColor?: string;
@@ -19,14 +20,17 @@ export interface MyModalProps {
   validation?: boolean;
   validation_textColor?: string;
   validation_backgroundColor?: string;
-  button_close?: boolean;
+  buttonX?: boolean;
+  buttonX_close?: any;
   button1_text?: string;
   button1_textColor?: string;
+  button1_close?: any;
   button1_backgroundColor?: string;
   hover_button1_backgroundColor?: string;
   onButton1Click?: any;
   button2_text?: string;
   button2_textColor?: string;
+  button2_close?: any;
   button2_backgroundColor?: string;
   hover_button2_backgroundColor?: string;
   onButton2Click?: any;
@@ -39,7 +43,8 @@ export interface MyModalProps {
   widthFull?: string;
   widthScreen?: string;
   organizationToSelect?: boolean;
-  datePicker?: boolean;
+  datePicker1?: boolean;
+  datePicker2?: boolean;
 }
 
 export default function MyModal(props: MyModalProps) {
@@ -124,6 +129,15 @@ export default function MyModal(props: MyModalProps) {
                     />
                   </div>
                 )}
+                {props.buttonX && (
+                  <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4 cursor-pointer">
+                    <XIcon
+                      className="h-6 w-6"
+                      onClick={props.buttonX_close}
+                      aria-hidden="true"
+                    />
+                  </div>
+                )}
 
                 <div className="mt-3 text-center sm:mt-5">
                   <Dialog.Title
@@ -138,7 +152,7 @@ export default function MyModal(props: MyModalProps) {
                   <div className="mt-2">
                     <div className={`text-sm ${text2Color}`}>{props.text3}</div>
                   </div>
-                  <div className="mt-2">
+                  <div className="mt-10">
                     {props.organizationToSelect && (
                       <OrganizationSelect
                         key={"header_000"}
@@ -148,9 +162,15 @@ export default function MyModal(props: MyModalProps) {
                     )}
                   </div>
 
-                  {props.datePicker && (
-                    <div className="m-2">
-                      <MyDatePicker />
+                  {props.datePicker1 && (
+                    <div className="m-10">
+                      <DatePickerAntDesign />
+                    </div>
+                  )}
+
+                  {props.datePicker2 && (
+                    <div className="mt-10">
+                      <DatePickerReact />
                     </div>
                   )}
                 </div>
@@ -161,7 +181,7 @@ export default function MyModal(props: MyModalProps) {
                   <button
                     type="button"
                     className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 ${button1_backgroundColor} text-base font-medium text-white hover:${hover_button1_backgroundColor} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:col-start-2 sm:text-sm`}
-                    onClick={() => closeModal()}
+                    onClick={props.button1_close}
                   >
                     {props.button1_text}
                   </button>
@@ -170,7 +190,7 @@ export default function MyModal(props: MyModalProps) {
                   <button
                     type="button"
                     className={`mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 ${button2_backgroundColor} text-base font-medium text-gray-700 hover:${hover_button2_backgroundColor} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:col-start-1 sm:text-sm`}
-                    onClick={() => closeModal()}
+                    onClick={props.button2_close}
                     ref={cancelButtonRef}
                   >
                     {props.button2_text}

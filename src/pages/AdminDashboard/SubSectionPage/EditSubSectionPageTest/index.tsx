@@ -52,7 +52,7 @@ const EditSubsectionPageTest = () => {
   const [defaultHtmlData, setDefaultHtmlData] = useState("");
   const [defaultDescription, setDefaultDescription] = useState("");
   const [defaultSubsectionName, setDefaultSubsectionName] = useState("");
-  const [openModal, setOpenModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [result, setResult] = useState(false);
   const navigate = useNavigate();
@@ -71,10 +71,12 @@ const EditSubsectionPageTest = () => {
     // save cancel
   };
 
-  const handlePreview = () => {
-    onclick = () => {
-      setOpenModal(true);
-    };
+  const openPreview = () => {
+    setIsOpen(true);
+  };
+
+  const closePreview = () => {
+    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -157,7 +159,7 @@ const EditSubsectionPageTest = () => {
       key={`header_001`}
       type="ghost"
       size="middle"
-      onClick={handlePreview}
+      onClick={openPreview}
       // onClick={props.onRefreshClick as any}
     >
       {t("preview")}
@@ -188,7 +190,7 @@ const EditSubsectionPageTest = () => {
       />
 
       {/* If modal opended */}
-      {openModal ? (
+      {isOpen ? (
         <MyModal
           text1={`${defaultSubsectionName}`}
           text2={`${defaultDescription}`}
@@ -196,6 +198,8 @@ const EditSubsectionPageTest = () => {
           heightScreen="h-screen"
           widthFull="max-w-full"
           widthScreen="w-screen"
+          buttonX={true}
+          buttonX_close={() => closePreview()}
         />
       ) : (
         ""
