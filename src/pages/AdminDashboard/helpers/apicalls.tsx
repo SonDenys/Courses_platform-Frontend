@@ -720,3 +720,61 @@ export async function get_organizations() {
   }
   return [];
 }
+
+export async function get_users_of_organization({ organization_id }) {
+  const query: any = prepare_query(
+    {
+      organization_id,
+    },
+    true
+  );
+  try {
+    const response: any = await axios.get(
+      `${BACKEND_URL}/api/v1.0/get_users_of_organization${query}`
+    );
+
+    if (response && response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return [];
+}
+
+export async function create_user({
+  organization_name,
+  firstname,
+  lastname,
+  username,
+  email,
+  password,
+  scopes,
+  profile_url,
+  currency,
+}) {
+  const query: any = prepare_query({
+    organization_name,
+    firstname,
+    lastname,
+    username,
+    email,
+    password,
+    scopes,
+    profile_url: "string",
+    currency: "euro",
+  });
+
+  try {
+    const response: any = await axios.post(
+      `${BACKEND_URL}/auth/create_user`,
+      query,
+      config_json
+    );
+    if (response && response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -6,7 +6,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import ConfirmButton from "../../../components/ConfirmButton";
 import InnerPageHeader from "../../../components/InnerPageHeader";
 import OrganizationSelect from "../../../components/OrganizationSelect";
-import { showDeleteSectionConfirm } from "../../../components/ui/helpers";
+import {
+  refreshPage,
+  showDeleteSectionConfirm,
+} from "../../../components/ui/helpers";
 
 import { columns, table_data } from "../data";
 import { delete_section, get_sections } from "../helpers/apicalls";
@@ -150,15 +153,16 @@ export default function SectionPage(props: any) {
   ];
 
   const extra = [
-    <OrganizationSelect
-      key={"header_000"}
-      onChange={props.onChangeOrganization}
-      readOnly={props.organizationReadOnly}
-    />,
+    // <OrganizationSelect
+    //   key={"header_000"}
+    //   onChange={props.onChangeOrganization}
+    //   readOnly={props.organizationReadOnly}
+    // />,
     <Button
       key={`header_001`}
       type="ghost"
       size="middle"
+      onClick={() => refreshPage()}
       // onClick={props.onRefreshClick as any}
     >
       {t("refresh")}

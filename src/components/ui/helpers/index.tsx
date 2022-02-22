@@ -157,3 +157,7 @@ export function showDeleteSubsectionConfirm(props: showDeleteConfirmProps) {
     onCancel() {},
   });
 }
+
+export function refreshPage() {
+  window.location.reload();
+}

@@ -134,7 +134,7 @@ export default function CompanySelect(props: CompanySelectProps) {
   return (
     <>
       {loading && (
-        <Space style={{ paddingRight: "10px" }}>
+        <Space style={{ paddingRight: "10px" }} className="cursor-pointer">
           <span>
             {!props.readOnly && t("organizations")}{" "}
             {props.readOnly && (selectedOrganization as any).name}
@@ -147,6 +147,7 @@ export default function CompanySelect(props: CompanySelectProps) {
                 } */}
           {!props.readOnly && (
             <Select
+              className="cursor-pointer"
               showSearch
               style={{ width: 200 }}
               // placeholder={t("select_a_company")}

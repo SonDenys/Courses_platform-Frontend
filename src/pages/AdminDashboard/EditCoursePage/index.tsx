@@ -9,6 +9,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useMyToast } from "../../../_GlobalStates/hooks";
 import { update_course } from "../helpers/apicalls";
 
+export interface EditCoursePageProps {}
+
 const layout = {
   labelCol: {
     span: 8,
@@ -71,14 +73,14 @@ const EditCoursePage = () => {
   };
 
   const extra = [
-    <Button
-      key={`header_001`}
-      type="ghost"
-      size="middle"
-      // onClick={props.onRefreshClick as any}
-    >
-      {t("preview")}
-    </Button>,
+    // <Button
+    //   key={`header_001`}
+    //   type="ghost"
+    //   size="middle"
+    //   // onClick={props.onRefreshClick as any}
+    // >
+    //   {t("preview")}
+    // </Button>,
     <Button
       key={`header_002`}
       type="ghost"
@@ -94,7 +96,7 @@ const EditCoursePage = () => {
   ];
 
   return (
-    <>
+    <div>
       <InnerPageHeader title={t("Edit course")} extra={extra} goBack={true} />
       <Form
         {...layout}
@@ -102,34 +104,36 @@ const EditCoursePage = () => {
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
-        <Form.Item
-          name="name"
-          label="Course Name"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input
-            onChange={(event) => setNewCourseName(event.target.value)}
-            value={newCourseName}
-          />
-        </Form.Item>
+        <div className="pr-52 pt-12">
+          <Form.Item
+            name="name"
+            label="Course Name"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input
+              onChange={(event) => setNewCourseName(event.target.value)}
+              value={newCourseName}
+            />
+          </Form.Item>
 
-        <Form.Item name="category" label="Category">
-          <Input
-            onChange={(event) => setNewCategory(event.target.value)}
-            value={newCategory}
-          />
-        </Form.Item>
+          <Form.Item name="category" label="Category">
+            <Input
+              onChange={(event) => setNewCategory(event.target.value)}
+              value={newCategory}
+            />
+          </Form.Item>
 
-        <Form.Item name="description" label="Description">
-          <Input.TextArea
-            onChange={(event) => setNewDescription(event.target.value)}
-            value={newDescription}
-          />
-        </Form.Item>
+          <Form.Item name="description" label="Description">
+            <Input.TextArea
+              onChange={(event) => setNewDescription(event.target.value)}
+              value={newDescription}
+            />
+          </Form.Item>
+        </div>
 
         <p>{errorMessage}</p>
 
@@ -145,7 +149,7 @@ const EditCoursePage = () => {
           </Button>
         </Form.Item> */}
       </Form>
-    </>
+    </div>
   );
 };
 

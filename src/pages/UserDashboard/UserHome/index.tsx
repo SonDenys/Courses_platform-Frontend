@@ -6,7 +6,7 @@ export default function UserHome() {
 
   return (
     <>
-      <InnerPageHeader goBack={true}/>
+      {/* <InnerPageHeader goBack={true}/> */}
       <div>
         <h1>User Home {id}</h1>
         <p>This is the User Home {id}</p>

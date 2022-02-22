@@ -12,7 +12,10 @@ import { BACKEND_URL } from "../../../params";
 import { prepare_query } from "../../../utils";
 import { columns, table_data } from "../data";
 import { delete_course, get_courses } from "../helpers/apicalls";
-import { showDeleteCourseConfirm } from "../../../components/ui/helpers/index";
+import {
+  refreshPage,
+  showDeleteCourseConfirm,
+} from "../../../components/ui/helpers/index";
 import { useMyToast } from "../../../_GlobalStates/hooks";
 import OrganizationSelect from "../../../components/OrganizationSelect";
 import ConfirmButton from "../../../components/ConfirmButton";
@@ -115,23 +118,17 @@ export default function CoursePage(props: any) {
               >
                 {t("edit")}
               </Button>
+              <ConfirmButton
+                buttonText="activate"
+                title="Are you sure to activate this course?"
+                onConfirm={() => handleDelete(course_id)}
+              />
 
               <ConfirmButton
                 buttonText="delete"
                 title="Are you sure to delete this course?"
                 onConfirm={() => handleDelete(course_id)}
               />
-              {/* <Button
-                onClick={() => {
-                  showDeleteCourseConfirm({
-                    title: "Delete Course?",
-                    content: "Are you sure to delete the course?",
-                    course_id: course_id,
-                  });
-                }}
-              >
-                {t("delete")}
-              </Button> */}
             </Space>
           </>
         );
@@ -140,15 +137,16 @@ export default function CoursePage(props: any) {
   ];
 
   const extra = [
-    <OrganizationSelect
-      key={"header_000"}
-      onChange={props.onChangeOrganization}
-      readOnly={props.organizationReadOnly}
-    />,
+    // <OrganizationSelect
+    //   key={"header_000"}
+    //   onChange={props.onChangeOrganization}
+    //   readOnly={props.organizationReadOnly}
+    // />,
     <Button
       key={`header_001`}
       type="ghost"
       size="middle"
+      onClick={() => refreshPage()}
       // onClick={props.onRefreshClick as any}
     >
       {t("refresh")}

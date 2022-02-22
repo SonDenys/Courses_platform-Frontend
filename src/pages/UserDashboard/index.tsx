@@ -7,9 +7,15 @@ import {
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { data } from "./data/index";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LibraryIcon } from "@heroicons/react/solid";
 import TopBar from "../../components/Topbar";
+import {
+  get_courses,
+  get_courses_of_user,
+} from "../AdminDashboard/helpers/apicalls";
+import konsole from "../../konsole";
+import { useMyToast } from "../../_GlobalStates/hooks";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -19,9 +25,30 @@ export default function UserDashboard() {
   const { t } = useTranslation();
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
+  const toast = useMyToast();
+  // const [data, setData] = useState([]);
 
   console.log("location.pathname");
   console.log(location);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await get_courses_of_user({
+  //         user_id: user_id,
+  //         organization_id: organization_id,
+  //       });
+  //       konsole.log(
+  //         "response response get_courses_of_user in the userAdmin = = =>",
+  //         response
+  //       );
+  //       setData(response.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //       toast.error("There is an error somewhere");
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <>
@@ -54,7 +81,7 @@ export default function UserDashboard() {
               >
                 {data?.map((subMenu) => {
                   return (
-                    /* ------------------------- Chapter nav ------------------------- */
+                    /* ------------------------- Courses nav ------------------------- */
                     <SubMenu
                       key={`sub-${subMenu.id}`}
                       icon={<LibraryIcon className="h-5 w-5" />}
@@ -73,8 +100,23 @@ export default function UserDashboard() {
                         );
                       })}
 
-                      {/*------------------------- Exercice nav -------------------------*/}
-                      {subMenu?.sections_practices && (
+                      {/* -------------------- Students nav -------------------------- */}
+
+                      {subMenu?.sections_students?.map((menu) => {
+                        return (
+                          <>
+                            <Menu.Item
+                              key={menu.url}
+                              onClick={() => navigate(menu.url)}
+                            >
+                              {t(menu.name)}
+                            </Menu.Item>
+                          </>
+                        );
+                      })}
+
+                      {/*------------------------- Exercices nav -------------------------*/}
+                      {/* {subMenu?.sections_practices && (
                         <SubMenu
                           key={`sub-sub--${subMenu.id}`}
                           // icon={<UserOutlined />}
@@ -93,7 +135,7 @@ export default function UserDashboard() {
                             );
                           })}
                         </SubMenu>
-                      )}
+                      )} */}
                     </SubMenu>
                   );
                 })}

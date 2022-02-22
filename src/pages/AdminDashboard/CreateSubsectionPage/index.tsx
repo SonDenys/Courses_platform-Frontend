@@ -154,27 +154,29 @@ const CreateSubsectionPage = () => {
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
-        <Form.Item
-          name="name"
-          label="Subsection Name"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input
-            onChange={(event) => setSubsectionName(event.target.value)}
-            value={subsectionName}
-          />
-        </Form.Item>
+        <div className="pr-52 pt-12">
+          <Form.Item
+            name="name"
+            label="Subsection Name"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input
+              onChange={(event) => setSubsectionName(event.target.value)}
+              value={subsectionName}
+            />
+          </Form.Item>
 
-        <Form.Item name="description" label="Description">
-          <Input.TextArea
-            onChange={(event) => setDescription(event.target.value)}
-            value={description}
-          />
-        </Form.Item>
+          <Form.Item name="description" label="Description">
+            <Input.TextArea
+              onChange={(event) => setDescription(event.target.value)}
+              value={description}
+            />
+          </Form.Item>
+        </div>
 
         <p className="text-red-600 font-bold"> {errorMessage}</p>
 

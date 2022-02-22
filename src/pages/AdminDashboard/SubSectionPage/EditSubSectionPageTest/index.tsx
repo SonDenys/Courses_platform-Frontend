@@ -14,7 +14,8 @@ import EditorToolbar, {
   formats,
   modules,
 } from "../../../../components/EditorToolbar";
-import MyModal from "../../../../components/ui/MyModal";
+import MyModalTailwind from "../../../../components/ui/MyModal/MyModalTailwind";
+import MyModalAntdesign from "../../../../components/ui/MyModal/MyModalAntdesign";
 
 const layout = {
   labelCol: {
@@ -24,7 +25,6 @@ const layout = {
     span: 16,
   },
 };
-/* eslint-disable no-template-curly-in-string */
 
 const validateMessages = {
   required: "${label} is required!",
@@ -39,7 +39,6 @@ const validateMessages = {
     range: "${label} must be between ${min} and ${max}",
   },
 };
-/* eslint-enable no-template-curly-in-string */
 
 const EditSubsectionPageTest = () => {
   const { course_id, chapter_id, section_id, subsection_id } = useParams();
@@ -150,11 +149,11 @@ const EditSubsectionPageTest = () => {
   // }
 
   const extra = [
-    <OrganizationSelect
-      key={"header_000"}
-      // onChange={props.onChangeOrganization}
-      // readOnly={props.organizationReadOnly}
-    />,
+    // <OrganizationSelect
+    //   key={"header_000"}
+    //   // onChange={props.onChangeOrganization}
+    //   // readOnly={props.organizationReadOnly}
+    // />,
     <Button
       key={`header_001`}
       type="ghost"
@@ -191,19 +190,30 @@ const EditSubsectionPageTest = () => {
 
       {/* If modal opended */}
       {isOpen ? (
-        <MyModal
+        <MyModalTailwind
           text1={`${defaultSubsectionName}`}
           text2={`${defaultDescription}`}
-          text3={data}
-          heightScreen="h-screen"
+          content={data}
+          heightScreen="h-full"
           widthFull="max-w-full"
-          widthScreen="w-screen"
           buttonX={true}
           buttonX_close={() => closePreview()}
         />
       ) : (
         ""
       )}
+
+      {/* {isOpen ? (
+        <MyModalAntdesign
+          text1={`${defaultSubsectionName}`}
+          text2={`${defaultDescription}`}
+          text3={data}
+          onConfirm={() => closePreview()}
+          onCancel={() => closePreview()}
+        />
+      ) : (
+        ""
+      )} */}
 
       <Form
         {...layout}

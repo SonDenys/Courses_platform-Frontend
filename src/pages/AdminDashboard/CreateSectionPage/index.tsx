@@ -76,27 +76,28 @@ const CreateSectionPage = () => {
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
-        <Form.Item
-          name="name"
-          label="Section Name"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input
-            onChange={(event) => setSectionName(event.target.value)}
-            value={sectionName}
-          />
-        </Form.Item>
-
-        <Form.Item name="description" label="Description">
-          <Input.TextArea
-            onChange={(event) => setDescription(event.target.value)}
-            value={description}
-          />
-        </Form.Item>
+        <div className="pr-52 pt-12">
+          <Form.Item
+            name="name"
+            label="Section Name"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input
+              onChange={(event) => setSectionName(event.target.value)}
+              value={sectionName}
+            />
+          </Form.Item>
+          <Form.Item name="description" label="Description">
+            <Input.TextArea
+              onChange={(event) => setDescription(event.target.value)}
+              value={description}
+            />
+          </Form.Item>
+        </div>
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button

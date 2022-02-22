@@ -79,34 +79,36 @@ const CreateCoursePage = () => {
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
-        <Form.Item
-          name="name"
-          label="Course Name"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input
-            onChange={(event) => setCourseName(event.target.value)}
-            value={courseName}
-          />
-        </Form.Item>
+        <div className="pr-52 pt-12">
+          <Form.Item
+            name="name"
+            label="Course Name"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input
+              onChange={(event) => setCourseName(event.target.value)}
+              value={courseName}
+            />
+          </Form.Item>
 
-        <Form.Item name="category" label="Category">
-          <Input
-            onChange={(event) => setCategory(event.target.value)}
-            value={category}
-          />
-        </Form.Item>
+          <Form.Item name="category" label="Category">
+            <Input
+              onChange={(event) => setCategory(event.target.value)}
+              value={category}
+            />
+          </Form.Item>
 
-        <Form.Item name="description" label="Description">
-          <Input.TextArea
-            onChange={(event) => setDescription(event.target.value)}
-            value={description}
-          />
-        </Form.Item>
+          <Form.Item name="description" label="Description">
+            <Input.TextArea
+              onChange={(event) => setDescription(event.target.value)}
+              value={description}
+            />
+          </Form.Item>
+        </div>
 
         <p>{errorMessage}</p>
 

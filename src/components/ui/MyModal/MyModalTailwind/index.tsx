@@ -3,18 +3,18 @@ import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon, XIcon } from "@heroicons/react/outline";
 import ReactQuill from "react-quill";
-import { formats, modules } from "../../EditorToolbar";
+import { formats, modules } from "../../../EditorToolbar";
 import "react-quill/dist/quill.snow.css";
-import OrganizationSelect from "../../OrganizationSelect";
-import DatePickerAntDesign from "../../MyDatePicker/DatePickerAntDesign/index";
-import DatePickerReact from "../../MyDatePicker/DatePickerReact";
+import OrganizationSelect from "../../../OrganizationSelect";
+import DatePickerAntDesign from "../../../MyDatePicker/DatePickerAntDesign/index";
+import DatePickerReact from "../../../MyDatePicker/DatePickerReact";
 
 export interface MyModalProps {
   backgroundColor?: string;
   modal_backgroundColor?: string;
   text1: string;
   text2?: string;
-  text3?: any;
+  content?: any;
   text1Color?: string;
   text2Color?: string;
   validation?: boolean;
@@ -47,7 +47,7 @@ export interface MyModalProps {
   datePicker2?: boolean;
 }
 
-export default function MyModal(props: MyModalProps) {
+export default function MyModal_Tailwind(props: MyModalProps) {
   const backgroundColor = props.backgroundColor || "bg-gray-200";
   const modal_backgroundColor = props.modal_backgroundColor || "bg-white";
   const text1Color = props.text1Color || "text-gray-900";
@@ -116,7 +116,7 @@ export default function MyModal(props: MyModalProps) {
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div
-              className={`inline-block align-bottom ${modal_backgroundColor} ${props.heightScreen} rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:${props.widthFull} sm:${props.widthScreen} sm:p-6`}
+              className={`inline-block align-bottom ${modal_backgroundColor} ${props.heightScreen} ${props.widthFull} rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:p-6`}
             >
               <div>
                 {props.validation && (
@@ -139,7 +139,7 @@ export default function MyModal(props: MyModalProps) {
                   </div>
                 )}
 
-                <div className="mt-3 text-center sm:mt-5">
+                <div className="mt-3 sm:mt-5">
                   <Dialog.Title
                     as="h3"
                     className={`text-lg leading-6 font-medium ${text1Color}`}
@@ -150,7 +150,10 @@ export default function MyModal(props: MyModalProps) {
                     <p className={`text-sm ${text2Color}`}>{props.text2}</p>
                   </div>
                   <div className="mt-2">
-                    <div className={`text-sm ${text2Color}`}>{props.text3}</div>
+                    <div
+                      className={`text-sm ${text2Color}`}
+                      dangerouslySetInnerHTML={{ __html: props.content }}
+                    ></div>
                   </div>
                   <div className="mt-10">
                     {props.organizationToSelect && (

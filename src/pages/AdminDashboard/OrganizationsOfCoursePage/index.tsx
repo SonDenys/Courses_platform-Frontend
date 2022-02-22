@@ -3,7 +3,7 @@ import Layout, { Content } from "antd/lib/layout/layout";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 
 import InnerPageHeader from "../../../components/InnerPageHeader";
@@ -13,9 +13,7 @@ import { prepare_query } from "../../../utils";
 import { columns, table_data } from "../data";
 import {
   add_organization_to_course,
-  delete_course,
-  get_courses,
-  get_organizations,
+  get_organizations_of_course,
   remove_organization_from_course,
 } from "../helpers/apicalls";
 import {
@@ -27,28 +25,38 @@ import OrganizationSelect from "../../../components/OrganizationSelect";
 import ConfirmButton from "../../../components/ConfirmButton";
 import { selectedOrganization_State } from "../../../_GlobalStates/globalState";
 import MyModalTailwind from "../../../components/ui/MyModal/MyModalTailwind";
+import { getUserId } from "../../../Auth";
 
-export default function OrganizationsPage(props: any) {
+export default function OrganizationsOfCoursePage(props: any) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const [userId, setUserId] = useState("");
   const toast = useMyToast();
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [course_id, setCourse_id] = useState("");
+  const { course_id } = useParams();
 
-  const [selectedOrganization, setSelectedOrganization] = useRecoilState(
-    selectedOrganization_State
-  );
+  // const [selectedOrganization, setSelectedOrganization] = useRecoilState(
+  //   selectedOrganization_State
+  // );
 
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await get_courses();
-        konsole.log("response response = = =>", response);
+        const response = await get_organizations_of_course({ course_id });
+        konsole.log("get_organizations_of_course response = = =>", response);
         setData(response.data);
+
+        setUserId(await getUserId());
+
+        // setOrganizationId(
+        //   response.data.map((item) => {
+        //     return item._id;
+        //   })
+        // );
       } catch (error) {
         console.log(error);
         toast.error("There is an error somewhere");
@@ -56,75 +64,45 @@ export default function OrganizationsPage(props: any) {
     })();
   }, []);
 
-  // const handleDelete = async (course_id) => {
-  //   try {
-  //     const response = await remove_organization_from_course({
-  //       course_id:
-  //     });
+  console.log("user_id =======>", userId);
 
-  //     if (response) {
-  //       const newData = organizations.filter((x: any) => x._id !== course_id);
-  //       setOrganizations(newData);
-  //     }
-  //     if (!response) {
-  //       console.log("Delete course failed");
-  //     } else {
-  //       return response.data;
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     console.log(
-  //       "there is an error on the remove_organization_from_course api call"
-  //     );
-  //   }
-  // };
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
-  const handleInvite = async () => {
+  const handleDelete = async ({ user_id, course_id, organization_id }) => {
     try {
-      const response = await add_organization_to_course({
-        course_id: course_id,
-        organization_id: selectedOrganization._id,
-        start_time: "2022-02-14T14:28:34.462Z",
-        end_time: "2022-03-12T14:28:34.462Z",
+      const response = await remove_organization_from_course({
+        user_id,
+        course_id,
+        organization_id,
       });
 
-      if (!response) {
-        setErrorMessage("The organization has not been invited");
-      } else {
+      if (response) {
+        const newData = data.filter((x: any) => x._id !== organization_id);
+        setData(newData);
+        console.log("organization_id selected = === >", organization_id);
       }
-
-      if (!selectedOrganization) {
-        setErrorMessage("You forget to select a organization");
+      if (!response) {
+        console.log("Remove organization failed");
+      } else {
+        return response.data;
       }
     } catch (error) {
       console.log(error);
-      toast.error(t("could_not_add_organization"));
+      console.log(
+        "there is an error on the remove_organization_from_course api call"
+      );
     }
   };
 
   const columns = [
     {
-      title: t("Courses Name"),
+      title: t("Organization Name"),
       key: "name",
       dataIndex: "name",
       render: (text: any, record: any) => {
-        const course_id = record._id;
+        const organization_id = record._id;
         return (
           <span
-            className="cursor-pointer"
-            onClick={() =>
-              navigate(
-                `/admin/organizations/organizations_of_course/${course_id}`
-              )
-            }
+          // className="cursor-pointer"
+          // onClick={() => navigate(`/admin/courses/chapters/${course_id}`)}
           >
             {text}
           </span>
@@ -161,13 +139,12 @@ export default function OrganizationsPage(props: any) {
       key: "actions",
       // dataIndex: "actions",
       render: (text: any, record: any) => {
-        const course_id = record._id;
-        setCourse_id(course_id);
+        const organization_id = record._id;
 
         return (
           <>
             <Space direction="horizontal">
-              <ConfirmButton
+              {/* <ConfirmButton
                 buttonText="invite"
                 title={`Are you sure to invite ${selectedOrganization.name} to the course?`}
                 onConfirm={() =>
@@ -178,8 +155,19 @@ export default function OrganizationsPage(props: any) {
                     end_time: "2022-03-12T14:28:34.462Z",
                   })
                 }
+              /> */}
+              <ConfirmButton
+                buttonText="remove"
+                title={`Are you sure to remove this organization to the course?`}
+                onConfirm={() =>
+                  handleDelete({
+                    course_id: course_id,
+                    organization_id: organization_id,
+                    user_id: userId,
+                  })
+                }
               />
-              <Button onClick={() => openModal()}>{t("more")}</Button>
+
               {/* <Button onClick={() => handleMore_1()}>{t("more_1")}</Button> */}
             </Space>
           </>
@@ -189,11 +177,11 @@ export default function OrganizationsPage(props: any) {
   ];
 
   const extra = [
-    <OrganizationSelect
-      key={"header_000"}
-      onChange={props.onChangeOrganization}
-      readOnly={props.organizationReadOnly}
-    />,
+    // <OrganizationSelect
+    //   key={"header_000"}
+    //   onChange={props.onChangeOrganization}
+    //   readOnly={props.organizationReadOnly}
+    // />,
     <Button
       key={`header_001`}
       type="ghost"
@@ -218,7 +206,7 @@ export default function OrganizationsPage(props: any) {
   return (
     <>
       <InnerPageHeader
-        title={t("Courses for Organizations")}
+        title={t("Organizations of the course selected")}
         goBack
         extra={extra}
         // onCreateClick={() => navigate("/admin/courses/createcourse")}
@@ -229,33 +217,6 @@ export default function OrganizationsPage(props: any) {
         columns={columns}
         dataSource={data}
       />
-
-      {/* If modal opened */}
-      {isOpen ? (
-        <MyModalTailwind
-          text1="Select the organization to invite"
-          organizationToSelect={true}
-          datePicker1={true}
-          datePicker2={true}
-          button1_text="Confirm"
-          button1_close={() => handleInvite()}
-          button2_text="Cancel"
-          button2_close={() => closeModal()}
-          heightScreen="h-screen"
-          widthFull="w-1/2"
-        />
-      ) : (
-        ""
-      )}
-
-      {/* {openModal_1 ? (
-        <MyModal_1
-          text1="Select the organization to invite"
-          organizationToSelect={true}
-        />
-      ) : (
-        ""
-      )} */}
 
       {/* <MyTailwindTable columns={columns} dataSource={table_data} /> */}
     </>

@@ -28,6 +28,10 @@ import EditSectionPage from "../pages/AdminDashboard/EditSectionPage";
 import AdminSettings from "../pages/AdminDashboard/AdminSettings";
 import EditSubSectionPageTest from "../pages/AdminDashboard/SubSectionPage/EditSubSectionPageTest";
 import OrganizationsPage from "../pages/AdminDashboard/OrganizationsPage";
+import OrganizationsOfCoursePage from "../pages/AdminDashboard/OrganizationsOfCoursePage";
+import StudentsOrganizationsPage from "../pages/AdminDashboard/StudentsOrganizationsPage";
+import StudentsListPage from "../pages/UserDashboard/StudentsListPage";
+import CreateOrganizationPage from "../pages/UserDashboard/StudentsListPage/CreateOrganizationPage";
 
 // const LandingPage = lazy(() => import("../LandingPage"));
 const Home = lazy(() => import("../pages/Home"));
@@ -194,8 +198,25 @@ export function getRoutes(): AppRouterObject[] {
           path: "organizations",
           element: <OrganizationsPage />,
         },
+
+        {
+          path: "organizations/organizations_of_course/:course_id",
+          element: <OrganizationsOfCoursePage />,
+        },
+
         { path: "students", element: <StudentsPage /> },
-        { path: "students/add", element: <CreateStudentsPage /> },
+        {
+          path: "students/students_organizations/:course_id",
+          element: <StudentsOrganizationsPage />,
+        },
+        {
+          path: "students/students_organizations/students_list/:course_id/:organization_id",
+          element: <StudentsListPage />,
+        },
+        {
+          path: "students/students_organizations/students_list/createstudent/:course_id/:organization_id",
+          element: <CreateStudentsPage />,
+        },
         { path: "settings", element: <AdminSettings /> },
         { path: "settings/:id", element: <AdminSettings /> },
       ],
@@ -209,6 +230,11 @@ export function getRoutes(): AppRouterObject[] {
         {
           path: "home/:id",
           element: <UserHome />,
+        },
+        { path: "students", element: <StudentsListPage /> },
+        {
+          path: "students/createorganization",
+          element: <CreateOrganizationPage />,
         },
       ],
     },

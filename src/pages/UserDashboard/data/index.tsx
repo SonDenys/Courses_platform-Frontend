@@ -1,6 +1,7 @@
 export const data = [
   {
     id: 1,
+    category: "html/css",
     chapter_nav: "Html/CSS Courses",
     exercice_nav: "Exercices",
     url: "section/:chapter_id",
@@ -17,6 +18,7 @@ export const data = [
   },
   {
     id: 2,
+    category: "javascript",
     chapter_nav: "Javascript Courses",
     exercice_nav: "Exercices",
     url: "section/:chapter_id",
@@ -33,6 +35,7 @@ export const data = [
   },
   {
     id: 3,
+    category: "react",
     chapter_nav: "React Courses",
     exercice_nav: "Exercices",
     url: "section/:chapter_id",
@@ -49,6 +52,7 @@ export const data = [
   },
   {
     id: 4,
+    category: "python",
     chapter_nav: "Python Courses",
     exercice_nav: "Exercices",
     url: "section/:chapter_id",
@@ -65,6 +69,7 @@ export const data = [
   },
   {
     id: 5,
+    category: "mongodb",
     chapter_nav: "MongoDB Courses",
     exercice_nav: "Exercices",
     url: "section/:chapter_id",
@@ -86,6 +91,18 @@ export const data = [
       {
         name: "MongoDB E2",
         url: "/user/home/12",
+      },
+    ],
+  },
+  {
+    id: 6,
+    category: "settings",
+    chapter_nav: "Settings",
+    url: "/user/students",
+    sections_students: [
+      {
+        name: "Organization",
+        url: "/user/students",
       },
     ],
   },

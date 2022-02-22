@@ -72,27 +72,29 @@ const CreateChapterPage = () => {
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
-        <Form.Item
-          name="name"
-          label="Chapter Name"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input
-            onChange={(event) => setChapterName(event.target.value)}
-            value={chapterName}
-          />
-        </Form.Item>
+        <div className="pr-52 pt-12">
+          <Form.Item
+            name="name"
+            label="Chapter Name"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input
+              onChange={(event) => setChapterName(event.target.value)}
+              value={chapterName}
+            />
+          </Form.Item>
 
-        <Form.Item name="description" label="Description">
-          <Input.TextArea
-            onChange={(event) => setDescription(event.target.value)}
-            value={description}
-          />
-        </Form.Item>
+          <Form.Item name="description" label="Description">
+            <Input.TextArea
+              onChange={(event) => setDescription(event.target.value)}
+              value={description}
+            />
+          </Form.Item>
+        </div>
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button

@@ -75,14 +75,14 @@ const EditSectionPage = () => {
   };
 
   const extra = [
-    <Button
-      key={`header_001`}
-      type="ghost"
-      size="middle"
-      // onClick={props.onRefreshClick as any}
-    >
-      {t("preview")}
-    </Button>,
+    // <Button
+    //   key={`header_001`}
+    //   type="ghost"
+    //   size="middle"
+    //   // onClick={props.onRefreshClick as any}
+    // >
+    //   {t("preview")}
+    // </Button>,
     <Button
       key={`header_002`}
       type="ghost"
@@ -106,34 +106,36 @@ const EditSectionPage = () => {
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
-        <Form.Item
-          name="name"
-          label="Section Name"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input
-            onChange={(event) => setNewSectionName(event.target.value)}
-            value={newSectionName}
-          />
-        </Form.Item>
+        <div className="pr-52 pt-12">
+          <Form.Item
+            name="name"
+            label="Section Name"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input
+              onChange={(event) => setNewSectionName(event.target.value)}
+              value={newSectionName}
+            />
+          </Form.Item>
 
-        <Form.Item name="category" label="Category">
-          <Input
-            onChange={(event) => setNewCategory(event.target.value)}
-            value={newCategory}
-          />
-        </Form.Item>
+          <Form.Item name="category" label="Category">
+            <Input
+              onChange={(event) => setNewCategory(event.target.value)}
+              value={newCategory}
+            />
+          </Form.Item>
 
-        <Form.Item name="description" label="Description">
-          <Input.TextArea
-            onChange={(event) => setNewDescription(event.target.value)}
-            value={newDescription}
-          />
-        </Form.Item>
+          <Form.Item name="description" label="Description">
+            <Input.TextArea
+              onChange={(event) => setNewDescription(event.target.value)}
+              value={newDescription}
+            />
+          </Form.Item>
+        </div>
 
         <p>{errorMessage}</p>
 

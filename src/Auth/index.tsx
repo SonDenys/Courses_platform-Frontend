@@ -510,6 +510,17 @@ export async function getUserName() {
   return "";
 }
 
+export async function getUserId() {
+  const tcache = (await getTokenCache()) || {};
+  const payload: any = tcache.payload || {};
+  konsole.log("getTokenCache().payload");
+  konsole.log(tcache.payload);
+  if (payload.data) {
+    return payload.data._id;
+  }
+  return "";
+}
+
 export function getScopes() {
   // return getPayloadValue("scopes") || ""
   return "admin";

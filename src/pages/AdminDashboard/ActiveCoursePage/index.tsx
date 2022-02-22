@@ -88,7 +88,7 @@ export default function ActiveCoursePage(props: any) {
 
   return (
     <>
-      <InnerPageHeader title={t("courses")} goBack />
+      <InnerPageHeader title={t("Active Courses")} goBack />
       <Table
         className="ml-2 mr-2  !rounded-lg !border-gray-500"
         columns={columns}

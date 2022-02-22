@@ -7,7 +7,10 @@ import InnerPageHeader from "../../../components/InnerPageHeader";
 
 import { columns, table_data } from "../data";
 import { delete_subsection, get_subsections } from "../helpers/apicalls";
-import { showDeleteSubsectionConfirm } from "../../../components/ui/helpers/index";
+import {
+  refreshPage,
+  showDeleteSubsectionConfirm,
+} from "../../../components/ui/helpers/index";
 import OrganizationSelect from "../../../components/OrganizationSelect";
 import ConfirmButton from "../../../components/ConfirmButton";
 
@@ -163,15 +166,16 @@ export default function SubSectionPage(props: any) {
   ];
 
   const extra = [
-    <OrganizationSelect
-      key={"header_000"}
-      onChange={props.onChangeOrganization}
-      readOnly={props.organizationReadOnly}
-    />,
+    // <OrganizationSelect
+    //   key={"header_000"}
+    //   onChange={props.onChangeOrganization}
+    //   readOnly={props.organizationReadOnly}
+    // />,
     <Button
       key={`header_001`}
       type="ghost"
       size="middle"
+      onClick={() => refreshPage()}
       // onClick={props.onRefreshClick as any}
     >
       {t("refresh")}
