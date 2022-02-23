@@ -169,3 +169,8 @@ export const selectedOrganization_State = atom<any>({
   key: "selectedOrganization_State",
   default: {},
 });
+
+export const selectedCourse_State = atom<any>({
+  key: "selectedCourse_State",
+  default: {},
+});

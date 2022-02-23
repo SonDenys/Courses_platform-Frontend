@@ -31,7 +31,9 @@ import OrganizationsPage from "../pages/AdminDashboard/OrganizationsPage";
 import OrganizationsOfCoursePage from "../pages/AdminDashboard/OrganizationsOfCoursePage";
 import StudentsOrganizationsPage from "../pages/AdminDashboard/StudentsOrganizationsPage";
 import StudentsListPage from "../pages/UserDashboard/StudentsListPage";
-import CreateOrganizationPage from "../pages/UserDashboard/StudentsListPage/CreateOrganizationPage";
+import CreateOrganizationPage from "../pages/AdminDashboard/CreateOrganizationPage";
+import CreateActiveCoursePage from "../pages/CreateActiveCoursePage";
+import UsersOfOrganizationPage from "../pages/AdminDashboard/UsersOfOrganizationPage";
 
 // const LandingPage = lazy(() => import("../LandingPage"));
 const Home = lazy(() => import("../pages/Home"));
@@ -193,10 +195,25 @@ export function getRoutes(): AppRouterObject[] {
           element: <EditSubSectionPageTest />,
         },
         { path: "active_courses", element: <ActiveCoursePage /> },
-        { path: "active_courses/edit", element: <EditActiveCoursePage /> },
+        {
+          path: "active_courses/createactivecourse",
+          element: <CreateActiveCoursePage />,
+        },
+
+        // { path: "active_courses/edit", element: <EditActiveCoursePage /> },
         {
           path: "organizations",
           element: <OrganizationsPage />,
+        },
+
+        {
+          path: "organizations/createorganization",
+          element: <CreateOrganizationPage />,
+        },
+
+        {
+          path: "organizations/users_of_organization/:organization_id",
+          element: <UsersOfOrganizationPage />,
         },
 
         {

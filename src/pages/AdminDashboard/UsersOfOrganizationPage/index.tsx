@@ -3,7 +3,7 @@ import Layout, { Content } from "antd/lib/layout/layout";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 
 import InnerPageHeader from "../../../components/InnerPageHeader";
@@ -11,13 +11,6 @@ import konsole from "../../../konsole";
 import { BACKEND_URL } from "../../../params";
 import { prepare_query } from "../../../utils";
 import { columns, table_data } from "../data";
-import {
-  add_organization_to_course,
-  delete_course,
-  get_courses,
-  get_organizations,
-  remove_organization_from_course,
-} from "../helpers/apicalls";
 import {
   refreshPage,
   showDeleteCourseConfirm,
@@ -27,8 +20,12 @@ import OrganizationSelect from "../../../components/OrganizationSelect";
 import ConfirmButton from "../../../components/ConfirmButton";
 import { selectedOrganization_State } from "../../../_GlobalStates/globalState";
 import MyModalTailwind from "../../../components/ui/MyModal/MyModalTailwind";
+import {
+  add_organization_to_course,
+  get_users_of_organization,
+} from "../helpers/apicalls";
 
-export default function OrganizationsPage(props: any) {
+export default function UsersOfOrganizationPage(props: any) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
@@ -36,17 +33,20 @@ export default function OrganizationsPage(props: any) {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [course_id, setCourse_id] = useState("");
+  const { organization_id } = useParams();
 
-  const [selectedOrganization, setSelectedOrganization] = useRecoilState(
-    selectedOrganization_State
-  );
+  // const [selectedOrganization, setSelectedOrganization] = useRecoilState(
+  //   selectedOrganization_State
+  // );
 
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await get_organizations();
+        const response = await get_users_of_organization({
+          organization_id: organization_id,
+        });
         konsole.log("response response = = =>", response);
         setData(response.data);
       } catch (error) {
@@ -87,45 +87,44 @@ export default function OrganizationsPage(props: any) {
     setIsOpen(false);
   };
 
-  const handleInvite = async () => {
-    try {
-      const response = await add_organization_to_course({
-        course_id: course_id,
-        organization_id: selectedOrganization._id,
-        start_time: "2022-02-14T14:28:34.462Z",
-        end_time: "2022-03-12T14:28:34.462Z",
-      });
+  // const handleInvite = async () => {
+  //   try {
+  //     const response = await add_organization_to_course({
+  //       course_id: course_id,
+  //       organization_id: selectedOrganization._id,
+  //       start_time: "2022-02-14T14:28:34.462Z",
+  //       end_time: "2022-03-12T14:28:34.462Z",
+  //     });
 
-      if (!response) {
-        setErrorMessage("The organization has not been invited");
-      } else {
-      }
+  //     if (!response) {
+  //       setErrorMessage("The organization has not been invited");
+  //     } else {
+  //     }
 
-      if (!selectedOrganization) {
-        setErrorMessage("You forget to select a organization");
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(t("could_not_add_organization"));
-    }
-  };
+  //     if (!selectedOrganization) {
+  //       setErrorMessage("You forget to select a organization");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error(t("could_not_add_organization"));
+  //   }
+  // };
 
   const columns = [
     {
-      title: t("Organizations Name"),
-      key: "name",
-      dataIndex: "name",
+      title: t("Firstname"),
+      key: "firstname",
+      dataIndex: "firstname",
       render: (text: any, record: any) => {
         const organization_id = record._id;
-
         return (
           <span
-            className="cursor-pointer"
-            onClick={() =>
-              navigate(
-                `/admin/organizations/users_of_organization/${organization_id}`
-              )
-            }
+          // className="cursor-pointer"
+          // onClick={() =>
+          //   navigate(
+          //     `/admin/organizations/users_of_organization/${organization_id}`
+          //   )
+          // }
           >
             {text}
           </span>
@@ -133,10 +132,11 @@ export default function OrganizationsPage(props: any) {
       },
     },
     {
-      title: "Category",
-      dataIndex: "category",
-      key: "category",
+      title: "Lastname",
+      dataIndex: "lastname",
+      key: "lastname",
     },
+    { title: "Email", dataIndex: "email", key: "email" },
     {
       title: "Created_at",
       dataIndex: "created_at",
@@ -146,16 +146,6 @@ export default function OrganizationsPage(props: any) {
       title: "Updated_at",
       dataIndex: "updated_at",
       key: "updated_at",
-    },
-    {
-      title: "Created_by",
-      dataIndex: "created_by",
-      key: "created_by",
-    },
-    {
-      title: "Updated_by",
-      dataIndex: "updated_by",
-      key: "updated_by",
     },
     // {
     //   title: t("actions"),
@@ -204,22 +194,22 @@ export default function OrganizationsPage(props: any) {
     >
       {t("refresh")}
     </Button>,
-    <Button
-      key={`header_002`}
-      type="ghost"
-      size="middle"
-      // navigate to Create Course Page
-      onClick={() => navigate("/admin/organizations/createorganization")}
-      //   onClick={handleClickCreate}
-    >
-      {t("create")}
-    </Button>,
+    // <Button
+    //   key={`header_002`}
+    //   type="ghost"
+    //   size="middle"
+    //   // navigate to Create Course Page
+    //   onClick={() => navigate("/admin/organizations/createorganization")}
+    //   //   onClick={handleClickCreate}
+    // >
+    //   {t("create")}
+    // </Button>,
   ];
 
   return (
     <>
       <InnerPageHeader
-        title={t("Organizations")}
+        title={t("Users Of Organizations")}
         goBack
         extra={extra}
         // onCreateClick={() => navigate("/admin/courses/createcourse")}
@@ -239,7 +229,7 @@ export default function OrganizationsPage(props: any) {
           datePicker1={true}
           datePicker2={true}
           button1_text="Confirm"
-          button1_close={() => handleInvite()}
+          // button1_close={() => handleInvite()}
           button2_text="Cancel"
           button2_close={() => closeModal()}
           heightScreen="h-screen"
