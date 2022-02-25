@@ -18,11 +18,15 @@ import {
 import { useMyToast } from "../../../_GlobalStates/hooks";
 import OrganizationSelect from "../../../components/OrganizationSelect";
 import ConfirmButton from "../../../components/ConfirmButton";
-import { selectedOrganization_State } from "../../../_GlobalStates/globalState";
+import {
+  emailStateReceiver,
+  selectedOrganization_State,
+} from "../../../_GlobalStates/globalState";
 import MyModalTailwind from "../../../components/ui/MyModal/MyModalTailwind";
 import {
   add_organization_to_course,
   get_users_of_organization,
+  send_invitation_email,
 } from "../helpers/apicalls";
 
 export default function UsersOfOrganizationPage(props: any) {
@@ -33,6 +37,9 @@ export default function UsersOfOrganizationPage(props: any) {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [course_id, setCourse_id] = useState("");
+  const [email, setEmail] = useState("");
+  const [scopes, setScopes] = useState("");
+
   const { organization_id } = useParams();
 
   // const [selectedOrganization, setSelectedOrganization] = useRecoilState(
@@ -109,6 +116,26 @@ export default function UsersOfOrganizationPage(props: any) {
   //     toast.error(t("could_not_add_organization"));
   //   }
   // };
+
+  const sendInvitation = async () => {
+    try {
+      const response = await send_invitation_email({
+        organization_id: organization_id,
+        email: email,
+        scopes: scopes,
+      });
+      if (!response) {
+        setErrorMessage("The invitation has not been sent");
+      }
+      closeModal();
+    } catch (error) {
+      console.log(error);
+      toast.error(t("could_not_add_organization"));
+    }
+  };
+
+  console.log("email receiver :", email);
+  console.log("scope :", scopes);
 
   const columns = [
     {
@@ -194,16 +221,16 @@ export default function UsersOfOrganizationPage(props: any) {
     >
       {t("refresh")}
     </Button>,
-    // <Button
-    //   key={`header_002`}
-    //   type="ghost"
-    //   size="middle"
-    //   // navigate to Create Course Page
-    //   onClick={() => navigate("/admin/organizations/createorganization")}
-    //   //   onClick={handleClickCreate}
-    // >
-    //   {t("create")}
-    // </Button>,
+    <Button
+      key={`header_002`}
+      type="ghost"
+      size="middle"
+      // navigate to Create Course Page
+      // onClick={() => navigate("/admin/organizations/createorganization")}
+      onClick={openModal}
+    >
+      {t("invite")}
+    </Button>,
   ];
 
   return (
@@ -224,14 +251,18 @@ export default function UsersOfOrganizationPage(props: any) {
       {/* If modal opened */}
       {isOpen ? (
         <MyModalTailwind
-          text1="Select the organization to invite"
-          organizationToSelect={true}
-          datePicker1={true}
-          datePicker2={true}
-          button1_text="Confirm"
-          // button1_close={() => handleInvite()}
+          text1="Send an invitation email"
+          organizationToSelect={false}
+          datePicker1={false}
+          datePicker2={false}
+          button1_text="Send"
+          button1_close={() => sendInvitation()}
           button2_text="Cancel"
           button2_close={() => closeModal()}
+          input1={true}
+          onChange_input1={setEmail}
+          input2={true}
+          onChange_input2={setScopes}
           heightScreen="h-screen"
           widthFull="w-1/2"
         />

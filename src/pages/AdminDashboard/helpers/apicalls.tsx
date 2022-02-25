@@ -778,3 +778,29 @@ export async function create_user({
     console.log(error);
   }
 }
+
+export async function send_invitation_email({
+  organization_id,
+  email,
+  scopes,
+}) {
+  const query: any = prepare_query({
+    organization_id,
+    email,
+    scopes,
+  });
+
+  try {
+    const response: any = await axios.post(
+      `${BACKEND_URL}/auth/send_invitation_email`,
+      query,
+      config_json
+    );
+    if (!response) {
+      return;
+    }
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}

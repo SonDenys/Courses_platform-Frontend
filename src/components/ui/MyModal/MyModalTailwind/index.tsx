@@ -8,6 +8,9 @@ import "react-quill/dist/quill.snow.css";
 import OrganizationSelect from "../../../OrganizationSelect";
 import DatePickerAntDesign from "../../../MyDatePicker/DatePickerAntDesign/index";
 import DatePickerReact from "../../../MyDatePicker/DatePickerReact";
+import MyInput from "../../MyInput/index";
+import { emailStateReceiver } from "../../../../_GlobalStates/globalState";
+import { useRecoilState } from "recoil";
 
 export interface MyModalProps {
   backgroundColor?: string;
@@ -45,6 +48,10 @@ export interface MyModalProps {
   organizationToSelect?: boolean;
   datePicker1?: boolean;
   datePicker2?: boolean;
+  input1?: boolean;
+  onChange_input1?: any;
+  input2?: boolean;
+  onChange_input2?: any;
 }
 
 export default function MyModal_Tailwind(props: MyModalProps) {
@@ -64,6 +71,7 @@ export default function MyModal_Tailwind(props: MyModalProps) {
     props.hover_button2_backgroundColor || "bg-gray-100";
 
   const [open, setOpen] = useState(true);
+  // const [emailReceiver, setEmailReceiver] = useRecoilState(emailStateReceiver);
 
   const cancelButtonRef = useRef(null);
 
@@ -175,6 +183,22 @@ export default function MyModal_Tailwind(props: MyModalProps) {
                     <div className="mt-10">
                       <DatePickerReact />
                     </div>
+                  )}
+
+                  {props.input1 && (
+                    <div className="mb-3">
+                      <MyInput
+                        placeholder="Email Adress..."
+                        onChange={props.onChange_input1}
+                      />
+                    </div>
+                  )}
+
+                  {props.input2 && (
+                    <MyInput
+                      placeholder="Scope..."
+                      onChange={props.onChange_input2}
+                    />
                   )}
                 </div>
               </div>
