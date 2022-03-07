@@ -56,24 +56,22 @@ export default function SimpleCentered(props: SimpleCenteredProps) {
         <div className="mt-8 flex justify-center">
           <div className="inline-flex rounded-md shadow">
             {props.button1_text && (
-              <a
+              <button
                 onClick={props.onButton1Click}
-                href="#"
                 className={`inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md ${button1_textColor} ${button1_backgroundColor} hover:bg-gray-200`}
               >
                 {props.button1_text}
-              </a>
+              </button>
             )}
           </div>
           <div className="ml-3 inline-flex">
             {props.button2_text && (
-              <a
+              <button
                 onClick={props.onButton2Click}
-                href="#"
                 className={`inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md ${button2_textColor} ${button2_backgroundColor} hover:bg-gray-200`}
               >
                 {props.button2_text}
-              </a>
+              </button>
             )}
           </div>
         </div>

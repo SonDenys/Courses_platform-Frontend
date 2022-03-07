@@ -34,8 +34,9 @@ import StudentsListPage from "../pages/UserDashboard/StudentsListPage";
 import CreateOrganizationPage from "../pages/AdminDashboard/CreateOrganizationPage";
 import CreateActiveCoursePage from "../pages/CreateActiveCoursePage";
 import UsersOfOrganizationPage from "../pages/AdminDashboard/UsersOfOrganizationPage";
-import InvitationPage from "../pages/InvitationPage";
+
 import Signup from "../pages/Signup";
+import ActivatePage from "../pages/ActivatePage";
 
 // const LandingPage = lazy(() => import("../LandingPage"));
 const Home = lazy(() => import("../pages/Home"));
@@ -101,7 +102,7 @@ export function getRoutes(): AppRouterObject[] {
         },
         {
           path: "v1.0/api/activate",
-          element: <InvitationPage />,
+          element: <ActivatePage />,
         },
         { path: "sign_up", element: <Signup /> },
 

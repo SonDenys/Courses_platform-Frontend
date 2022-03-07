@@ -16,6 +16,7 @@ import {
   delete_course,
   get_courses,
   get_organizations,
+  get_organizations_of_user,
   remove_organization_from_course,
 } from "../helpers/apicalls";
 import {
@@ -25,8 +26,12 @@ import {
 import { useMyToast } from "../../../_GlobalStates/hooks";
 import OrganizationSelect from "../../../components/OrganizationSelect";
 import ConfirmButton from "../../../components/ConfirmButton";
-import { selectedOrganization_State } from "../../../_GlobalStates/globalState";
+import {
+  selectedOrganization_State,
+  signUserIdState,
+} from "../../../_GlobalStates/globalState";
 import MyModalTailwind from "../../../components/ui/MyModal/MyModalTailwind";
+import { getUserId } from "../../../Auth";
 
 export default function OrganizationsPage(props: any) {
   const { t } = useTranslation();
@@ -40,13 +45,18 @@ export default function OrganizationsPage(props: any) {
   const [selectedOrganization, setSelectedOrganization] = useRecoilState(
     selectedOrganization_State
   );
+  const [signedUserId, setSignedUserId] = useRecoilState(signUserIdState);
 
   const [errorMessage, setErrorMessage] = useState("");
+
+  // const user_id_test = "622609780650b3390ad56480";
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await get_organizations();
+        const response = await get_organizations_of_user({
+          user_id: await getUserId(),
+        });
         konsole.log("response response = = =>", response);
         setData(response.data);
       } catch (error) {

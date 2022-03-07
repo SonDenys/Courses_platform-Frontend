@@ -551,11 +551,10 @@ export async function remove_user_from_course({
   return [];
 }
 
-export async function get_courses_of_user({ user_id, organization_id }) {
+export async function get_courses_of_user({ user_id }) {
   const query: any = prepare_query(
     {
       user_id,
-      organization_id,
     },
     true
   );
@@ -706,6 +705,28 @@ export async function get_organizations_of_course({ course_id }) {
   return [];
 }
 
+export async function get_organizations_of_user({ user_id }) {
+  const query: any = prepare_query(
+    {
+      user_id,
+    },
+    true
+  );
+
+  try {
+    const response: any = await axios.get(
+      `${BACKEND_URL}/api/v1.0/get_organizations_of_user${query}`
+    );
+
+    if (response && response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return [];
+}
+
 export async function get_organizations() {
   try {
     const response: any = await axios.get(
@@ -793,6 +814,40 @@ export async function send_invitation_email({
   try {
     const response: any = await axios.post(
       `${BACKEND_URL}/auth/send_invitation_email`,
+      query,
+      config_json
+    );
+    if (!response) {
+      return;
+    }
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function assign_user_to_organization({
+  user_id,
+  organization_id,
+  code,
+  email,
+  scopes,
+  admin_id,
+}) {
+  const query: any = prepare_query({
+    user_id,
+    organization_id,
+    code,
+    email,
+    scopes,
+    admin_id,
+    page_size: 0,
+    page_num: 0,
+  });
+
+  try {
+    const response: any = await axios.post(
+      `${BACKEND_URL}/api/v1.0/assign_user_to_organization`,
       query,
       config_json
     );

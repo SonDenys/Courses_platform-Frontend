@@ -3,25 +3,47 @@ import Layout, { Content } from "antd/lib/layout/layout";
 
 import Column, { ColumnProps } from "antd/lib/table/Column";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { getUserId } from "../../../Auth";
 import CourseSelect from "../../../components/CourseSelect";
 import InnerPageHeader from "../../../components/InnerPageHeader";
 import OrganizationSelect from "../../../components/OrganizationSelect";
 import { refreshPage } from "../../../components/ui/helpers";
+import konsole from "../../../konsole";
+import { useMyToast } from "../../../_GlobalStates/hooks";
 
 import { columns, table_data } from "../data";
+import {
+  get_courses_of_user,
+  get_organizations_of_user,
+} from "../helpers/apicalls";
 
 export default function ActiveCoursePage(props: any) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [data, setData] = useState([]);
+  const toast = useMyToast();
 
   const handleClickCreate = () => {
     console.log("clicked");
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await get_courses_of_user({
+          user_id: await getUserId(),
+        });
+        konsole.log("response response = = =>", response);
+        setData(response.data);
+      } catch (error) {
+        console.log(error);
+        toast.error("There is an error somewhere");
+      }
+    })();
+  }, []);
 
   const columns: any[] = [
     {
@@ -121,7 +143,7 @@ export default function ActiveCoursePage(props: any) {
       <Table
         className="ml-2 mr-2  !rounded-lg !border-gray-500"
         columns={columns}
-        // dataSource={table_data}
+        dataSource={data}
       />
       {/* <MyTailwindTable columns={columns} dataSource={table_data} /> */}
     </>
