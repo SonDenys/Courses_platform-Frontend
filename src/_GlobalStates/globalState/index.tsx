@@ -174,3 +174,18 @@ export const selectedCourse_State = atom<any>({
   key: "selectedCourse_State",
   default: {},
 });
+
+export const courseName_State = atom<String>({
+  key: "courseName_State",
+  default: "",
+});
+
+export const courseDescription_State = atom<String>({
+  key: "courseDescription_State",
+  default: "",
+});
+
+export const htmlData_State = atom<any>({
+  key: "htmlData_State",
+  default: "",
+});

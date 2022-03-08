@@ -47,7 +47,8 @@ const EditSectionPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const toast = useMyToast();
-  const { course_id, chapter_id, section_id } = useParams();
+  const { course_name, course_id, chapter_name, chapter_id, section_id } =
+    useParams();
 
   const handleSubmit = async () => {
     const response = await update_section({
@@ -64,9 +65,12 @@ const EditSectionPage = () => {
 
     if (response) {
       // go to the Section Page
-      navigate(`/admin/courses/chapters/sections/${course_id}/${chapter_id}`, {
-        replace: true,
-      });
+      navigate(
+        `/admin/courses/${course_name}/${course_id}/chapters/${chapter_name}/${chapter_id}/sections`,
+        {
+          replace: true,
+        }
+      );
     } else {
       console.log("Edit Section Failed");
       setErrorMessage("Edit Section Failed");

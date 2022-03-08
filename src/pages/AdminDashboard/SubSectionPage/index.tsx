@@ -17,7 +17,14 @@ import ConfirmButton from "../../../components/ConfirmButton";
 export default function SubSectionPage(props: any) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { course_id, chapter_id, section_id } = useParams();
+  const {
+    course_name,
+    course_id,
+    chapter_name,
+    chapter_id,
+    section_name,
+    section_id,
+  } = useParams();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -72,14 +79,15 @@ export default function SubSectionPage(props: any) {
       key: "name",
       render: (text: any, record: any) => {
         const subsection_id = record._id;
+        const subsection_name = record.name;
         return (
           <span
-
-          // onClick={() =>
-          //   navigate(
-          //     `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}/${subsection_id}`
-          //   )
-          // }
+            className="cursor-pointer"
+            onClick={() =>
+              navigate(
+                `/admin/courses/${course_name}/${course_id}/chapters/${chapter_name}/${chapter_id}/sections/${section_name}/${section_id}/subsections/${subsection_name}/${subsection_id}/view`
+              )
+            }
           >
             {text}
           </span>
@@ -124,7 +132,7 @@ export default function SubSectionPage(props: any) {
               <Button
                 onClick={() =>
                   navigate(
-                    `/admin/courses/chapters/sections/subsections/edit/${course_id}/${chapter_id}/${section_id}/${subsection_id}`
+                    `/admin/courses/${course_name}/${course_id}/chapters/${chapter_name}/${chapter_id}/sections/${section_name}/${section_id}/subsections/${subsection_id}/edit`
                   )
                 }
               >

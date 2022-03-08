@@ -47,7 +47,7 @@ const EditChapterPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const toast = useMyToast();
-  const { course_id, chapter_id } = useParams();
+  const { course_name, course_id, chapter_id } = useParams();
 
   const handleSubmit = async () => {
     const response = await update_chapter({
@@ -63,7 +63,9 @@ const EditChapterPage = () => {
 
     if (response) {
       // go to the Chapter Page
-      navigate(`/admin/courses/chapters/${course_id}`, { replace: true });
+      navigate(`/admin/courses/${course_name}/${course_id}/chapters`, {
+        replace: true,
+      });
     } else {
       console.log("Edit Chapter Failed");
       setErrorMessage("Edit Chapter Failed");

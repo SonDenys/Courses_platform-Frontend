@@ -17,6 +17,9 @@ export interface MyModalProps {
   modal_backgroundColor?: string;
   text1: string;
   text2?: string;
+  text3?: string;
+  text4?: string;
+  text5?: string;
   content?: any;
   text1Color?: string;
   text2Color?: string;
@@ -155,11 +158,28 @@ export default function MyModal_Tailwind(props: MyModalProps) {
                     {props.text1}
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className={`text-sm ${text2Color}`}>{props.text2}</p>
+                    <p className={`text-md font-medium ${text2Color}`}>
+                      {props.text2}
+                    </p>
+                  </div>
+                  <div className="mt-2">
+                    <p className={`text-md font-medium ${text2Color}`}>
+                      {props.text3}
+                    </p>
+                  </div>
+                  <div className="mt-2">
+                    <p className={`text-md font-medium ${text2Color}`}>
+                      {props.text4}
+                    </p>
+                  </div>
+                  <div className="mt-2">
+                    <p className={`text-md italic ${text2Color}`}>
+                      {props.text5}
+                    </p>
                   </div>
                   <div className="mt-2">
                     <div
-                      className={`text-sm ${text2Color}`}
+                      className={`text-md ${text2Color}`}
                       dangerouslySetInnerHTML={{ __html: props.content }}
                     ></div>
                   </div>

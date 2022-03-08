@@ -17,7 +17,7 @@ import { delete_section, get_sections } from "../helpers/apicalls";
 export default function SectionPage(props: any) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { course_id, chapter_id } = useParams();
+  const { course_name, course_id, chapter_name, chapter_id } = useParams();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -64,13 +64,14 @@ export default function SectionPage(props: any) {
       key: "name",
       render: (text: any, record: any) => {
         const section_id = record._id;
+        const section_name = record.name;
         return (
           <span
             className="cursor-pointer"
             onClick={() =>
               // Go to the Subsections page
               navigate(
-                `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}`
+                `/admin/courses/${course_name}/${course_id}/chapters/${chapter_name}/${chapter_id}/sections/${section_name}/${section_id}/subsections/`
               )
             }
           >

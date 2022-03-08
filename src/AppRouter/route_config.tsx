@@ -37,8 +37,12 @@ import UsersOfOrganizationPage from "../pages/AdminDashboard/UsersOfOrganization
 
 import Signup from "../pages/Signup";
 import ActivatePage from "../pages/ActivatePage";
+import CourseViewPage from "../pages/AdminDashboard/CourseViewPage";
+import { useRecoilState } from "recoil";
+import { htmlData_State } from "../_GlobalStates/globalState";
 
 // const LandingPage = lazy(() => import("../LandingPage"));
+
 const Home = lazy(() => import("../pages/Home"));
 const CoursePage = lazy(() => import("../pages/AdminDashboard/CoursePage"));
 const SectionPage = lazy(() => import("../pages/AdminDashboard/SectionPage"));
@@ -159,7 +163,7 @@ export function getRoutes(): AppRouterObject[] {
         { path: "courses/createcourse", element: <CreateCoursePage /> },
         { path: "courses/courseedit/:course_id", element: <EditCoursePage /> },
         {
-          path: "courses/chapters/:course_id",
+          path: "courses/:course_name/:course_id/chapters",
           element: <ChapterPage />,
         },
         {
@@ -171,7 +175,7 @@ export function getRoutes(): AppRouterObject[] {
           element: <EditChapterPage />,
         },
         {
-          path: "courses/chapters/sections/:course_id/:chapter_id",
+          path: "courses/:course_name/:course_id/chapters/:chapter_name/:chapter_id/sections",
           element: <SectionPage />,
         },
         {
@@ -185,7 +189,7 @@ export function getRoutes(): AppRouterObject[] {
         },
 
         {
-          path: "courses/chapters/sections/subsections/:course_id/:chapter_id/:section_id",
+          path: "courses/:course_name/:course_id/chapters/:chapter_name/:chapter_id/sections/:section_name/:section_id/subsections",
           element: <SubSectionPage />,
         },
 
@@ -199,9 +203,15 @@ export function getRoutes(): AppRouterObject[] {
         //   element: <EditSubSectionPage />,
         // },
         {
-          path: "courses/chapters/sections/subsections/edit/:course_id/:chapter_id/:section_id/:subsection_id",
+          path: "courses/:course_name/:course_id/chapters/:chapter_name/:chapter_id/sections/:section_name/:section_id/subsections/:subsection_id/edit",
           element: <EditSubSectionPageTest />,
         },
+
+        {
+          path: "courses/:course_name/:course_id/chapters/:chapter_name/:chapter_id/sections/:section_name/:section_id/subsections/:subsection_name/:subsection_id/view",
+          element: <CourseViewPage />,
+        },
+
         { path: "active_courses", element: <ActiveCoursePage /> },
         {
           path: "active_courses/createactivecourse",

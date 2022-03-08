@@ -188,8 +188,13 @@ export function search_params_to_object(search_params) {
   return;
 }
 
-
 export function processPublicKeyString(public_key_string) {
-  const pkey = (public_key_string || "").replace(/\n/g, "").replace(/\s/g, "").replace(/-----BEGINPUBLICKEY-----/g, "").replace(/-----ENDPUBLICKEY-----/g, "").replace(/-----BEGINPRIVATEKEY-----/g, "").replace(/-----ENDPRIVATEKEY-----/g, "")
-  return Uint8Array.from(pkey, (c: any) => c.charCodeAt(0))
+  const pkey = (public_key_string || "")
+    .replace(/\n/g, "")
+    .replace(/\s/g, "")
+    .replace(/-----BEGINPUBLICKEY-----/g, "")
+    .replace(/-----ENDPUBLICKEY-----/g, "")
+    .replace(/-----BEGINPRIVATEKEY-----/g, "")
+    .replace(/-----ENDPRIVATEKEY-----/g, "");
+  return Uint8Array.from(pkey, (c: any) => c.charCodeAt(0));
 }

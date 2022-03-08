@@ -3,7 +3,7 @@ import Layout, { Content } from "antd/lib/layout/layout";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 
 import InnerPageHeader from "../../../components/InnerPageHeader";
@@ -19,13 +19,16 @@ import {
 import { useMyToast } from "../../../_GlobalStates/hooks";
 import OrganizationSelect from "../../../components/OrganizationSelect";
 import ConfirmButton from "../../../components/ConfirmButton";
+import {
+  courseName_State,
+  courseDescription_State,
+} from "../../../_GlobalStates/globalState/index";
 
-export default function CoursePage(props: any) {
+export default function CoursePage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const toast = useMyToast();
-  const [deleteConfirm, setDeleteConfirm] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -66,10 +69,14 @@ export default function CoursePage(props: any) {
       dataIndex: "name",
       render: (text: any, record: any) => {
         const course_id = record._id;
+        const course_name = record.name;
+
         return (
           <span
             className="cursor-pointer"
-            onClick={() => navigate(`/admin/courses/chapters/${course_id}`)}
+            onClick={() =>
+              navigate(`/admin/courses/${course_name}/${course_id}/chapters`)
+            }
           >
             {text}
           </span>
@@ -107,6 +114,7 @@ export default function CoursePage(props: any) {
       // dataIndex: "actions",
       render: (text: any, record: any) => {
         const course_id = record._id;
+        const course_name = record.name;
 
         return (
           <>
@@ -118,17 +126,25 @@ export default function CoursePage(props: any) {
               >
                 {t("edit")}
               </Button>
-              <ConfirmButton
+              {/* <ConfirmButton
                 buttonText="activate"
                 title="Are you sure to activate this course?"
                 onConfirm={() => handleDelete(course_id)}
-              />
+              /> */}
 
               <ConfirmButton
                 buttonText="delete"
                 title="Are you sure to delete this course?"
                 onConfirm={() => handleDelete(course_id)}
               />
+
+              {/* <Button
+                onClick={() =>
+                  navigate(`/admin/courses/${course_name}/${course_id}/view`)
+                }
+              >
+                {t("view")}
+              </Button> */}
             </Space>
           </>
         );

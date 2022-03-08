@@ -19,7 +19,7 @@ export default function ChapterPage(props: any) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
-  const { course_id } = useParams();
+  const { course_id, course_name } = useParams();
 
   konsole.log("course_id course_id  course_id  course_id  course_id ");
   konsole.log("course_id course_id  course_id  course_id  course_id ");
@@ -68,12 +68,13 @@ export default function ChapterPage(props: any) {
       dataIndex: "name",
       render: (text: any, record: any) => {
         const chapter_id = record._id;
+        const chapter_name = record.name;
         return (
           <span
             className="cursor-pointer"
             onClick={() =>
               navigate(
-                `/admin/courses/chapters/sections/${course_id}/${chapter_id}`
+                `/admin/courses/${course_name}/${course_id}/chapters/${chapter_name}/${chapter_id}/sections`
               )
             }
           >

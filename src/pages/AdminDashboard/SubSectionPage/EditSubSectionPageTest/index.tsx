@@ -16,6 +16,7 @@ import EditorToolbar, {
 } from "../../../../components/EditorToolbar";
 import MyModalTailwind from "../../../../components/ui/MyModal/MyModalTailwind";
 import MyModalAntdesign from "../../../../components/ui/MyModal/MyModalAntdesign";
+import { htmlData_State } from "../../../../_GlobalStates/globalState";
 
 const layout = {
   labelCol: {
@@ -41,14 +42,22 @@ const validateMessages = {
 };
 
 const EditSubsectionPageTest = () => {
-  const { course_id, chapter_id, section_id, subsection_id } = useParams();
+  const {
+    course_name,
+    course_id,
+    chapter_name,
+    chapter_id,
+    section_name,
+    section_id,
+    subsection_id,
+  } = useParams();
   const { t } = useTranslation();
   const [subsectionName, setSubsectionName] = useState("");
   const [description, setDescription] = useState("");
   const [data, setData] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [defaultHtmlData, setDefaultHtmlData] = useState("");
+  const [htmlData, setHtmlData] = useRecoilState(htmlData_State);
   const [defaultDescription, setDefaultDescription] = useState("");
   const [defaultSubsectionName, setDefaultSubsectionName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -96,9 +105,8 @@ const EditSubsectionPageTest = () => {
 
           setDefaultDescription(data.description);
           setDefaultSubsectionName(data.name);
+          setHtmlData(data.html_data);
           setData(data.html_data);
-
-          console.log("string_html_data = = =", data._html_data);
         }
       } catch (error) {
         console.log(error);
@@ -131,7 +139,7 @@ const EditSubsectionPageTest = () => {
 
       if (response) {
         navigate(
-          `/admin/courses/chapters/sections/subsections/${course_id}/${chapter_id}/${section_id}`
+          `/admin/courses/${course_name}/${course_id}/chapters/${chapter_name}/${chapter_id}/sections/${section_name}/${section_id}/subsections/`
         );
       }
 
@@ -178,7 +186,8 @@ const EditSubsectionPageTest = () => {
     </Button>,
   ];
 
-  console.log("data", data);
+  console.log("data = = = =", data);
+  // console.log("string_html_data = = =", htmlData);
 
   return (
     <>
@@ -191,8 +200,11 @@ const EditSubsectionPageTest = () => {
       {/* If modal opended */}
       {isOpen ? (
         <MyModalTailwind
-          text1={`${defaultSubsectionName}`}
-          text2={`${defaultDescription}`}
+          text1={`Course : ${course_name}`}
+          text2={`Chapter : ${chapter_name}`}
+          text3={`Section : ${section_name}`}
+          text4={`Subsection : ${defaultSubsectionName}`}
+          text5={`Description : ${defaultDescription}`}
           content={data}
           heightScreen="h-full"
           widthFull="max-w-full"
