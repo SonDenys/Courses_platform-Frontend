@@ -16,6 +16,7 @@ import {
 } from "../AdminDashboard/helpers/apicalls";
 import konsole from "../../konsole";
 import { useMyToast } from "../../_GlobalStates/hooks";
+import { getUserId } from "../../Auth";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -24,6 +25,7 @@ export default function UserDashboard() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [collapsed, setCollapsed] = useState(false);
+  const [dataList, setDataList] = useState([]);
   const location = useLocation();
   const toast = useMyToast();
   // const [data, setData] = useState([]);
@@ -49,6 +51,24 @@ export default function UserDashboard() {
   //     }
   //   })();
   // }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await get_courses_of_user({
+          user_id: await getUserId(),
+        });
+        konsole.log(
+          "response response get_courses_of_user in the userAdmin = = =>",
+          response
+        );
+        setDataList(response.data);
+      } catch (error) {
+        console.log(error);
+        toast.error("There is an error somewhere");
+      }
+    })();
+  }, []);
 
   return (
     <>
